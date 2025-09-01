@@ -27,16 +27,20 @@ document.addEventListener('DOMContentLoaded', () => {
       projetos.forEach(projeto => {
         
         // Cria o HTML do card usando os dados do projeto
-        const cardHTML = `
-          <div class="card mb-3">
-            <div class="card-body">
-              <h3 class="card-title">${projeto.nome}</h3>
-              <h6 class="card-subtitle mb-2 text-muted">${projeto.data_hora_texto}</h6>
-              <p class="card-text">${projeto.descricao_curta}</p>
-              <a href="projeto.html?id=${projeto._id}" class="btn btn-primary">Ver mais detalhes</a>
-            </div>
-          </div>
-        `;
+       const cardHTML = `
+  <div class="card mb-3">
+    <div class="card-body">
+      <h3 class="card-title">${projeto.nome}</h3>
+      {/* Usando a coluna 'local' como subtítulo */}
+      <h6 class="card-subtitle mb-2 text-muted">${projeto.local}</h6> 
+      
+      {/* Usando a coluna 'descricao' como o texto do card */}
+      <p class="card-text">${projeto.descricao}</p> 
+      
+      <a href="projeto.html?id=${projeto.id}" class="btn btn-primary">Ver mais detalhes</a>
+    </div>
+  </div>
+`;
 
         // 5. Adiciona o HTML do card recém-criado dentro da seção de projetos
         secaoProjetos.innerHTML += cardHTML;
