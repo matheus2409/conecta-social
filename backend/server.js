@@ -1,0 +1,84 @@
+// 1. Carrega as variáveis de ambiente do arquivo .env
+require('dotenv').config();
+
+// 2. Importa as ferramentas necessárias
+const express = require('express');
+const path = require('path');
+const { createClient } = require('@supabase/supabase-js');
+
+// 3. Inicializa o Express
+const app = express();
+const PORT = 3000;
+
+// 4. Cria o "cliente" do Supabase para conectar com nosso banco de dados
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
+// Ativa o "decodificador" de JSON do Express
+app.use(express.json());
+
+
+// --- ROTAS DA API ---
+
+// Rota para buscar todos os projetos
+app.get('/api/projetos', async (req, res) => {
+  const { data, error } = await supabase
+    .from('projetos')
+    .select('*');
+  
+  // Bloco de erro completo e corrigido
+  if (error) {
+    console.error('--- ERRO DETALHADO AO BUSCAR PROJETOS ---');
+    console.error('Mensagem:', error.message);
+    console.error('Detalhes:', error.details);
+    console.error('Causa do Erro (pista final):', error.cause);
+    console.error('-----------------------------------------');
+    return res.status(500).json({ error: 'Erro ao buscar projetos' });
+  }
+  
+  // Parte que estava faltando: enviar os dados em caso de sucesso
+  res.json(data);
+});
+
+// Rota para buscar um projeto por ID
+app.get('/api/projetos/:id', async (req, res) => {
+  const { data, error } = await supabase
+    .from('projetos')
+    .select('*')
+    .eq('id', req.params.id)
+    .single();
+
+  if (error) {
+    console.error('Erro ao buscar projeto por ID:', error);
+    return res.status(404).json({ error: 'Projeto não encontrado' });
+  }
+  res.json(data);
+});
+
+// Rota para salvar um novo feedback
+app.post('/api/feedbacks', async (req, res) => {
+  const { data, error } = await supabase
+    .from('feedbacks')
+    .insert([
+      { 
+        nome_usuario: req.body.nome_usuario,
+        mensagem: req.body.mensagem,
+        id_do_projeto: req.body.id_do_projeto
+      }
+    ]);
+
+  if (error) {
+    console.error('Erro ao salvar feedback:', error);
+    return res.status(400).json({ error: 'Erro ao salvar o feedback.' });
+  }
+  res.status(201).json({ message: 'Feedback recebido com sucesso!', data: data });
+});
+
+
+// --- Configuração para servir o frontend (continua igual) ---
+const caminhoFrontend = path.join(__dirname, '../frontend');
+app.use(express.static(caminhoFrontend));
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta http://localhost:${PORT}`);
+  console.log('Backend conectado ao Supabase!');
+});
