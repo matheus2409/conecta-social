@@ -1,3 +1,8 @@
+console.log('AVISO: O arquivo script.js foi carregado e está executando!');
+
+// O resto do seu código continua abaixo...
+document.addEventListener('DOMContentLoaded', () => {
+  // ... etc
 document.addEventListener('DOMContentLoaded', () => {
   fetch('/api/projetos')
     .then(response => {
