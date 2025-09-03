@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="card-body">
               <h3 class="card-title">${projeto.nome}</h3>
               <h6 class="card-subtitle mb-2 text-muted">${projeto.local}</h6>
-              <p class="card-text">${projeto.descricao}</p>
+              <p class="card-text">${projeto.descrição}</p>
               <a href="projeto.html?id=${projeto.id}" class="btn btn-primary">Ver mais detalhes</a>
             </div>
           </div>
