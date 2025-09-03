@@ -1,8 +1,5 @@
 console.log('AVISO: O arquivo script.js foi carregado e está executando!');
 
-// O resto do seu código continua abaixo...
-document.addEventListener('DOMContentLoaded', () => {
-  // ... etc
 document.addEventListener('DOMContentLoaded', () => {
   fetch('/api/projetos')
     .then(response => {
@@ -18,6 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
       carrosselInner.innerHTML = '';
       secaoProjetos.innerHTML = '<h2>Projetos em Destaque</h2>'; 
 
+      // Se não houver projetos, exibe uma mensagem
+      if (projetos.length === 0) {
+        secaoProjetos.innerHTML += '<p>Nenhum projeto encontrado no momento.</p>';
+        carrosselInner.innerHTML = '<div class="carousel-item active"><div class="d-flex justify-content-center align-items-center" style="height: 400px; background-color: #333;"><p class="text-white">Nenhum projeto para exibir no carrossel.</p></div></div>';
+        return;
+      }
+
       projetos.forEach((projeto, index) => {
         // --- LÓGICA PARA CONSTRUIR O CARROSSEL ---
         if (projeto.imagem_url) {
@@ -25,8 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
           
           const indicatorHTML = `<button type="button" data-bs-target="#carrossel-destaques" data-bs-slide-to="${index}" class="${activeClass}" aria-current="true"></button>`;
           
-          // --- MUDANÇA PRINCIPAL AQUI ---
-          // Agora, a imagem inteira está dentro de uma tag <a> que leva para a página do projeto
           const itemHTML = `
             <div class="carousel-item ${activeClass}">
               <a href="projeto.html?id=${projeto.id}">
@@ -42,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
           carrosselIndicators.innerHTML += indicatorHTML;
         }
 
-        // --- LÓGICA PARA CONSTRUIR OS CARDS (continua a mesma) ---
+        // --- LÓGICA PARA CONSTRUIR OS CARDS ---
         const cardHTML = `
           <div class="card mb-3">
             <div class="card-body">
