@@ -1,0 +1,49 @@
+/* --- Estilos Gerais e Nova Fonte --- */
+/* Importa a fonte 'Roboto' do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    /* Define a nova fonte para todo o site */
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    background-color: #f0f2f5; 
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700; /* Deixa os títulos um pouco mais marcantes */
+}
+
+/* --- Cores e Ajustes Finos --- */
+/* Mantemos o header e footer escuros, mas ajustamos a cor principal de links e botões */
+:root {
+    --cor-principal: #0056b3; /* Um azul um pouco mais vibrante */
+    --cor-principal-hover: #004494;
+}
+
+.btn-primary {
+    background-color: var(--cor-principal);
+    border-color: var(--cor-principal);
+}
+
+.btn-primary:hover {
+    background-color: var(--cor-principal-hover);
+    border-color: var(--cor-principal-hover);
+}
+
+a {
+    color: var(--cor-principal);
+}
+
+/* --- Melhoria nos Cards de Projeto --- */
+#projetos h2 {
+    text-align: center; /* Centraliza o título da seção */
+    margin-bottom: 2rem; /* Adiciona mais espaço abaixo do título */
+}
+
+.card {
+    transition: all 0.2s ease-in-out; /* Adiciona uma transição suave para o efeito de hover */
+}
+
+.card:hover {
+    transform: scale(1.02); /* Faz o card "crescer" um pouco */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Adiciona uma sombra mais pronunciada */
+}
