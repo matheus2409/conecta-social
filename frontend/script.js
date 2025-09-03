@@ -23,29 +23,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // 4. Para cada projeto na lista, cria um card
+ // 4. Para cada projeto na lista, cria um card
       projetos.forEach(projeto => {
         
         // Cria o HTML do card usando os dados do projeto
-       const cardHTML = `
-  <div class="card mb-3">
-    <div class="card-body">
-      <h3 class="card-title">${projeto.nome}</h3>
-      {/* Usando a coluna 'local' como subtítulo */}
-      <h6 class="card-subtitle mb-2 text-muted">${projeto.local}</h6> 
-      
-      {/* Usando a coluna 'descricao' como o texto do card */}
-      <p class="card-text">${projeto.descricao}</p> 
-      
-      <a href="projeto.html?id=${projeto.id}" class="btn btn-primary">Ver mais detalhes</a>
-    </div>
-  </div>
-`;
+        const cardHTML = `
+          <div class="card mb-3">
+            <div class="card-body">
+              <h3 class="card-title">${projeto.nome}</h3>
+              <h6 class="card-subtitle mb-2 text-muted">${projeto.local}</h6>
+              <p class="card-text">${projeto.descricao}</p>
+              <a href="projeto.html?id=${projeto.id}" class="btn btn-primary">Ver mais detalhes</a>
+            </div>
+          </div>
+        `;
 
         // 5. Adiciona o HTML do card recém-criado dentro da seção de projetos
         secaoProjetos.innerHTML += cardHTML;
       });
-      // A linha duplicada que estava aqui foi removida.
     })
     .catch(error => {
       // Se der algum erro na busca, exibe no console do navegador e na página
