@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // --- CÓDIGO QUE VOCÊ JÁ TINHA PARA BUSCAR OS DETALHES DO PROJETO ---
+  // Pega o ID da URL
   const params = new URLSearchParams(window.location.search);
   const projetoId = params.get('id');
 
@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  // Chama a API para buscar o projeto específico
   fetch(`/api/projetos/${projetoId}`)
     .then(response => {
       if (!response.ok) {
@@ -16,12 +17,19 @@ document.addEventListener('DOMContentLoaded', () => {
       return response.json();
     })
     .then(projeto => {
+      // Com os dados do projeto em mãos, preenchemos a página
       document.title = `${projeto.nome} - Conecta Social`;
+      
+      // --- CORREÇÕES APLICADAS AQUI PARA BATER COM A SUA TABELA ---
       document.getElementById('projeto-nome').textContent = projeto.nome;
-      document.getElementById('projeto-tematica').textContent = projeto.tematica;
-      document.getElementById('projeto-descricao').textContent = projeto.descricao_completa;
-      document.getElementById('projeto-local').textContent = `Onde: ${projeto.local_texto}`;
-      document.getElementById('projeto-data-hora').textContent = `Quando: ${projeto.data_hora_texto}`;
+      document.getElementById('projeto-tematica').textContent = projeto.categoria; // Usa a coluna 'categoria'
+      document.getElementById('projeto-descricao').textContent = projeto.descrição; // Usa a coluna 'descrição' (com acento)
+      document.getElementById('projeto-local').textContent = `Onde: ${projeto.local}`; // Usa a coluna 'local'
+      
+      // Como não temos a coluna 'data_hora_texto', vamos usar a 'data_criacao'
+      const dataCriacao = new Date(projeto.data_criacao).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+      document.getElementById('projeto-data-hora').textContent = `Cadastrado em: ${dataCriacao}`;
+      
       document.getElementById('projeto_id_hidden').value = projetoId;
     })
     .catch(error => {
@@ -29,44 +37,31 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('detalhes-projeto').innerHTML = `<p class="text-danger">Não foi possível carregar os detalhes do projeto. ${error.message}</p>`;
     });
 
-  // =================================================================
-  // NOVO: CÓDIGO PARA CUIDAR DO ENVIO DO FORMULÁRIO DE FEEDBACK
-  // =================================================================
+  // --- O código do formulário de feedback continua igual ---
   const formFeedback = document.getElementById('form-feedback');
-
   formFeedback.addEventListener('submit', (event) => {
-    // 1. Previne o comportamento padrão do formulário (que é recarregar a página)
     event.preventDefault();
-
-    // 2. Pega os dados dos campos do formulário
     const nomeUsuario = document.getElementById('nome').value;
     const mensagemUsuario = document.getElementById('mensagem').value;
     const idDoProjeto = document.getElementById('projeto_id_hidden').value;
 
-    // 3. Monta o objeto de dados para enviar
     const dadosFeedback = {
       nome_usuario: nomeUsuario,
       mensagem: mensagemUsuario,
       id_do_projeto: idDoProjeto
     };
 
-    // 4. Envia os dados para a API usando fetch com o método POST
     fetch('/api/feedbacks', {
-      method: 'POST', // Especifica que é uma requisição POST
-      headers: {
-        'Content-Type': 'application/json', // Avisa ao servidor que estamos enviando JSON
-      },
-      body: JSON.stringify(dadosFeedback), // Converte nosso objeto JS em uma string JSON
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dadosFeedback),
     })
     .then(response => response.json())
     .then(data => {
-      // 5. Se tudo deu certo, mostra uma mensagem de sucesso e limpa o formulário
-      console.log('Resposta do servidor:', data);
       alert('Obrigado pelo seu feedback!');
-      formFeedback.reset(); // Limpa os campos do formulário
+      formFeedback.reset();
     })
     .catch(error => {
-      // 6. Se deu erro, mostra um alerta e o erro no console
       console.error('Erro ao enviar feedback:', error);
       alert('Ocorreu um erro ao enviar seu feedback. Tente novamente.');
     });
