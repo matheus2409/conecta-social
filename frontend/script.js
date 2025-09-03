@@ -15,29 +15,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
       projetos.forEach((projeto, index) => {
         // --- LÓGICA PARA CONSTRUIR O CARROSSEL ---
-        // Só adiciona ao carrossel se o projeto tiver uma URL de imagem
         if (projeto.imagem_url) {
-          const activeClass = index === 0 ? 'active' : ''; // A classe 'active' é necessária para o primeiro slide
+          const activeClass = index === 0 ? 'active' : '';
           
-          // Cria o HTML para o indicador (a bolinha)
           const indicatorHTML = `<button type="button" data-bs-target="#carrossel-destaques" data-bs-slide-to="${index}" class="${activeClass}" aria-current="true"></button>`;
           
-          // Cria o HTML para o slide (a imagem e a legenda)
+          // --- MUDANÇA PRINCIPAL AQUI ---
+          // Agora, a imagem inteira está dentro de uma tag <a> que leva para a página do projeto
           const itemHTML = `
             <div class="carousel-item ${activeClass}">
-              <img src="${projeto.imagem_url}" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="${projeto.nome}">
-              <div class="carousel-caption d-none d-md-block">
-                <h5>${projeto.nome}</h5>
-                <p>${projeto.descrição}</p>
-              </div>
+              <a href="projeto.html?id=${projeto.id}">
+                <img src="${projeto.imagem_url}" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="${projeto.nome}">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>${projeto.nome}</h5>
+                  <p>${projeto.descrição}</p>
+                </div>
+              </a>
             </div>
           `;
-          // Adiciona os novos HTMLs ao carrossel
           carrosselInner.innerHTML += itemHTML;
           carrosselIndicators.innerHTML += indicatorHTML;
         }
 
-        // --- LÓGICA PARA CONSTRUIR OS CARDS (continua igual) ---
+        // --- LÓGICA PARA CONSTRUIR OS CARDS (continua a mesma) ---
         const cardHTML = `
           <div class="card mb-3">
             <div class="card-body">
