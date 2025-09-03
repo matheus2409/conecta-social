@@ -1,32 +1,43 @@
-// Este evento garante que o nosso código só será executado
-// depois que toda a estrutura da página (HTML) for carregada.
 document.addEventListener('DOMContentLoaded', () => {
-
-  // 1. "Liga" para a nossa API para buscar os projetos
   fetch('/api/projetos')
     .then(response => {
-      // Se a resposta não for bem-sucedida (ex: erro no servidor), lança um erro
-      if (!response.ok) {
-        throw new Error('A resposta da rede não foi ok');
-      }
-      // 2. Converte a resposta para o formato JSON
+      if (!response.ok) throw new Error('A resposta da rede não foi ok');
       return response.json();
     })
-    .then(projetos => { // 3. Recebe a lista de projetos pronta para usar
-      
-      // Captura a seção do HTML onde vamos inserir os cards
+    .then(projetos => {
+      const carrosselInner = document.querySelector('#carrossel-destaques .carousel-inner');
+      const carrosselIndicators = document.querySelector('#carrossel-destaques .carousel-indicators');
       const secaoProjetos = document.getElementById('projetos');
+      
+      // Limpa os conteúdos de "carregando..."
+      carrosselInner.innerHTML = '';
+      secaoProjetos.innerHTML = '<h2>Projetos em Destaque</h2>'; 
 
-      // Se não houver projetos, exibe uma mensagem
-      if (projetos.length === 0) {
-        secaoProjetos.innerHTML += '<p>Nenhum projeto encontrado no momento.</p>';
-        return;
-      }
+      projetos.forEach((projeto, index) => {
+        // --- LÓGICA PARA CONSTRUIR O CARROSSEL ---
+        // Só adiciona ao carrossel se o projeto tiver uma URL de imagem
+        if (projeto.imagem_url) {
+          const activeClass = index === 0 ? 'active' : ''; // A classe 'active' é necessária para o primeiro slide
+          
+          // Cria o HTML para o indicador (a bolinha)
+          const indicatorHTML = `<button type="button" data-bs-target="#carrossel-destaques" data-bs-slide-to="${index}" class="${activeClass}" aria-current="true"></button>`;
+          
+          // Cria o HTML para o slide (a imagem e a legenda)
+          const itemHTML = `
+            <div class="carousel-item ${activeClass}">
+              <img src="${projeto.imagem_url}" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="${projeto.nome}">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>${projeto.nome}</h5>
+                <p>${projeto.descrição}</p>
+              </div>
+            </div>
+          `;
+          // Adiciona os novos HTMLs ao carrossel
+          carrosselInner.innerHTML += itemHTML;
+          carrosselIndicators.innerHTML += indicatorHTML;
+        }
 
- // 4. Para cada projeto na lista, cria um card
-      projetos.forEach(projeto => {
-        
-        // Cria o HTML do card usando os dados do projeto
+        // --- LÓGICA PARA CONSTRUIR OS CARDS (continua igual) ---
         const cardHTML = `
           <div class="card mb-3">
             <div class="card-body">
@@ -37,15 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>
         `;
-
-        // 5. Adiciona o HTML do card recém-criado dentro da seção de projetos
         secaoProjetos.innerHTML += cardHTML;
       });
     })
     .catch(error => {
-      // Se der algum erro na busca, exibe no console do navegador e na página
-      console.error('Erro ao buscar os projetos:', error);
-      const secaoProjetos = document.getElementById('projetos');
-      secaoProjetos.innerHTML += '<p class="text-danger">Não foi possível carregar os projetos. Tente novamente mais tarde.</p>';
+      console.error('Erro ao buscar projetos:', error);
+      document.getElementById('projetos').innerHTML += '<p class="text-danger">Não foi possível carregar os projetos.</p>';
     });
 });
