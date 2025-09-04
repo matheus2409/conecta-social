@@ -19,24 +19,31 @@ app.use(express.json());
 
 // --- ROTAS DA API ---
 
-// Rota para buscar todos os projetos
-app.get('/api/projetos', async (req, res) => {
+// Rota para CRIAR um novo projeto (usada pelo admin.html)
+app.post('/api/projetos', async (req, res) => {
+  console.log('Recebida requisição para criar novo projeto:', req.body);
+
+  // Pega os dados do corpo da requisição
+  const { nome, categoria, descricao, local, contato, imagem_url } = req.body;
+
   const { data, error } = await supabase
     .from('projetos')
-    .select('*');
-  
-  // Bloco de erro completo e corrigido
+    .insert([
+      { 
+        nome: nome,
+        categoria: categoria,
+        descrição: descricao, // Lembre-se que sua coluna tem acento
+        local: local,
+        contato: contato,
+        imagem_url: imagem_url,
+      }
+    ]);
+
   if (error) {
-    console.error('--- ERRO DETALHADO AO BUSCAR PROJETOS ---');
-    console.error('Mensagem:', error.message);
-    console.error('Detalhes:', error.details);
-    console.error('Causa do Erro (pista final):', error.cause);
-    console.error('-----------------------------------------');
-    return res.status(500).json({ error: 'Erro ao buscar projetos' });
+    console.error('Erro ao salvar novo projeto:', error);
+    return res.status(400).json({ error: 'Erro ao salvar o novo projeto.' });
   }
-  
-  // Parte que estava faltando: enviar os dados em caso de sucesso
-  res.json(data);
+  res.status(201).json({ message: 'Projeto criado com sucesso!', data: data });
 });
 
 // Rota para buscar um projeto por ID
