@@ -44,6 +44,20 @@ app.post('/api/projetos', async (req, res) => {
   }
   res.status(201).json({ message: 'Projeto criado com sucesso!', data: data });
 });
+// NOVO: Rota para APAGAR um projeto pelo seu ID
+app.delete('/api/projetos/:id', async (req, res) => {
+  const { error } = await supabase
+    .from('projetos')
+    .delete()
+    .eq('id', req.params.id); // Apague da tabela 'projetos' onde o 'id' for igual ao id da requisição
+
+  if (error) {
+    console.error('Erro ao apagar projeto:', error);
+    return res.status(500).json({ error: 'Erro ao apagar o projeto.' });
+  }
+
+  res.status(200).json({ message: 'Projeto apagado com sucesso!' });
+}); 
 
 // Rota para buscar todos os projetos
 app.get('/api/projetos', async (req, res) => {
