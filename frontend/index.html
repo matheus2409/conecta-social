@@ -18,8 +18,7 @@
     </header>
 
     <div id="carrossel-destaques" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        </div>
+      <div class="carousel-indicators"></div>
       <div class="carousel-inner">
         <div class="carousel-item active">
             <div class="d-flex justify-content-center align-items-center" style="height: 400px; background-color: #333;">
@@ -30,24 +29,22 @@
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carrossel-destaques" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Anterior</span>
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Anterior</span>
       </button>
       <button class="carousel-control-next" type="button" data-bs-target="#carrossel-destaques" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Próximo</span>
+        <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Próximo</span>
       </button>
     </div>
 
     <main class="container mt-4">
         <section id="busca" class="p-4 bg-light rounded mb-4">
             <h2 class="mb-3">Encontre um projeto</h2>
-            <form class="row g-3 align-items-center">
+            <form class="row g-3 align-items-center" id="form-busca">
                 <div class="col-sm-12 col-md-6">
-                    <input type="text" class="form-control" placeholder="Qual tipo de projeto você busca?">
+                    <input type="text" class="form-control" id="input-busca" placeholder="Qual tipo de projeto você busca?">
                 </div>
                 <div class="col-sm-12 col-md-6">
-                    <button type="button" class="btn btn-primary w-100">Buscar</button>
+                    <button type="submit" class="btn btn-primary w-100">Buscar</button>
                     <button type="button" class="btn btn-secondary w-100 mt-2">Achar perto de mim</button>
                 </div>
             </form>

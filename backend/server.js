@@ -75,25 +75,32 @@ app.delete('/api/projetos/:id', async (req, res) => {
   res.status(200).json({ message: 'Projeto apagado com sucesso!' });
 }); 
 
-// Rota para buscar todos os projetos
+// Rota para buscar todos os projetos (AGORA COM FILTRO DE BUSCA)
 app.get('/api/projetos', async (req, res) => {
-  const { data, error } = await supabase
-    .from('projetos')
-    .select('*');
+  // Pega o termo de busca da URL (ex: ?busca=limpeza)
+  const { busca } = req.query;
+
+  // Inicia a construção da nossa consulta ao Supabase
+  let query = supabase.from('projetos').select('*');
+
+  // Se um termo de busca foi enviado, adiciona o filtro
+  if (busca) {
+    // .or() permite buscar em múltiplas colunas
+    // .ilike() busca por um texto que "contenha" o termo, ignorando maiúsculas/minúsculas
+    query = query.or(`nome.ilike.%${busca}%,descrição.ilike.%${busca}%`);
+  }
+
+  // Executa a consulta (com ou sem o filtro)
+  const { data, error } = await query;
   
-  // Bloco de erro completo e corrigido
   if (error) {
-    console.error('--- ERRO DETALHADO AO BUSCAR PROJETOS ---');
-    console.error('Mensagem:', error.message);
-    console.error('Detalhes:', error.details);
-    console.error('Causa do Erro (pista final):', error.cause);
-    console.error('-----------------------------------------');
+    console.error('--- ERRO DETALHADO AO BUSCAR PROJETOS ---', error);
     return res.status(500).json({ error: 'Erro ao buscar projetos' });
   }
   
-  // Parte que estava faltando: enviar os dados em caso de sucesso
   res.json(data);
 });
+
 
 // Rota para buscar um projeto por ID
 app.get('/api/projetos/:id', async (req, res) => {
