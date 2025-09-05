@@ -5,24 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
   function carregarProjetos() {
     fetch('/api/projetos')
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Erro ao carregar projetos');
-        }
+        if (!response.ok) throw new Error('Erro ao carregar projetos');
         return response.json();
       })
       .then(projetos => {
-        // Limpa a mensagem de "Carregando..."
-        tabelaProjetosBody.innerHTML = '';
+        tabelaProjetosBody.innerHTML = ''; // Limpa a tabela
 
         if (projetos.length === 0) {
           tabelaProjetosBody.innerHTML = '<tr><td colspan="3" class="text-center">Nenhum projeto cadastrado.</td></tr>';
           return;
         }
 
-        // Para cada projeto, cria uma linha na tabela
         projetos.forEach(projeto => {
+          // Adicionamos um ID à linha da tabela (<tr>) para facilitar a remoção
           const linhaHTML = `
-            <tr>
+            <tr id="projeto-${projeto.id}">
               <td>${projeto.nome}</td>
               <td>${projeto.categoria}</td>
               <td class="text-end">
@@ -39,6 +36,37 @@ document.addEventListener('DOMContentLoaded', () => {
         tabelaProjetosBody.innerHTML = '<tr><td colspan="3" class="text-center text-danger">Falha ao carregar projetos.</td></tr>';
       });
   }
+
+  // NOVO: "Ouvidor" de cliques que procura por cliques nos botões de apagar
+  tabelaProjetosBody.addEventListener('click', (event) => {
+    // Verifica se o elemento clicado é um botão com a classe 'btn-deletar'
+    if (event.target.classList.contains('btn-deletar')) {
+      const botao = event.target;
+      const projetoId = botao.dataset.id;
+      
+      // Pede confirmação ao usuário antes de apagar
+      const confirmar = confirm('Você tem certeza que deseja apagar este projeto? Esta ação não pode ser desfeita.');
+
+      if (confirmar) {
+        // Se o usuário confirmou, chama a nossa API de DELETE
+        fetch(`/api/projetos/${projetoId}`, {
+          method: 'DELETE',
+        })
+        .then(response => {
+          if (!response.ok) {
+            // Se o backend retornar um erro, avisa o usuário
+            throw new Error('Falha ao apagar o projeto no servidor.');
+          }
+          // Se deu tudo certo, remove a linha da tabela da tela
+          document.getElementById(`projeto-${projetoId}`).remove();
+        })
+        .catch(error => {
+          console.error('Erro ao apagar projeto:', error);
+          alert('Não foi possível apagar o projeto.');
+        });
+      }
+    }
+  });
 
   // Carrega os projetos assim que a página é aberta
   carregarProjetos();
