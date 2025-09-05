@@ -18,6 +18,32 @@ app.use(express.json());
 
 
 // --- ROTAS DA API ---
+// Rota para CRIAR um novo projeto (usada pelo admin.html)
+app.post('/api/projetos', async (req, res) => {
+  console.log('Recebida requisição para criar novo projeto:', req.body);
+
+  // Pega os dados do corpo da requisição
+  const { nome, categoria, descrição, local, contato, imagem_url } = req.body;
+
+  const { data, error } = await supabase
+    .from('projetos')
+    .insert([
+      { 
+        nome: nome,
+        categoria: categoria,
+        descrição: descrição, // Nome da coluna com acento
+        local: local,
+        contato: contato,
+        imagem_url: imagem_url,
+      }
+    ]);
+
+  if (error) {
+    console.error('Erro ao salvar novo projeto:', error);
+    return res.status(400).json({ error: 'Erro ao salvar o novo projeto.' });
+  }
+  res.status(201).json({ message: 'Projeto criado com sucesso!', data: data });
+});
 
 // Rota para buscar todos os projetos
 app.get('/api/projetos', async (req, res) => {
