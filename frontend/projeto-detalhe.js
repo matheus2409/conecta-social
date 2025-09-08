@@ -26,17 +26,25 @@ document.addEventListener('DOMContentLoaded', () => {
       // Se a resposta for OK, converte-a para JSON.
       return response.json();
     })
-    .then(projeto => {
-      // --- Preenche os elementos da página com os dados recebidos ---
-      
-      document.title = `${projeto.nome} - Conecta Social`; // Atualiza o título da aba do navegador.
-
-      document.getElementById('projeto-nome').textContent = projeto.nome;
-      document.getElementById('projeto-tematica').textContent = projeto.categoria;
-      document.getElementById('projeto-descricao').textContent = projeto.descrição;
-      document.getElementById('projeto-local').textContent = `Onde: ${projeto.local}`;
-      document.getElementById('projeto-contato').textContent = `Contato: ${projeto.contato || 'Não informado'}`;
-      document.getElementById('projeto_id_hidden').value = projetoId;
+    // Dentro do projeto-detalhe.js, substitua o .then(projeto => ...) por este:
+.then(projeto => {
+  document.title = `${projeto.nome} - Conecta Social`;
+  
+  document.getElementById('projeto-nome').textContent = projeto.nome;
+  document.getElementById('projeto-tematica').textContent = projeto.categoria;
+  document.getElementById('projeto-descricao').textContent = projeto.descricao_completa; // Usa a descrição completa
+  document.getElementById('projeto-local').textContent = `Onde: ${projeto.local}`;
+  
+  // Adiciona o nome do contato e o contato
+  document.getElementById('projeto-contato').textContent = `Contato: ${projeto.nome_contato} (${projeto.contato || 'Não informado'})`;
+  
+  // Formata a data de cadastro (created_at)
+  const dataCadastro = new Date(projeto.created_at).toLocaleDateString('pt-BR', {
+    day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC'
+  });
+  document.getElementById('projeto-data-hora').textContent = `Cadastrado em: ${dataCadastro}`;
+  
+  document.getElementById('projeto_id_hidden').value = projetoId;
 
       // --- Lógica de Formatação de Data ---
       const dataCriacaoValor = projeto.data_criacao;
