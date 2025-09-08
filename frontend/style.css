@@ -148,3 +148,80 @@ footer.rodape-principal {
     border-top: 1px solid #333;
     font-size: 0.9rem;
 }
+/* --- ESTILOS PARA A NOVA PÁGINA DE DETALHES --- */
+
+.detalhe-cabecalho {
+    height: 70vh; /* O cabeçalho ocupa 70% da altura da tela */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 2rem;
+}
+
+/* Camada escura sobre a imagem para dar contraste ao texto */
+.detalhe-cabecalho::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.detalhe-imagem-fundo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem cubra todo o espaço */
+    z-index: 0;
+}
+
+.detalhe-conteudo-titulo {
+    position: relative;
+    z-index: 2;
+}
+
+.detalhe-conteudo-titulo h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+.detalhe-conteudo-titulo .categoria {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.detalhe-corpo {
+    max-width: 750px;
+    margin: 3rem auto; /* Mais espaço entre o cabeçalho e o texto */
+    padding: 0 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.detalhe-corpo h3 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #333;
+    padding-bottom: 0.5rem;
+}
+
+.detalhe-corpo .list-group {
+    list-style-type: none;
+    padding: 0;
+}
+
+.detalhe-corpo .list-group-item {
+    background: none;
+    border: none;
+    padding: 0.5rem 0;
+}
