@@ -1,49 +1,150 @@
-/* --- Estilos Gerais e Nova Fonte --- */
-/* Importa a fonte 'Roboto' do Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/* --- Reset Básico e Configuração da Fonte --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+:root {
+    --cor-fundo: #121212;
+    --cor-texto: #EAEAEA;
+    --cor-destaque: #FFFFFF;
+}
 
 body {
-    /* Define a nova fonte para todo o site */
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
-    background-color: #f0f2f5; 
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    line-height: 1.6;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 700; /* Deixa os títulos um pouco mais marcantes */
+/* --- Cabeçalho e Navegação --- */
+header.cabecalho-principal {
+    padding: 2rem 5%;
+    text-align: center;
+    border-bottom: 1px solid #333;
 }
 
-/* --- Cores e Ajustes Finos --- */
-/* Mantemos o header e footer escuros, mas ajustamos a cor principal de links e botões */
-:root {
-    --cor-principal: #0056b3; /* Um azul um pouco mais vibrante */
-    --cor-principal-hover: #004494;
+header.cabecalho-principal h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--cor-destaque);
+    margin: 0;
 }
 
-.btn-primary {
-    background-color: var(--cor-principal);
-    border-color: var(--cor-principal);
+header.cabecalho-principal p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0.5rem auto 0;
 }
 
-.btn-primary:hover {
-    background-color: var(--cor-principal-hover);
-    border-color: var(--cor-principal-hover);
+/* --- O Grid de Projetos (Inspirado no Beautiful News) --- */
+main {
+    padding: 2rem 5%;
 }
 
-a {
-    color: var(--cor-principal);
+.grid-projetos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
 }
 
-/* --- Melhoria nos Cards de Projeto --- */
-#projetos h2 {
-    text-align: center; /* Centraliza o título da seção */
-    margin-bottom: 2rem; /* Adiciona mais espaço abaixo do título */
+.card-projeto {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    height: 400px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-.card {
-    transition: all 0.2s ease-in-out; /* Adiciona uma transição suave para o efeito de hover */
+.card-projeto:hover {
+    transform: scale(1.03);
 }
 
-.card:hover {
-    transform: scale(1.02); /* Faz o card "crescer" um pouco */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Adiciona uma sombra mais pronunciada */
+.card-projeto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.card-projeto:hover img {
+    opacity: 0.9;
+}
+
+.card-conteudo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0));
+    color: white;
+}
+
+.card-conteudo .categoria {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.card-conteudo .titulo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* --- Página de Detalhes do Projeto --- */
+.detalhe-cabecalho {
+    height: 60vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.detalhe-cabecalho::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1;
+}
+
+.detalhe-imagem-fundo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.detalhe-conteudo-titulo {
+    position: relative;
+    z-index: 2;
+    padding: 0 1rem;
+}
+
+.detalhe-corpo {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* --- Rodapé --- */
+footer.rodape-principal {
+    text-align: center;
+    padding: 2rem 5%;
+    margin-top: 2rem;
+    border-top: 1px solid #333;
+    font-size: 0.9rem;
 }

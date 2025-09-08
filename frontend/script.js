@@ -1,63 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const secaoProjetos = document.getElementById('projetos');
-  const formBusca = document.getElementById('form-busca'); // Adicionamos um ID 'form-busca' ao seu formulário
-  const inputBusca = document.getElementById('input-busca'); // Adicionamos um ID 'input-busca' ao seu campo de texto
+    const gridProjetos = document.getElementById('grid-projetos');
 
-  // --- FUNÇÃO PARA DESENHAR OS CARDS NA TELA ---
-  function desenharCards(projetos) {
-    secaoProjetos.innerHTML = '<h2>Projetos em Destaque</h2>'; // Limpa a seção, mas mantém o título
+    fetch('/api/projetos')
+        .then(response => response.json())
+        .then(projetos => {
+            gridProjetos.innerHTML = ''; // Limpa a mensagem de "Carregando..."
 
-    if (projetos.length === 0) {
-      secaoProjetos.innerHTML += '<p>Nenhum projeto encontrado para esta busca.</p>';
-      return;
-    }
+            if (projetos.length === 0) {
+                gridProjetos.innerHTML = '<p>Nenhum projeto encontrado no momento.</p>';
+                return;
+            }
 
-    projetos.forEach(projeto => {
-      const cardHTML = `
-        <div class="card mb-3">
-          <div class="card-body">
-            <h3 class="card-title">${projeto.nome}</h3>
-            <h6 class="card-subtitle mb-2 text-muted">${projeto.local}</h6>
-            <p class="card-text">${projeto.descrição}</p>
-            <a href="projeto.html?id=${projeto.id}" class="btn btn-primary">Ver mais detalhes</a>
-          </div>
-        </div>
-      `;
-      secaoProjetos.innerHTML += cardHTML;
-    });
-  }
+            projetos.forEach(projeto => {
+                // Cria um elemento 'a' que será o card clicável
+                const cardLink = document.createElement('a');
+                cardLink.href = `projeto.html?id=${projeto.id}`;
+                cardLink.className = 'card-projeto';
 
-  // --- FUNÇÃO PARA BUSCAR OS PROJETOS NA API ---
-  function buscarProjetos(termoDeBusca = '') {
-    let url = '/api/projetos';
-    if (termoDeBusca) {
-      // Se houver um termo de busca, adiciona à URL
-      url += `?busca=${encodeURIComponent(termoDeBusca)}`;
-    }
+                // Cria o conteúdo HTML do card
+                cardLink.innerHTML = `
+                    <img src="${projeto.imagem_url}" alt="${projeto.nome}">
+                    <div class="card-conteudo">
+                        <span class="categoria">${projeto.categoria}</span>
+                        <h3 class="titulo">${projeto.nome}</h3>
+                    </div>
+                `;
 
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        desenharCards(data); // Usa a nova função para desenhar os cards
-      })
-      .catch(error => {
-        console.error('Erro ao buscar projetos:', error);
-        secaoProjetos.innerHTML = '<h2 class="text-danger">Não foi possível carregar os projetos.</h2>';
-      });
-  }
-
-  // --- "OUVIDOR" DO FORMULÁRIO DE BUSCA ---
-  formBusca.addEventListener('submit', (event) => {
-    // 1. Impede que o formulário recarregue a página
-    event.preventDefault(); 
-    
-    // 2. Pega o texto que o usuário digitou
-    const termo = inputBusca.value;
-    
-    // 3. Chama a função para buscar os projetos com o filtro
-    buscarProjetos(termo);
-  });
-
-  // Carrega todos os projetos na primeira vez que a página abre
-  buscarProjetos();
+                // Adiciona o card completo ao grid
+                gridProjetos.appendChild(cardLink);
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao buscar os projetos:', error);
+            gridProjetos.innerHTML = '<p style="color: red;">Não foi possível carregar os projetos.</p>';
+        });
 });
