@@ -1,11 +1,14 @@
+// Espera que todo o conteúdo da página (DOM) seja carregado antes de executar o script.
 document.addEventListener('DOMContentLoaded', () => {
-  const formEditarProjeto = document.getElementById('form-novo-projeto'); // O form tem o mesmo ID do de criar
+
+  const formEditarProjeto = document.getElementById('form-novo-projeto');
   const params = new URLSearchParams(window.location.search);
   const projetoId = params.get('id');
 
+  // Verifica se um ID de projeto foi passado na URL.
   if (!projetoId) {
-    alert('ID do projeto não encontrado!');
-    window.location.href = 'gerenciar.html'; // Volta para a lista se não houver ID
+    alert('ID do projeto não encontrado na URL!');
+    window.location.href = 'gerenciar.html'; // Redireciona de volta para a lista.
     return;
   }
 
@@ -16,10 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
       return response.json();
     })
     .then(projeto => {
-      // Preenche cada campo do formulário com os dados do projeto
+      // Preenche cada campo do formulário com os dados recebidos da API.
       document.getElementById('nome').value = projeto.nome;
       document.getElementById('categoria').value = projeto.categoria;
-      document.getElementById('descricao').value = projeto.descrição;
+      document.getElementById('descricao').value = projeto.descrição; // Usa o nome da coluna com acento
       document.getElementById('local').value = projeto.local;
       document.getElementById('contato').value = projeto.contato;
       document.getElementById('imagem_url').value = projeto.imagem_url;
@@ -31,21 +34,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- PARTE 2: ENVIAR OS DADOS ATUALIZADOS ---
   formEditarProjeto.addEventListener('submit', (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Impede que a página recarregue.
 
-    // Pega os novos valores dos campos do formulário
+    // Pega os novos valores de todos os campos do formulário.
     const dadosAtualizados = {
       nome: document.getElementById('nome').value,
       categoria: document.getElementById('categoria').value,
-      descrição: document.getElementById('descricao').value,
+      descrição: document.getElementById('descricao').value, // Envia o nome da propriedade com acento
       local: document.getElementById('local').value,
       contato: document.getElementById('contato').value,
       imagem_url: document.getElementById('imagem_url').value,
     };
 
-    // Envia os dados para a nossa nova API de PUT
+    // Envia os dados para a nossa API de atualização (PUT).
     fetch(`/api/projetos/${projetoId}`, {
-      method: 'PUT', // Usamos o método PUT para atualizar
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -57,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then(data => {
       alert('Projeto atualizado com sucesso!');
-      window.location.href = 'gerenciar.html'; // Volta para a lista de projetos
+      window.location.href = 'gerenciar.html'; // Redireciona de volta para a lista.
     })
     .catch(error => {
       console.error('Erro ao atualizar projeto:', error);
