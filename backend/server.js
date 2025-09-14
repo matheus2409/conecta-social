@@ -16,9 +16,11 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
 // Ativa o "decodificador" de JSON do Express
 app.use(express.json());
 
-// Rota para CRIAR um novo projeto (ATUALIZADA)
+
+// --- ROTAS DA API ---
+
+// Rota para CRIAR um novo projeto
 app.post('/api/projetos', async (req, res) => {
-  // Pega todos os campos, incluindo os novos
   const { nome, categoria, descricao_curta, descricao_completa, local, contato, nome_contato, imagem_url } = req.body;
 
   const { data, error } = await supabase
@@ -32,15 +34,14 @@ app.post('/api/projetos', async (req, res) => {
   res.status(201).json({ message: 'Projeto criado com sucesso!', data });
 });
 
-// Rota para ATUALIZAR um projeto (ATUALIZADA)
+// Rota para ATUALIZAR um projeto existente (Versão corrigida e única)
 app.put('/api/projetos/:id', async (req, res) => {
   const projetoId = req.params.id;
-  // Pega todos os campos que podem ser atualizados
-  const { nome, categoria, descricao_curta, descricao_completa, local, contato, nome_contato, imagem_url } = req.body;
+  const dadosAtualizados = req.body;
 
   const { data, error } = await supabase
     .from('projetos')
-    .update({ nome, categoria, descricao_curta, descricao_completa, local, contato, nome_contato, imagem_url })
+    .update(dadosAtualizados)
     .eq('id', projetoId);
 
   if (error) {
@@ -49,54 +50,31 @@ app.put('/api/projetos/:id', async (req, res) => {
   }
   res.status(200).json({ message: 'Projeto atualizado com sucesso!', data });
 });
-// NOVO: Rota para ATUALIZAR um projeto existente (PUT)
-app.put('/api/projetos/:id', async (req, res) => {
-  const projetoId = req.params.id;
-  const dadosAtualizados = req.body;
 
-  const { data, error } = await supabase
-    .from('projetos')
-    .update(dadosAtualizados) // O comando para atualizar
-    .eq('id', projetoId);     // Onde o id for igual ao que recebemos
-
-  if (error) {
-    console.error('Erro ao atualizar projeto:', error);
-    return res.status(400).json({ error: 'Erro ao atualizar o projeto.' });
-  }
-
-  res.status(200).json({ message: 'Projeto atualizado com sucesso!', data: data });
-});
-// NOVO: Rota para APAGAR um projeto pelo seu ID
+// Rota para APAGAR um projeto
 app.delete('/api/projetos/:id', async (req, res) => {
   const { error } = await supabase
     .from('projetos')
     .delete()
-    .eq('id', req.params.id); // Apague da tabela 'projetos' onde o 'id' for igual ao id da requisição
+    .eq('id', req.params.id);
 
   if (error) {
     console.error('Erro ao apagar projeto:', error);
     return res.status(500).json({ error: 'Erro ao apagar o projeto.' });
   }
-
   res.status(200).json({ message: 'Projeto apagado com sucesso!' });
 }); 
 
-// Rota para buscar todos os projetos (AGORA COM FILTRO DE BUSCA)
+// Rota para buscar todos os projetos (com filtro de busca CORRIGIDO)
 app.get('/api/projetos', async (req, res) => {
-  // Pega o termo de busca da URL (ex: ?busca=limpeza)
   const { busca } = req.query;
-
-  // Inicia a construção da nossa consulta ao Supabase
   let query = supabase.from('projetos').select('*');
 
-  // Se um termo de busca foi enviado, adiciona o filtro
   if (busca) {
-    // .or() permite buscar em múltiplas colunas
-    // .ilike() busca por um texto que "contenha" o termo, ignorando maiúsculas/minúsculas
-    query = query.or(`nome.ilike.%${busca}%,descrição.ilike.%${busca}%`);
+    // CORRIGIDO: Agora busca em 'nome' e na nova 'descricao_completa'
+    query = query.or(`nome.ilike.%${busca}%,descricao_completa.ilike.%${busca}%`);
   }
 
-  // Executa a consulta (com ou sem o filtro)
   const { data, error } = await query;
   
   if (error) {
@@ -106,7 +84,6 @@ app.get('/api/projetos', async (req, res) => {
   
   res.json(data);
 });
-
 
 // Rota para buscar um projeto por ID
 app.get('/api/projetos/:id', async (req, res) => {
@@ -122,7 +99,6 @@ app.get('/api/projetos/:id', async (req, res) => {
   }
   res.json(data);
 });
-
 
 // Rota para salvar um novo feedback
 app.post('/api/feedbacks', async (req, res) => {
@@ -144,7 +120,7 @@ app.post('/api/feedbacks', async (req, res) => {
 });
 
 
-// --- Configuração para servir o frontend (continua igual) ---
+// --- Configuração para servir o frontend ---
 const caminhoFrontend = path.join(__dirname, '../frontend');
 app.use(express.static(caminhoFrontend));
 
