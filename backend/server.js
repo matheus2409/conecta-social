@@ -16,32 +16,38 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
 // Ativa o "decodificador" de JSON do Express
 app.use(express.json());
 
-// --- ROTAS DA API ---
-// Rota para CRIAR um novo projeto (usada pelo admin.html)
+// Rota para CRIAR um novo projeto (ATUALIZADA)
 app.post('/api/projetos', async (req, res) => {
-  console.log('Recebida requisição para criar novo projeto:', req.body);
-
-  // Pega os dados do corpo da requisição
-  const { nome, categoria, descrição, local, contato, imagem_url } = req.body;
+  // Pega todos os campos, incluindo os novos
+  const { nome, categoria, descricao_curta, descricao_completa, local, contato, nome_contato, imagem_url } = req.body;
 
   const { data, error } = await supabase
     .from('projetos')
-    .insert([
-      { 
-        nome: nome,
-        categoria: categoria,
-        descrição: descrição, // Nome da coluna com acento
-        local: local,
-        contato: contato,
-        imagem_url: imagem_url,
-      }
-    ]);
+    .insert([{ nome, categoria, descricao_curta, descricao_completa, local, contato, nome_contato, imagem_url }]);
 
   if (error) {
     console.error('Erro ao salvar novo projeto:', error);
     return res.status(400).json({ error: 'Erro ao salvar o novo projeto.' });
   }
-  res.status(201).json({ message: 'Projeto criado com sucesso!', data: data });
+  res.status(201).json({ message: 'Projeto criado com sucesso!', data });
+});
+
+// Rota para ATUALIZAR um projeto (ATUALIZADA)
+app.put('/api/projetos/:id', async (req, res) => {
+  const projetoId = req.params.id;
+  // Pega todos os campos que podem ser atualizados
+  const { nome, categoria, descricao_curta, descricao_completa, local, contato, nome_contato, imagem_url } = req.body;
+
+  const { data, error } = await supabase
+    .from('projetos')
+    .update({ nome, categoria, descricao_curta, descricao_completa, local, contato, nome_contato, imagem_url })
+    .eq('id', projetoId);
+
+  if (error) {
+    console.error('Erro ao atualizar projeto:', error);
+    return res.status(400).json({ error: 'Erro ao atualizar o projeto.' });
+  }
+  res.status(200).json({ message: 'Projeto atualizado com sucesso!', data });
 });
 // NOVO: Rota para ATUALIZAR um projeto existente (PUT)
 app.put('/api/projetos/:id', async (req, res) => {
