@@ -209,3 +209,64 @@ footer.rodape-principal {
     .controles-busca { flex-direction: column; }
     .grid-projetos { grid-template-columns: 1fr; }
 }
+/* --- ADICIONAR ESTAS REGRAS AO FINAL DO SEU STYLE.CSS --- */
+
+/* --- Layout da Página de Detalhes do Projeto --- */
+.detalhe-container {
+    max-width: 900px;
+    margin: 4rem auto;
+    background-color: var(--cor-fundo-secundario);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--cor-borda);
+}
+
+.detalhe-header img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.detalhe-conteudo {
+    padding: 2rem 2.5rem;
+}
+
+.detalhe-conteudo h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.detalhe-conteudo .categoria-tag {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    background-color: var(--cor-primaria);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    color: var(--cor-texto-secundario);
+    border-left: 3px solid var(--cor-primaria);
+    padding-left: 1rem;
+}
+
+.info-item strong {
+    color: var(--cor-texto-principal);
+    font-weight: 500;
+}
+
+.descricao-completa {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--cor-borda);
+    line-height: 1.8;
+}

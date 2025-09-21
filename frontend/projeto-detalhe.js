@@ -1,51 +1,87 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const params = new URLSearchParams(window.location.search);
-  const projetoId = params.get('id');
+    const areaDetalhe = document.getElementById('detalhe-projeto');
+    const formFeedback = document.getElementById('form-feedback');
 
-  if (!projetoId) {
-    document.querySelector('main').innerHTML = '<p>ID do projeto não fornecido.</p>';
-    return;
-  }
+    // Pega o ID do projeto da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const projetoId = urlParams.get('id');
 
-  fetch(`/api/projetos/${projetoId}`)
-    .then(response => response.json())
-    .then(projeto => {
-      document.title = `${projeto.nome} - Conecta Social`;
+    if (!projetoId) {
+        areaDetalhe.innerHTML = '<h2 class="text-danger text-center">ID do projeto não fornecido.</h2>';
+        return;
+    }
 
-      const cabecalho = document.getElementById('detalhe-cabecalho');
-      const imgFundo = document.createElement('img');
-      imgFundo.src = projeto.imagem_url;
-      imgFundo.className = 'detalhe-imagem-fundo';
-      cabecalho.prepend(imgFundo);
-      
-      document.getElementById('projeto-nome').textContent = projeto.nome;
-      document.getElementById('projeto-tematica').textContent = projeto.categoria;
-      document.getElementById('projeto-descricao').textContent = projeto.descricao_completa;
-      document.getElementById('projeto-local').textContent = `Onde: ${projeto.local}`;
-      document.getElementById('projeto-contato').textContent = `Contato: ${projeto.nome_contato} (${projeto.contato || 'Não informado'})`;
-      
-      const dataCadastro = new Date(projeto.created_at).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
-      document.getElementById('projeto-data-hora').textContent = `Cadastrado em: ${dataCadastro}`;
-      
-      document.getElementById('projeto_id_hidden').value = projetoId;
-    })
-    .catch(error => console.error('Erro ao buscar detalhes do projeto:', error));
+    // Busca os dados do projeto específico
+    fetch(`/api/projetos/${projetoId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Projeto não encontrado');
+            }
+            return response.json();
+        })
+        .then(projeto => {
+            // Atualiza o título da página
+            document.title = `${projeto.nome} - Conecta Social`;
+            
+            // Cria o HTML com o novo layout
+            const detalheHTML = `
+                <div class="detalhe-container">
+                    <header class="detalhe-header">
+                        <img src="${projeto.imagem_url}" alt="Imagem do projeto ${projeto.nome}">
+                    </header>
+                    <div class="detalhe-conteudo">
+                        <span class="categoria-tag">${projeto.categoria}</span>
+                        <h1>${projeto.nome}</h1>
+                        
+                        <div class="info-item">
+                            <strong>Local:</strong>
+                            <span>${projeto.local}</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Contato:</strong>
+                            <span>${projeto.nome_contato} (${projeto.contato})</span>
+                        </div>
 
-  // Lógica do formulário de feedback (sem alterações)
-  const formFeedback = document.getElementById('form-feedback');
-  formFeedback.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const dadosFeedback = {
-      nome_usuario: document.getElementById('nome').value,
-      mensagem: document.getElementById('mensagem').value,
-      id_do_projeto: document.getElementById('projeto_id_hidden').value
-    };
-    fetch('/api/feedbacks', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(dadosFeedback),
-    }).then(res => res.ok ? alert('Obrigado pelo seu feedback!') : alert('Erro ao enviar feedback.'))
-      .then(() => formFeedback.reset())
-      .catch(err => console.error(err));
-  });
+                        <div class="descricao-completa">
+                            <p>${projeto.descricao_completa.replace(/\n/g, '<br>')}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            areaDetalhe.innerHTML = detalheHTML;
+        })
+        .catch(error => {
+            console.error('Erro ao buscar detalhes do projeto:', error);
+            areaDetalhe.innerHTML = '<h2 class="text-danger text-center">Não foi possível carregar o projeto.</h2>';
+        });
+
+    // Lógica para o formulário de feedback (mantida)
+    if (formFeedback) {
+        formFeedback.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const nomeUsuario = document.getElementById('nome_usuario').value;
+            const mensagem = document.getElementById('mensagem').value;
+
+            const feedbackData = {
+                nome_usuario: nomeUsuario,
+                mensagem: mensagem,
+                id_do_projeto: projetoId
+            };
+
+            fetch('/api/feedbacks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(feedbackData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Obrigado pelo seu feedback!');
+                formFeedback.reset();
+            })
+            .catch(error => {
+                console.error('Erro ao enviar feedback:', error);
+                alert('Ocorreu um erro ao enviar seu feedback.');
+            });
+        });
+    }
 });

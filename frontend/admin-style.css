@@ -1,0 +1,128 @@
+:root {
+    --cor-fundo-principal: #121212;
+    --cor-fundo-secundario: #1e1e1e;
+    --cor-texto-principal: #EAEAEA;
+    --cor-texto-secundario: #b3b3b3;
+    --cor-destaque: #FFFFFF;
+    --cor-primaria: #8A2BE2;
+    --cor-primaria-hover: #9932CC;
+    --cor-borda: #333;
+    --cor-sucesso: #28a745;
+    --cor-erro: #dc3545;
+    --cor-aviso: #ffc107;
+}
+
+body {
+    background-color: var(--cor-fundo-principal);
+    color: var(--cor-texto-principal);
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+.container {
+    max-width: 960px;
+}
+
+/* --- Cabeçalho e Navegação do Admin --- */
+.cabecalho-admin {
+    background-color: var(--cor-fundo-secundario);
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--cor-borda);
+    margin-bottom: 2rem;
+}
+
+.cabecalho-admin .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cabecalho-admin h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: var(--cor-destaque);
+}
+
+.nav-admin a {
+    color: var(--cor-texto-secundario);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-admin a:hover {
+    color: var(--cor-primaria);
+}
+
+/* --- Estilos de Formulário --- */
+.form-admin-container {
+    background-color: var(--cor-fundo-secundario);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--cor-borda);
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--cor-texto-secundario);
+}
+
+.form-control {
+    background-color: #2c2c2c;
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto-principal);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+}
+
+.form-control:focus {
+    background-color: #2c2c2c;
+    color: var(--cor-texto-principal);
+    border-color: var(--cor-primaria);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(138, 43, 226, 0.2);
+}
+
+/* --- Botões --- */
+.btn {
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+}
+.btn-primary:hover {
+    background-color: var(--cor-primaria-hover);
+    border-color: var(--cor-primaria-hover);
+}
+
+.btn-danger {
+    background-color: var(--cor-erro);
+    border-color: var(--cor-erro);
+}
+
+/* --- Área de Notificação --- */
+#area-notificacao .alert {
+    border-radius: 8px;
+}
+
+/* --- Tabela de Gerenciamento --- */
+.table {
+    --bs-table-bg: var(--cor-fundo-secundario);
+    --bs-table-border-color: var(--cor-borda);
+    --bs-table-color: var(--cor-texto-principal);
+    --bs-table-striped-bg: #2c2c2c;
+    --bs-table-hover-bg: #343a40;
+}
+.table-dark {
+    --bs-table-bg: var(--cor-fundo-secundario);
+}
+.thead-dark th {
+    background-color: #343a40;
+    border-color: #454d55;
+}
