@@ -284,3 +284,19 @@ footer.rodape-principal {
     border-top: 1px solid var(--cor-borda);
     line-height: 1.8;
 }
+/* Estilos para a página de login */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+.login-box {
+    padding: 2rem;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}

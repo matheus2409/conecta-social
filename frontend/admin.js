@@ -68,3 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+// ... (seu código existente)
+
+// Lógica de Logout
+const logoutButton = document.getElementById('logout-button');
+if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+        import('./auth.js').then(auth => auth.logout());
+    });
+}
