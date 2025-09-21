@@ -1,6 +1,8 @@
-// frontend/script.js
+import { getProjetos } from './apiService.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // ... (restante do seu código, se houver)
+
     const projetosContainer = document.getElementById('projetos-container');
     const loadingSpinner = document.getElementById('loading-spinner');
     const paginacaoContainer = document.getElementById('paginacao');
@@ -9,36 +11,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnLimpar = document.getElementById('btn-limpar-filtros');
 
     let paginaAtual = 1;
-    let termoBusca = '';
-    let categoriaSelecionada = '';
 
-    // Função para mostrar ou esconder o spinner
     function toggleSpinner(show) {
-        loadingSpinner.style.display = show ? 'block' : 'none';
+        loadingSpinner.style.display = show ? 'flex' : 'none';
+        if (show) {
+            projetosContainer.innerHTML = ''; // Limpa o container ao carregar
+        }
     }
     
     async function carregarProjetos() {
         toggleSpinner(true);
-        projetosContainer.innerHTML = ''; // Limpa os projetos antigos
+        const termoBusca = buscaInput.value.trim();
+        const categoria = filtroCategoria.value;
 
         try {
-            // Constrói a URL com os parâmetros de busca, filtro e paginação
-            const url = `/projetos?pagina=${paginaAtual}&q=${termoBusca}&categoria=${categoriaSelecionada}`;
-            const response = await fetch(url);
-            const data = await response.json();
-            
-            toggleSpinner(false);
+            const data = await getProjetos(paginaAtual, termoBusca, categoria);
             
             if (data.projetos && data.projetos.length > 0) {
+                projetosContainer.innerHTML = ''; // Limpa o spinner
                 data.projetos.forEach(projeto => {
                     const card = `
                         <div class="col-md-4 mb-4">
-                            <div class="card h-100">
-                                <img src="${projeto.imagem_url || 'https://via.placeholder.com/300x200'}" class="card-img-top" alt="${projeto.titulo}">
-                                <div class="card-body">
+                            <div class="card h-100 shadow-sm">
+                                <img src="${projeto.imagem_url || 'https://via.placeholder.com/300x200?text=Sem+Imagem'}" class="card-img-top" alt="${projeto.titulo}">
+                                <div class="card-body d-flex flex-column">
                                     <h5 class="card-title">${projeto.titulo}</h5>
-                                    <p class="card-text">${projeto.descricao.substring(0, 100)}...</p>
-                                    <a href="projeto.html?id=${projeto.id}" class="btn btn-primary">Saiba Mais</a>
+                                    <p class="card-text flex-grow-1">${projeto.descricao.substring(0, 100)}...</p>
+                                    <a href="projeto.html?id=${projeto.id}" class="btn btn-primary mt-auto">Saiba Mais</a>
                                 </div>
                             </div>
                         </div>
@@ -47,55 +46,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 renderizarPaginacao(data.totalDePaginas, data.paginaAtual);
             } else {
-                projetosContainer.innerHTML = '<p class="text-center">Nenhum projeto encontrado.</p>';
-                paginacaoContainer.innerHTML = ''; // Limpa a paginação se não houver resultados
+                projetosContainer.innerHTML = '<p class="col-12 text-center">Nenhum projeto encontrado.</p>';
+                paginacaoContainer.innerHTML = '';
             }
         } catch (error) {
-            toggleSpinner(false);
             console.error('Erro ao carregar projetos:', error);
-            projetosContainer.innerHTML = '<p class="text-center text-danger">Erro ao carregar os projetos.</p>';
+            projetosContainer.innerHTML = `<p class="col-12 text-center text-danger">Erro ao carregar os projetos: ${error.message}</p>`;
+        } finally {
+            toggleSpinner(false);
         }
     }
 
-    function renderizarPaginacao(totalDePaginas, paginaAtual) {
+    function renderizarPaginacao(totalDePaginas, pagina) {
         paginacaoContainer.innerHTML = '';
         if (totalDePaginas <= 1) return;
 
         // Botão "Anterior"
-        paginacaoContainer.innerHTML += `
-            <li class="page-item ${paginaAtual === 1 ? 'disabled' : ''}">
-                <a class="page-link" href="#" data-pagina="${paginaAtual - 1}">Anterior</a>
-            </li>
-        `;
+        const prevDisabled = pagina <= 1 ? 'disabled' : '';
+        paginacaoContainer.innerHTML += `<li class="page-item ${prevDisabled}"><a class="page-link" href="#" data-pagina="${pagina - 1}">Anterior</a></li>`;
 
         // Botões das páginas
         for (let i = 1; i <= totalDePaginas; i++) {
-            paginacaoContainer.innerHTML += `
-                <li class="page-item ${i === paginaAtual ? 'active' : ''}">
-                    <a class="page-link" href="#" data-pagina="${i}">${i}</a>
-                </li>
-            `;
+            const active = i === pagina ? 'active' : '';
+            paginacaoContainer.innerHTML += `<li class="page-item ${active}"><a class="page-link" href="#" data-pagina="${i}">${i}</a></li>`;
         }
 
         // Botão "Próximo"
-        paginacaoContainer.innerHTML += `
-            <li class="page-item ${paginaAtual === totalDePaginas ? 'disabled' : ''}">
-                <a class="page-link" href="#" data-pagina="${paginaAtual + 1}">Próximo</a>
-            </li>
-        `;
+        const nextDisabled = pagina >= totalDePaginas ? 'disabled' : '';
+        paginacaoContainer.innerHTML += `<li class="page-item ${nextDisabled}"><a class="page-link" href="#" data-pagina="${pagina + 1}">Próximo</a></li>`;
     }
 
     // Event Listeners
     buscaInput.addEventListener('keyup', (e) => {
         if (e.key === 'Enter') {
-            termoBusca = buscaInput.value;
             paginaAtual = 1;
             carregarProjetos();
         }
     });
 
     filtroCategoria.addEventListener('change', () => {
-        categoriaSelecionada = filtroCategoria.value;
         paginaAtual = 1;
         carregarProjetos();
     });
@@ -103,141 +92,18 @@ document.addEventListener('DOMContentLoaded', () => {
     btnLimpar.addEventListener('click', () => {
         buscaInput.value = '';
         filtroCategoria.value = '';
-        termoBusca = '';
-        categoriaSelecionada = '';
         paginaAtual = 1;
         carregarProjetos();
     });
 
     paginacaoContainer.addEventListener('click', (e) => {
         e.preventDefault();
-        if (e.target.tagName === 'A' && !e.target.parentElement.classList.contains('disabled')) {
-            paginaAtual = parseInt(e.target.dataset.pagina);
+        const target = e.target;
+        if (target.tagName === 'A' && !target.parentElement.classList.contains('disabled')) {
+            paginaAtual = parseInt(target.dataset.pagina);
             carregarProjetos();
         }
     });
 
-    // Carga inicial
-    carregarProjetos();
-});// frontend/script.js
-
-document.addEventListener('DOMContentLoaded', () => {
-    const projetosContainer = document.getElementById('projetos-container');
-    const loadingSpinner = document.getElementById('loading-spinner');
-    const paginacaoContainer = document.getElementById('paginacao');
-    const buscaInput = document.getElementById('busca');
-    const filtroCategoria = document.getElementById('filtro-categoria');
-    const btnLimpar = document.getElementById('btn-limpar-filtros');
-
-    let paginaAtual = 1;
-    let termoBusca = '';
-    let categoriaSelecionada = '';
-
-    // Função para mostrar ou esconder o spinner
-    function toggleSpinner(show) {
-        loadingSpinner.style.display = show ? 'block' : 'none';
-    }
-    
-    async function carregarProjetos() {
-        toggleSpinner(true);
-        projetosContainer.innerHTML = ''; // Limpa os projetos antigos
-
-        try {
-            // Constrói a URL com os parâmetros de busca, filtro e paginação
-            const url = `/projetos?pagina=${paginaAtual}&q=${termoBusca}&categoria=${categoriaSelecionada}`;
-            const response = await fetch(url);
-            const data = await response.json();
-            
-            toggleSpinner(false);
-            
-            if (data.projetos && data.projetos.length > 0) {
-                data.projetos.forEach(projeto => {
-                    const card = `
-                        <div class="col-md-4 mb-4">
-                            <div class="card h-100">
-                                <img src="${projeto.imagem_url || 'https://via.placeholder.com/300x200'}" class="card-img-top" alt="${projeto.titulo}">
-                                <div class="card-body">
-                                    <h5 class="card-title">${projeto.titulo}</h5>
-                                    <p class="card-text">${projeto.descricao.substring(0, 100)}...</p>
-                                    <a href="projeto.html?id=${projeto.id}" class="btn btn-primary">Saiba Mais</a>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    projetosContainer.innerHTML += card;
-                });
-                renderizarPaginacao(data.totalDePaginas, data.paginaAtual);
-            } else {
-                projetosContainer.innerHTML = '<p class="text-center">Nenhum projeto encontrado.</p>';
-                paginacaoContainer.innerHTML = ''; // Limpa a paginação se não houver resultados
-            }
-        } catch (error) {
-            toggleSpinner(false);
-            console.error('Erro ao carregar projetos:', error);
-            projetosContainer.innerHTML = '<p class="text-center text-danger">Erro ao carregar os projetos.</p>';
-        }
-    }
-
-    function renderizarPaginacao(totalDePaginas, paginaAtual) {
-        paginacaoContainer.innerHTML = '';
-        if (totalDePaginas <= 1) return;
-
-        // Botão "Anterior"
-        paginacaoContainer.innerHTML += `
-            <li class="page-item ${paginaAtual === 1 ? 'disabled' : ''}">
-                <a class="page-link" href="#" data-pagina="${paginaAtual - 1}">Anterior</a>
-            </li>
-        `;
-
-        // Botões das páginas
-        for (let i = 1; i <= totalDePaginas; i++) {
-            paginacaoContainer.innerHTML += `
-                <li class="page-item ${i === paginaAtual ? 'active' : ''}">
-                    <a class="page-link" href="#" data-pagina="${i}">${i}</a>
-                </li>
-            `;
-        }
-
-        // Botão "Próximo"
-        paginacaoContainer.innerHTML += `
-            <li class="page-item ${paginaAtual === totalDePaginas ? 'disabled' : ''}">
-                <a class="page-link" href="#" data-pagina="${paginaAtual + 1}">Próximo</a>
-            </li>
-        `;
-    }
-
-    // Event Listeners
-    buscaInput.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-            termoBusca = buscaInput.value;
-            paginaAtual = 1;
-            carregarProjetos();
-        }
-    });
-
-    filtroCategoria.addEventListener('change', () => {
-        categoriaSelecionada = filtroCategoria.value;
-        paginaAtual = 1;
-        carregarProjetos();
-    });
-    
-    btnLimpar.addEventListener('click', () => {
-        buscaInput.value = '';
-        filtroCategoria.value = '';
-        termoBusca = '';
-        categoriaSelecionada = '';
-        paginaAtual = 1;
-        carregarProjetos();
-    });
-
-    paginacaoContainer.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (e.target.tagName === 'A' && !e.target.parentElement.classList.contains('disabled')) {
-            paginaAtual = parseInt(e.target.dataset.pagina);
-            carregarProjetos();
-        }
-    });
-
-    // Carga inicial
     carregarProjetos();
 });

@@ -1,43 +1,29 @@
-// backend/server.js
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const path = require('path');
+const projetosRoutes = require('./routes/projetos'); // Importa as rotas
 
-// ... (início do seu arquivo server.js)
+const app = express();
+const port = process.env.PORT || 3000;
 
-// Atualizar um projeto existente - VERSÃO CORRIGIDA
-app.put('/projetos/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { titulo, descricao, imagem_url, localizacao, categoria } = req.body;
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json());
 
-        // Validação simples para garantir que os campos principais não estão vazios
-        if (!titulo || !descricao) {
-            return res.status(400).json({ error: 'Título e Descrição são campos obrigatórios.' });
-        }
+// Servir os arquivos estáticos do frontend
+const frontendPath = path.join(__dirname, '..', 'frontend');
+app.use(express.static(frontendPath));
 
-        const { data, error } = await supabase
-            .from('projetos')
-            .update({ titulo, descricao, imagem_url, localizacao, categoria })
-            .eq('id', id)
-            .select() // <<< ADICIONE ESTA LINHA!
-        
-        if (error) {
-            // Se houver um erro no Supabase, lance-o para o bloco catch
-            throw error;
-        }
+// Rotas da API
+app.use('/api/projetos', projetosRoutes);
 
-        if (!data || data.length === 0) {
-            // Se nenhum registro foi atualizado (ex: ID não encontrado)
-            return res.status(404).json({ error: 'Projeto não encontrado.' });
-        }
-
-        // Retorna o projeto que foi atualizado
-        res.status(200).json(data[0]);
-
-    } catch (error) {
-        // Envia uma resposta de erro mais detalhada
-        console.error('Erro ao atualizar projeto:', error.message);
-        res.status(500).json({ error: 'Erro interno no servidor: ' + error.message });
-    }
+// Para qualquer outra rota, servir o index.html (bom para Single Page Apps)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
-
-// ... (resto do seu arquivo server.js)
+// Inicia o servidor
+app.listen(port, () => {
+    console.log(`Servidor rodando em http://localhost:${port}`);
+});

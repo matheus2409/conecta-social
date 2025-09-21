@@ -1,19 +1,26 @@
-// frontend/apiService.js
+const API_BASE_URL = '/api/projetos';
 
-const API_BASE_URL = '/projetos';
-
-// Função genérica para tratar as respostas do fetch
+// Função auxiliar para tratar as respostas do fetch
 async function handleResponse(response) {
     if (!response.ok) {
-        const errorData = await response.json();
+        const errorData = await response.json().catch(() => ({ error: `Erro ${response.status}` }));
         throw new Error(errorData.error || `Erro ${response.status}`);
+    }
+    // Para respostas 204 (No Content), não há corpo para converter para JSON
+    if (response.status === 204) {
+        return null;
     }
     return response.json();
 }
 
 // Funções para cada operação do CRUD
-export async function getProjetos() {
-    const response = await fetch(API_BASE_URL);
+export async function getProjetos(pagina = 1, busca = '', categoria = '') {
+    const url = new URL(API_BASE_URL, window.location.origin);
+    url.searchParams.append('pagina', pagina);
+    if (busca) url.searchParams.append('q', busca);
+    if (categoria) url.searchParams.append('categoria', categoria);
+    
+    const response = await fetch(url);
     return handleResponse(response);
 }
 
@@ -44,10 +51,5 @@ export async function deletarProjeto(id) {
     const response = await fetch(`${API_BASE_URL}/${id}`, {
         method: 'DELETE',
     });
-    // A resposta de delete pode não ter corpo, então tratamos de forma diferente
-    if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || `Erro ${response.status}`);
-    }
-    return { success: true };
+    return handleResponse(response);
 }
