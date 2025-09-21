@@ -1,60 +1,70 @@
+// frontend/admin.js
+
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('form-novo-projeto');
-  const areaNotificacao = document.getElementById('area-notificacao');
+    const form = document.getElementById('project-form');
 
-  // Função para exibir notificações na tela
-  function mostrarNotificacao(mensagem, tipo = 'success') {
-    const classeAlerta = tipo === 'success' ? 'alert-success' : 'alert-danger';
-    areaNotificacao.innerHTML = `<div class="alert ${classeAlerta}" role="alert">${mensagem}</div>`;
+    // Inicialize o cliente Supabase com as suas credenciais
+    // É seguro expor essas chaves no frontend, desde que você configure as Row Level Security (RLS) no seu banco de dados.
+    const supabaseUrl = 'SUA_URL_SUPABASE'; 
+    const supabaseKey = 'SUA_CHAVE_PUBLICA_SUPABASE';
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-    // Limpa a mensagem após 5 segundos para não poluir a tela
-    setTimeout(() => {
-      areaNotificacao.innerHTML = '';
-    }, 5000);
-  }
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const btnSubmit = form.querySelector('button[type="submit"]');
-    btnSubmit.disabled = true;
-    btnSubmit.textContent = 'A adicionar...';
+        const submitButton = form.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Enviando...';
 
-    const dadosProjeto = {
-      nome: document.getElementById('nome').value,
-      categoria: document.getElementById('categoria').value,
-      imagem_url: document.getElementById('imagem_url').value,
-      descricao_curta: document.getElementById('descricao_curta').value,
-      descricao_completa: document.getElementById('descricao_completa').value,
-      local: document.getElementById('local').value,
-      nome_contato: document.getElementById('nome_contato').value,
-      contato: document.getElementById('contato').value,
-      // Adiciona latitude e longitude (se existirem nos campos)
-      latitude: parseFloat(document.getElementById('latitude').value) || null,
-      longitude: parseFloat(document.getElementById('longitude').value) || null,
-    };
+        const titulo = document.getElementById('titulo').value;
+        const descricao = document.getElementById('descricao').value;
+        const localizacao = document.getElementById('localizacao').value;
+        const categoria = document.getElementById('categoria').value;
+        const imagemFile = document.getElementById('imagem').files[0];
+        
+        try {
+            let imagem_url = '';
+            if (imagemFile) {
+                // 1. Fazer o upload do arquivo para o Supabase Storage
+                const filePath = `public/${Date.now()}-${imagemFile.name}`;
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                    .from('imagens-projetos')
+                    .upload(filePath, imagemFile);
 
-    try {
-      const response = await fetch('/api/projetos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dadosProjeto),
-      });
+                if (uploadError) {
+                    throw new Error('Erro no upload da imagem: ' + uploadError.message);
+                }
 
-      if (!response.ok) {
-        // Se a resposta do servidor não for 'ok', lança um erro
-        throw new Error('Falha ao adicionar o projeto. O servidor respondeu com um erro.');
-      }
+                // 2. Obter a URL pública do arquivo
+                const { data: urlData } = supabase.storage
+                    .from('imagens-projetos')
+                    .getPublicUrl(filePath);
+                
+                imagem_url = urlData.publicUrl;
+            }
 
-      mostrarNotificacao('Projeto adicionado com sucesso!', 'success');
-      form.reset();
+            // 3. Salvar os dados do projeto (incluindo a URL da imagem) no seu backend
+            const response = await fetch('/projetos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ titulo, descricao, imagem_url, localizacao, categoria }),
+            });
 
-    } catch (error) {
-      console.error('Erro ao adicionar projeto:', error);
-      mostrarNotificacao('Ocorreu um erro. Por favor, tente novamente.', 'danger');
-    } finally {
-      // Reativa o botão, independentemente do resultado
-      btnSubmit.disabled = false;
-      btnSubmit.textContent = 'Adicionar Projeto';
-    }
-  });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Erro ao criar o projeto.');
+            }
+
+            alert('Projeto criado com sucesso!');
+            form.reset();
+        } catch (error) {
+            console.error('Erro:', error);
+            alert(`Falha ao criar projeto: ${error.message}`);
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Adicionar Projeto';
+        }
+    });
 });

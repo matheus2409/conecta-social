@@ -248,7 +248,21 @@ footer.rodape-principal {
     font-weight: 500;
     margin-bottom: 1.5rem;
 }
+/* Bloco */
+.card {
+  border: 1px solid #ccc;
+}
 
+/* Elemento dentro do Bloco */
+.card__title {
+  font-size: 1.5em;
+  color: #333;
+}
+
+/* Modificador do Bloco */
+.card--featured {
+  border-color: blue;
+}
 .info-item {
     display: flex;
     align-items: center;
