@@ -29,6 +29,33 @@ document.addEventListener('DOMContentLoaded', () => {
         tabelaProjetosBody.innerHTML = '<tr><td colspan="3" class="text-center text-danger">Falha ao carregar projetos.</td></tr>';
       });
   }
+  // frontend/gerenciar.js
+
+      import { getProjetos, deletarProjeto } from './apiService.js';
+
+    async function carregarProjetos() {
+    try {
+        const projetos = await getProjetos();
+        // ... resto do seu código para renderizar os projetos
+    } catch (error) {
+        console.error('Falha ao carregar projetos:', error);
+        alert(error.message);
+    }
+}
+
+    window.deletarProjeto = async (id) => { // Use 'window.' para torná-la global para o onclick
+    if (confirm('Tem certeza que deseja excluir este projeto?')) {
+        try {
+            await deletarProjeto(id);
+            carregarProjetos(); // Recarrega a lista
+        } catch (error) {
+            console.error('Falha ao deletar projeto:', error);
+            alert(error.message);
+        }
+    }
+};
+
+// ...
 
   // A lógica de apagar continua a mesma...
   tabelaProjetosBody.addEventListener('click', (event) => {
@@ -51,10 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => {
           console.error('Erro ao apagar projeto:', error);
           alert('Não foi possível apagar o projeto.');
+          
         });
       }
     }
   });
+  
 
   carregarProjetos();
 });
