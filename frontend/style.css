@@ -1,5 +1,5 @@
-/* --- Reset Básico e Configuração da Fonte --- */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap'); /* Adicionei peso 500 */
+/* --- Reset Básico e Configuração da Fonte (Mantido do teu ficheiro) --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
 
 :root {
     --cor-fundo-principal: #121212;
@@ -7,10 +7,10 @@
     --cor-texto-principal: #EAEAEA;
     --cor-texto-secundario: #B0B0B0;
     --cor-destaque: #FFFFFF;
-    --cor-link: #8A2BE2; /* Um tom de roxo mais vibrante para links */
+    --cor-link: #8A2BE2; 
+    --cor-botao-primario: #8A2BE2;
+    --cor-botao-primario-hover: #9933FF;
     --cor-borda: #333;
-    --cor-botao-primario: #8A2BE2; /* Botão principal roxo */
-    --cor-botao-primario-hover: #9933FF; /* Roxo mais claro no hover */
 }
 
 body {
@@ -19,11 +19,8 @@ body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased; /* Suaviza a fonte para um visual mais limpo */
-    scroll-behavior: smooth;
 }
 
-/* Garante que links não tenham sublinhado por padrão */
 a {
     color: var(--cor-link);
     text-decoration: none;
@@ -31,40 +28,25 @@ a {
 }
 
 a:hover {
-    color: var(--cor-link-hover);
-    text-decoration: underline;
+    color: var(--cor-botao-primario-hover);
 }
 
-/* --- Utilities e Elementos Básicos --- */
 .container-fluido {
-    max-width: 1200px; /* Limita a largura do conteúdo principal */
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem; /* Padding nas laterais */
+    padding: 0 1.5rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: var(--cor-destaque);
-    font-weight: 700;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-}
-
-p {
-    margin-bottom: 1rem;
-}
-
-/* --- Cabeçalho Principal (Home e Admin) --- */
-header.cabecalho-principal {
+/* --- Cabeçalho e Rodapé (Mantidos) --- */
+header.cabecalho-principal, footer.rodape-principal {
     padding: 2.5rem 0;
     text-align: center;
+    background-color: var(--cor-fundo-secundario);
     border-bottom: 1px solid var(--cor-borda);
-    background-color: var(--cor-fundo-secundario); /* Um fundo ligeiramente diferente */
 }
 
 header.cabecalho-principal h1 {
     font-size: 3rem;
-    font-weight: 700;
-    color: var(--cor-destaque);
     margin: 0;
 }
 
@@ -75,267 +57,155 @@ header.cabecalho-principal p {
     color: var(--cor-texto-secundario);
 }
 
-/* --- Grid de Projetos (Página Inicial) --- */
-main {
-    padding: 2rem 0;
+footer.rodape-principal {
+    margin-top: 4rem;
+    border-top: 1px solid var(--cor-borda);
+    border-bottom: none;
 }
 
+/* --- NOVO: Layout dos Controles de Busca --- */
+.controles-busca {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.form-busca-estilo {
+    display: flex;
+    flex-grow: 1;
+    gap: 0.5rem;
+    max-width: 600px;
+}
+
+.input-busca-estilo {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    background-color: #2c2c2c;
+    color: var(--cor-texto-principal);
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.input-busca-estilo:focus {
+    outline: none;
+    border-color: var(--cor-link);
+    box-shadow: 0 0 0 4px rgba(138, 43, 226, 0.2);
+}
+
+.btn-estilo {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--cor-botao-primario);
+    color: white;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-estilo:hover {
+    background-color: var(--cor-botao-primario-hover);
+}
+
+.btn-secundario {
+    background-color: #333;
+}
+.btn-secundario:hover {
+    background-color: #444;
+}
+
+/* --- NOVO: Layout da Grelha e dos Cards de Projeto --- */
 .grid-projetos {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem; /* Aumentei o espaçamento */
-    padding-top: 1rem;
+    gap: 2rem;
+    padding-top: 2rem;
+}
+
+.mensagem-carregamento {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--cor-texto-secundario);
+    padding: 3rem;
 }
 
 .card-projeto {
+    display: flex; /* Usamos flexbox para alinhar o conteúdo */
+    flex-direction: column;
+    justify-content: flex-end; /* Alinha o conteúdo na base do card */
     position: relative;
-    overflow: hidden;
-    border-radius: 12px; /* Cantos mais arredondados */
     height: 400px;
-    cursor: pointer;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: var(--cor-fundo-secundario);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
-    background-color: var(--cor-fundo-secundario); /* Fundo para quando a imagem não carregar */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra sutil */
 }
 
 .card-projeto:hover {
-    transform: translateY(-8px); /* Efeito de "levantar" */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); /* Sombra mais intensa */
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
 }
 
 .card-projeto img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease; /* Transição na imagem ao hover */
+    object-fit: cover; /* Garante que a imagem cubra todo o card */
+    z-index: 1;
+    transition: transform 0.5s ease;
 }
 
 .card-projeto:hover img {
-    transform: scale(1.05); /* Zoom sutil na imagem */
+    transform: scale(1.05); /* Efeito de zoom subtil */
 }
 
 .card-conteudo {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative;
+    z-index: 2;
+    width: 100%;
     padding: 1.5rem;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.6) 50%, transparent); /* Gradiente mais suave */
     color: white;
+    /* Gradiente para garantir que o texto seja legível sobre a imagem */
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, rgba(0,0,0,0.7) 50%, transparent);
+    box-sizing: border-box; 
 }
 
 .card-conteudo .categoria {
     display: inline-block;
     padding: 0.4rem 0.8rem;
-    background-color: var(--cor-link); /* Categoria com cor do link */
+    background-color: var(--cor-link);
     border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 500; /* Peso médio */
+    font-size: 0.8rem;
+    font-weight: 500;
     margin-bottom: 0.75rem;
     text-transform: uppercase;
-    color: white; /* Garante que o texto da categoria seja branco */
+    color: white;
 }
 
 .card-conteudo .titulo {
-    font-size: 1.8rem; /* Título maior */
+    font-size: 1.6rem;
     font-weight: 700;
     margin: 0;
     line-height: 1.3;
-}
-
-/* --- Página de Detalhes do Projeto (Com o estilo do Beautiful News) --- */
-.detalhe-cabecalho {
-    height: 85vh; /* Ocupa mais espaço na tela */
-    position: relative;
-    display: flex;
-    flex-direction: column; /* Para alinhar o conteúdo verticalmente */
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    padding: 2rem;
-    overflow: hidden; /* Garante que a imagem não vaze */
-}
-
-.detalhe-cabecalho::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.2)); /* Gradiente mais sutil */
-    z-index: 1;
-}
-
-.detalhe-imagem-fundo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    filter: brightness(0.7); /* Escurece um pouco a imagem para o texto sobressair */
-}
-
-.detalhe-conteudo-titulo {
-    position: relative;
-    z-index: 2;
-    max-width: 800px;
-}
-
-.detalhe-conteudo-titulo .categoria {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-    font-weight: 500;
-}
-
-.detalhe-conteudo-titulo h1 {
-    font-size: 4rem; /* Título grande */
-    line-height: 1.1;
-    margin: 0;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.5); /* Sombra no texto do título */
-}
-
-.detalhe-corpo {
-    max-width: 800px;
-    margin: 4rem auto; /* Mais espaçamento */
-    padding: 0 1.5rem;
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--cor-texto-principal); /* Garante a cor do texto */
-}
-
-.detalhe-corpo h3 {
-    margin-top: 3rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid var(--cor-link); /* Linha divisória com a cor do link */
-    padding-bottom: 0.8rem;
-    font-size: 1.8rem;
-}
-
-.detalhe-corpo ul.list-group {
-    list-style-type: none; /* Remove bolinhas */
-    padding: 0;
-    background-color: var(--cor-fundo-secundario);
-    border-radius: 8px;
-    padding: 1.5rem;
-}
-
-.detalhe-corpo .list-group-item {
-    background: none;
-    border: none;
-    padding: 0.75rem 0;
-    font-size: 1rem;
-    color: var(--cor-texto-principal);
-    border-bottom: 1px dashed rgba(255,255,255,0.1); /* Linha tracejada sutil */
-}
-.detalhe-corpo .list-group-item:last-child {
-    border-bottom: none;
-}
-
-
-/* --- Formulário de Feedback (Estilizado para o novo tema) --- */
-#feedback-projeto {
-    background-color: var(--cor-fundo-secundario);
-    padding: 2.5rem;
-    border-radius: 12px;
-    margin-top: 4rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-#feedback-projeto h2 {
-    font-size: 2rem;
     color: var(--cor-destaque);
-    margin-bottom: 2rem;
-    text-align: center;
 }
 
-.form-label {
-    color: var(--cor-texto-secundario);
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    display: block;
-}
-
-.form-control {
-    background-color: #2a2a2a;
-    border: 1px solid #444;
-    color: var(--cor-texto-principal);
-    padding: 0.8rem 1rem;
-    border-radius: 6px;
-    width: 100%;
-    box-sizing: border-box; /* Garante que padding e border não aumentem a largura total */
-}
-
-.form-control:focus {
-    border-color: var(--cor-link);
-    box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25); /* Sombra de foco roxa */
-    outline: none;
-    background-color: #3a3a3a;
-}
-
-.mb-3 {
-    margin-bottom: 1.5rem; /* Mais espaçamento entre campos */
-}
-
-.btn-primary {
-    background-color: var(--cor-botao-primario);
-    border-color: var(--cor-botao-primario);
-    color: white;
-    padding: 0.9rem 2rem;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    width: 100%;
-    max-width: 300px; /* Limita a largura do botão de envio */
-    margin: 0 auto;
-    display: block;
-}
-
-.btn-primary:hover {
-    background-color: var(--cor-botao-primario-hover);
-    border-color: var(--cor-botao-primario-hover);
-}
-
-.text-center {
-    text-align: center;
-}
-
-/* --- Rodapé --- */
-footer.rodape-principal {
-    text-align: center;
-    padding: 2.5rem 0;
-    margin-top: 4rem;
-    border-top: 1px solid var(--cor-borda);
-    font-size: 0.95rem;
-    color: var(--cor-texto-secundario);
-    background-color: var(--cor-fundo-secundario);
-}
-
-/* --- Responsividade Básica --- */
+/* --- Responsividade --- */
 @media (max-width: 768px) {
-    header.cabecalho-principal h1 {
-        font-size: 2.5rem;
-    }
-    .detalhe-conteudo-titulo h1 {
-        font-size: 2.8rem;
-    }
-    .detalhe-corpo {
-        font-size: 1rem;
-    }
-    .grid-projetos {
-        grid-template-columns: 1fr; /* Uma coluna em telas pequenas */
-    }
-    .card-projeto {
-        height: 300px;
-    }
+    .cabecalho-principal h1 { font-size: 2.5rem; }
+    .controles-busca { flex-direction: column; }
+    .grid-projetos { grid-template-columns: 1fr; }
 }

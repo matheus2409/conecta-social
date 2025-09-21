@@ -4,19 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conecta Social - Projetos que transformam</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
-    <button type="button" class="btn btn-secondary w-100 mt-2" id="btn-perto-de-mim">Achar perto de mim</button>
 </head>
 <body>
 
     <header class="cabecalho-principal">
-        <h1>Conecta Social</h1>
-        <p>Encontre e participe de projetos que estão mudando a nossa comunidade para melhor.</p>
+        <div class="container-fluido">
+            <h1>Conecta Social</h1>
+            <p>Encontre e participe de projetos que estão mudando a nossa comunidade para melhor.</p>
+        </div>
     </header>
 
-    <main>
+    <main class="container-fluido">
+        <section class="controles-busca">
+            <form id="form-busca" class="form-busca-estilo">
+                <input type="text" id="input-busca" class="input-busca-estilo" placeholder="Buscar por nome ou tema do projeto...">
+                <button type="submit" class="btn-estilo">Buscar</button>
+            </form>
+            <button type="button" class="btn-estilo btn-secundario" id="btn-perto-de-mim">Achar perto de mim</button>
+        </section>
+
         <div class="grid-projetos" id="grid-projetos">
-            <p>Carregando projetos...</p>
+            <p class="mensagem-carregamento">Carregando projetos...</p>
         </div>
     </main>
 
