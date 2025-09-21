@@ -21,11 +21,11 @@ app.use(express.json());
 
 // Rota para CRIAR um novo projeto
 app.post('/api/projetos', async (req, res) => {
-  const { nome, categoria, descricao_curta, descricao_completa, local, contato, nome_contato, imagem_url } = req.body;
+  const { nome, categoria, descricao_curta, descricao_completa, local, contato, nome_contato, imagem_url, latitude, longitude } = req.body;
 
   const { data, error } = await supabase
     .from('projetos')
-    .insert([{ nome, categoria, descricao_curta, descricao_completa, local, contato, nome_contato, imagem_url }]);
+    .insert([{ nome, categoria, descricao_curta, descricao_completa, local, contato, nome_contato, imagem_url, latitude, longitude }]);
 
   if (error) {
     console.error('Erro ao salvar novo projeto:', error);
@@ -34,7 +34,7 @@ app.post('/api/projetos', async (req, res) => {
   res.status(201).json({ message: 'Projeto criado com sucesso!', data });
 });
 
-// Rota para ATUALIZAR um projeto existente (Versão corrigida e única)
+// Rota para ATUALIZAR um projeto existente
 app.put('/api/projetos/:id', async (req, res) => {
   const projetoId = req.params.id;
   const dadosAtualizados = req.body;
@@ -65,13 +65,12 @@ app.delete('/api/projetos/:id', async (req, res) => {
   res.status(200).json({ message: 'Projeto apagado com sucesso!' });
 }); 
 
-// Rota para buscar todos os projetos (com filtro de busca CORRIGIDO)
+// Rota para buscar todos os projetos (com filtro de busca)
 app.get('/api/projetos', async (req, res) => {
   const { busca } = req.query;
   let query = supabase.from('projetos').select('*');
 
   if (busca) {
-    // CORRIGIDO: Agora busca em 'nome' e na nova 'descricao_completa'
     query = query.or(`nome.ilike.%${busca}%,descricao_completa.ilike.%${busca}%`);
   }
 
@@ -99,6 +98,29 @@ app.get('/api/projetos/:id', async (req, res) => {
   }
   res.json(data);
 });
+
+// --- NOVA ROTA: Buscar projetos perto de uma localização ---
+app.get('/api/projetos-perto', async (req, res) => {
+  const { lat, long } = req.query;
+
+  if (!lat || !long) {
+    return res.status(400).json({ error: 'Latitude e longitude são obrigatórias.' });
+  }
+
+  // Chama a função SQL que criámos no Supabase
+  const { data, error } = await supabase.rpc('projetos_perto_de_mim', {
+    lat: parseFloat(lat),
+    long: parseFloat(long),
+  });
+
+  if (error) {
+    console.error('Erro ao buscar projetos por proximidade:', error);
+    return res.status(500).json({ error: 'Erro ao buscar projetos próximos.' });
+  }
+
+  res.json(data);
+});
+
 
 // Rota para salvar um novo feedback
 app.post('/api/feedbacks', async (req, res) => {

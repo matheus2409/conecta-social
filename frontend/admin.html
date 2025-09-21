@@ -9,6 +9,9 @@
 <body>
     <header class="cabecalho-principal"><h1>Painel de Administração</h1></header>
     <main class="container mt-4">
+        
+        <div id="area-notificacao" class="mb-3"></div>
+
         <h2>Adicionar Novo Projeto</h2>
         <form id="form-novo-projeto">
             <div class="mb-3"><label for="nome" class="form-label">Nome do Projeto</label><input type="text" class="form-control" id="nome" required></div>
@@ -17,6 +20,10 @@
             <div class="mb-3"><label for="descricao_curta" class="form-label">Descrição Curta (para a página inicial)</label><input type="text" class="form-control" id="descricao_curta" required></div>
             <div class="mb-3"><label for="descricao_completa" class="form-label">Descrição Completa</label><textarea class="form-control" id="descricao_completa" rows="5" required></textarea></div>
             <div class="mb-3"><label for="local" class="form-label">Local</label><input type="text" class="form-control" id="local" required></div>
+            <div class="row">
+                <div class="col-md-6 mb-3"><label for="latitude" class="form-label">Latitude</label><input type="number" step="any" class="form-control" id="latitude"></div>
+                <div class="col-md-6 mb-3"><label for="longitude" class="form-label">Longitude</label><input type="number" step="any" class="form-control" id="longitude"></div>
+            </div>
             <div class="mb-3"><label for="nome_contato" class="form-label">Nome do Contato</label><input type="text" class="form-control" id="nome_contato" required></div>
             <div class="mb-3"><label for="contato" class="form-label">Telefone/Email</label><input type="text" class="form-control" id="contato" required></div>
             <button type="submit" class="btn btn-primary">Adicionar Projeto</button>
