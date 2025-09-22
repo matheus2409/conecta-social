@@ -19,7 +19,19 @@ app.use('/api/auth', authRoutes); // <-- Adiciona a nova rota
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
 });
+// ... outras importações
+const projetosRoutes = require('./routes/projetos');
+const authRoutes = require('./routes/auth');
+const feedbacksRoutes = require('./routes/feedbacks'); // <-- Importa a nova rota
 
+// ...
+
+// Rotas da API
+app.use('/api/projetos', projetosRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/feedbacks', feedbacksRoutes); // <-- Adiciona a nova rota
+
+// ... restante do código
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });

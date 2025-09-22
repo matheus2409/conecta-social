@@ -1,10 +1,11 @@
 // frontend/editar-projeto.js
+import { getProjetoPorId, atualizarProjeto } from './apiService.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const projetoId = urlParams.get('id');
     const form = document.getElementById('edit-form');
-    const submitButton = form.querySelector('button[type="submit"]'); // Pega o botão de submit
+    const submitButton = form.querySelector('button[type="submit"]');
 
     if (!projetoId) {
         alert('ID do projeto não fornecido!');
@@ -13,11 +14,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const response = await fetch(`/projetos/${projetoId}`);
-        if (!response.ok) {
-            throw new Error('Projeto não encontrado.');
-        }
-        const projeto = await response.json();
+        // Busca os dados do projeto usando a função do apiService
+        const projeto = await getProjetoPorId(projetoId);
         
         // Preenche o formulário com os dados do projeto
         document.getElementById('titulo').value = projeto.titulo;
@@ -28,14 +26,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     } catch (error) {
         console.error('Erro ao buscar dados do projeto:', error);
-        alert('Não foi possível carregar os dados do projeto. Tente novamente.');
+        alert(`Não foi possível carregar os dados do projeto: ${error.message}`);
         window.location.href = 'gerenciar.html';
     }
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Desabilita o botão para evitar múltiplos cliques
         submitButton.disabled = true;
         submitButton.textContent = 'Salvando...';
 
@@ -48,19 +45,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
 
         try {
-            const response = await fetch(`/projetos/${projetoId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(projetoAtualizado),
-            });
-
-            if (!response.ok) {
-                // Se a resposta não for OK, tenta ler a mensagem de erro do backend
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Ocorreu um erro no servidor.');
-            }
+            // Atualiza o projeto usando a função do apiService
+            await atualizarProjeto(projetoId, projetoAtualizado);
             
             alert('Projeto atualizado com sucesso!');
             window.location.href = 'gerenciar.html';
@@ -69,7 +55,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error('Erro ao atualizar o projeto:', error);
             alert(`Erro ao atualizar o projeto: ${error.message}`);
         } finally {
-            // Reabilita o botão independentemente do resultado
             submitButton.disabled = false;
             submitButton.textContent = 'Salvar Alterações';
         }
