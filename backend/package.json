@@ -1,4 +1,12 @@
 {
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.56.1",
     "dotenv": "^17.2.1",
