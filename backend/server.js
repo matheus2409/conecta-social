@@ -6,25 +6,31 @@ require('dotenv').config();
 
 const projetosRoutes = require('./routes/projetos');
 const authRoutes = require('./routes/auth');
-const feedbacksRoutes = require('./routes/feedbacks'); // Se você implementou
+const feedbacksRoutes = require('./routes/feedbacks'); // Mantenha comentado se não implementou
 
 const app = express();
 
-// Middlewares
-app.use(cors());
+// --- Configuração de CORS ---
+// Permite que o seu site frontend faça pedidos a esta API
+const corsOptions = {
+  origin: 'https://conecta-social-gilt.vercel.app',
+  optionsSuccessStatus: 200 
+};
+app.use(cors(corsOptions));
+// --- Fim da Configuração ---
+
+// Middlewares para a aplicação entender JSON
 app.use(express.json());
 
-// Rotas da API
+// Definição das rotas da API
 app.use('/api/projetos', projetosRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/feedbacks', feedbacksRoutes); // Se você implementou
+// app.use('/api/feedbacks', feedbacksRoutes); // Mantenha comentado se não implementou
 
-// Rota de "catch-all" para a raiz da API (opcional, mas bom para teste)
+// Rota de teste para a raiz da API
 app.get('/api', (req, res) => {
   res.send('API Conecta Social está no ar!');
 });
 
-// --- MUDANÇA PRINCIPAL ---
-// Removemos o app.listen e exportamos o app para a Vercel.
-// A Vercel vai gerir o servidor por nós.
+// Exporta a aplicação para a Vercel
 module.exports = app;
