@@ -1,37 +1,30 @@
+// backend/server.js
+
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path');
-const projetosRoutes = require('./routes/projetos');
-const authRoutes = require('./routes/auth'); // <-- Importa a nova rota
+require('dotenv').config();
 
-const app = express();
-const port = process.env.PORT || 3000;
-
-app.use(cors());
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '..', 'frontend')));
-
-// Rotas da API
-app.use('/api/projetos', projetosRoutes);
-app.use('/api/auth', authRoutes); // <-- Adiciona a nova rota
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
-});
-// ... outras importações
 const projetosRoutes = require('./routes/projetos');
 const authRoutes = require('./routes/auth');
-const feedbacksRoutes = require('./routes/feedbacks'); // <-- Importa a nova rota
+const feedbacksRoutes = require('./routes/feedbacks'); // Se você implementou
 
-// ...
+const app = express();
+
+// Middlewares
+app.use(cors());
+app.use(express.json());
 
 // Rotas da API
 app.use('/api/projetos', projetosRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/feedbacks', feedbacksRoutes); // <-- Adiciona a nova rota
+app.use('/api/feedbacks', feedbacksRoutes); // Se você implementou
 
-// ... restante do código
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
+// Rota de "catch-all" para a raiz da API (opcional, mas bom para teste)
+app.get('/api', (req, res) => {
+  res.send('API Conecta Social está no ar!');
 });
+
+// --- MUDANÇA PRINCIPAL ---
+// Removemos o app.listen e exportamos o app para a Vercel.
+// A Vercel vai gerir o servidor por nós.
+module.exports = app;
