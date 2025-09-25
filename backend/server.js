@@ -15,7 +15,7 @@ const app = express();
 const corsOptions = {
   origin: 'https://conecta-social-gilt.vercel.app',
   optionsSuccessStatus: 200 
-};''
+};
 app.use(cors(corsOptions));
 // --- Fim da Configuração ---
 
@@ -32,5 +32,5 @@ app.get('/api', (req, res) => {
   res.send('API Conecta Social está no ar!');
 });
 
-
+// Exporta a aplicação para a Vercel
 module.exports = app;
