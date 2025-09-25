@@ -15,7 +15,7 @@ const app = express();
 const corsOptions = {
   origin: 'https://conecta-social-gilt.vercel.app',
   optionsSuccessStatus: 200 
-};
+};''
 app.use(cors(corsOptions));
 // --- Fim da Configuração ---
 
