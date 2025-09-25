@@ -32,5 +32,5 @@ app.get('/api', (req, res) => {
   res.send('API Conecta Social está no ar!');
 });
 
-// Exporta a aplicação para a Vercel
+
 module.exports = app;
