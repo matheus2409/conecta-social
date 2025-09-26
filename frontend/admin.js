@@ -1,120 +1,193 @@
 // frontend/admin.js
-import { criarProjeto } from './apiService.js';
-import { logout } from './auth.js';
-
-// Coloque aqui as suas credenciais do Supabase
-// Lembre-se que o ideal é não deixar essas chaves expostas no código em um projeto real
-const SUPABASE_URL = 'https://negmwaobqphcvasmmcbz.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5lZ213YW9icXBoY3Zhc21tY2J6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjcyMjkxNSwiZXhwIjoyMDcyMjk4OTE1fQ.z0iHBNwkz_DnMuznuXdIlrrIKhLDyiByyxK6ntG_GDs';
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// --- FUNÇÃO PARA BUSCAR O ENDEREÇO POR CEP ---
-async function buscarEnderecoPorCEP(cep) {
-    const cepError = document.getElementById('cep-error');
-    const localizacaoInput = document.getElementById('localizacao');
-    const cidadeInput = document.getElementById('cidade');
-    const estadoInput = document.getElementById('estado');
-
-    // Limpa campos e esconde erro antes de nova busca
-    cepError.classList.add('d-none');
-    localizacaoInput.value = 'Buscando...';
-    cidadeInput.value = '';
-    estadoInput.value = '';
-
-    try {
-        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-        if (!response.ok) throw new Error('CEP não encontrado.');
-        
-        const data = await response.json();
-        if (data.erro) throw new Error('CEP inválido.');
-
-        // Preenche os campos do formulário com os dados retornados
-        localizacaoInput.value = data.logradouro ? `${data.logradouro}, ${data.bairro}` : data.bairro;
-        cidadeInput.value = data.localidade;
-        estadoInput.value = data.uf;
-
-    } catch (error) {
-        cepError.textContent = error.message;
-        cepError.classList.remove('d-none');
-        localizacaoInput.value = ''; // Limpa se der erro
-    }
-}
 
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('project-form');
+    // Verifica se o usuário está logado
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // URLs da API (ajuste se necessário para o ambiente de produção)
+    const apiUrlProjetos = 'http://localhost:3001/api/projetos';
+    const apiUrlEsportes = 'http://localhost:3001/api/esportes';
+
+    // Elementos do formulário
+    const form = document.getElementById('projeto-form');
+    const projetoIdInput = document.getElementById('projeto-id');
+    const nomeInput = document.getElementById('nome');
+    const descricaoInput = document.getElementById('descricao');
+    const imagemUrlInput = document.getElementById('imagem_url');
+    const linkSiteInput = document.getElementById('link_site');
+    const linkRepositorioInput = document.getElementById('link_repositorio');
+    const contatoCoordenadorInput = document.getElementById('contato_coordenador');
+    const esporteSelect = document.getElementById('esporte-select'); // Novo campo
+    const submitButton = document.getElementById('form-submit-button');
+    const cancelEditButton = document.getElementById('cancel-edit-button');
+
+    const projetosListaContainer = document.getElementById('projetos-lista-admin');
     const logoutButton = document.getElementById('logout-button');
-    const cepInput = document.getElementById('cep');
 
-    // --- EVENTO PARA O CAMPO CEP ---
-    cepInput.addEventListener('blur', (e) => {
-        const cepValue = e.target.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-        if (cepValue.length === 8) {
-            buscarEnderecoPorCEP(cepValue);
-        } else if (cepValue.length > 0) {
-            const cepError = document.getElementById('cep-error');
-            cepError.textContent = 'O CEP deve conter 8 números.';
-            cepError.classList.remove('d-none');
+    // --- CARREGAMENTO INICIAL DE DADOS ---
+
+    // Função para carregar os esportes e popular o select
+    async function carregarEsportes() {
+        try {
+            const response = await fetch(apiUrlEsportes);
+            if (!response.ok) throw new Error('Falha ao buscar esportes.');
+            const esportes = await response.json();
+
+            esportes.forEach(esporte => {
+                const option = document.createElement('option');
+                option.value = esporte.id;
+                option.textContent = esporte.nome;
+                esporteSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Erro ao carregar esportes:', error);
+            alert('Não foi possível carregar a lista de esportes.');
         }
-    });
+    }
 
-    // --- LÓGICA DE ENVIO DO FORMULÁRIO ---
+    // Função para carregar e exibir os projetos
+    async function carregarProjetos() {
+        try {
+            const response = await fetch(apiUrlProjetos);
+            if (!response.ok) throw new Error('Falha ao buscar projetos.');
+            const projetos = await response.json();
+            
+            projetosListaContainer.innerHTML = '';
+            projetos.forEach(projeto => {
+                const projetoDiv = document.createElement('div');
+                projetoDiv.className = 'projeto-item';
+                projetoDiv.innerHTML = `
+                    <span>${projeto.nome}</span>
+                    <div>
+                        <button class="edit-btn" data-id="${projeto.id}">Editar</button>
+                        <button class="delete-btn" data-id="${projeto.id}">Excluir</button>
+                    </div>
+                `;
+                projetosListaContainer.appendChild(projetoDiv);
+            });
+        } catch (error) {
+            console.error('Erro ao carregar projetos:', error);
+            projetosListaContainer.innerHTML = '<p>Não foi possível carregar os projetos.</p>';
+        }
+    }
+
+    // Carrega tudo ao iniciar a página
+    carregarEsportes();
+    carregarProjetos();
+
+    // --- LÓGICA DO FORMULÁRIO (CRIAR E ATUALIZAR) ---
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const submitButton = form.querySelector('button[type="submit"]');
-        submitButton.disabled = true;
-        submitButton.textContent = 'Enviando...';
-
-        const projeto = {
-            titulo: document.getElementById('titulo').value,
-            descricao: document.getElementById('descricao').value,
-            categoria: document.getElementById('categoria').value,
-            cep: document.getElementById('cep').value,
-            localizacao: document.getElementById('localizacao').value,
-            cidade: document.getElementById('cidade').value,
-            estado: document.getElementById('estado').value,
-            imagem_url: '', // Será preenchido após o upload
+        const projetoData = {
+            nome: nomeInput.value,
+            descricao: descricaoInput.value,
+            imagem_url: imagemUrlInput.value,
+            link_site: linkSiteInput.value,
+            link_repositorio: linkRepositorioInput.value,
+            contato_coordenador: contatoCoordenadorInput.value, // Novo campo
+            esporte_id: parseInt(esporteSelect.value, 10) // Novo campo (convertido para número)
         };
         
-        const imagemFile = document.getElementById('imagem').files[0];
+        const id = projetoIdInput.value;
+        const method = id ? 'PUT' : 'POST';
+        const url = id ? `${apiUrlProjetos}/${id}` : apiUrlProjetos;
 
         try {
-            // 1. Faz o upload da imagem (se houver)
-            if (imagemFile) {
-                const filePath = `public/${Date.now()}-${imagemFile.name}`;
-                const { error: uploadError } = await supabase.storage
-                    .from('imagens-projetos') // Nome do seu bucket no Supabase
-                    .upload(filePath, imagemFile);
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(projetoData)
+            });
 
-                if (uploadError) {
-                    throw new Error('Erro no upload da imagem: ' + uploadError.message);
-                }
-
-                const { data: urlData } = supabase.storage
-                    .from('imagens-projetos')
-                    .getPublicUrl(filePath);
-                
-                projeto.imagem_url = urlData.publicUrl;
+            if (!response.ok) {
+                const err = await response.json();
+                throw new Error(err.error || 'Erro ao salvar projeto.');
             }
 
-            // 2. Envia os dados do projeto para o backend
-            await criarProjeto(projeto);
+            alert(`Projeto ${id ? 'atualizado' : 'criado'} com sucesso!`);
+            resetarFormulario();
+            carregarProjetos();
 
-            alert('Projeto criado com sucesso!');
-            form.reset();
         } catch (error) {
-            console.error('Erro:', error);
-            alert(`Falha ao criar projeto: ${error.message}`);
-        } finally {
-            submitButton.disabled = false;
-            submitButton.textContent = 'Adicionar Projeto';
+            console.error('Erro ao salvar:', error);
+            alert(error.message);
         }
     });
 
-    // --- LÓGICA DE LOGOUT ---
-    if (logoutButton) {
-        logoutButton.addEventListener('click', () => {
-            logout();
-        });
+    // --- AÇÕES (EDITAR, DELETAR, CANCELAR) ---
+
+    projetosListaContainer.addEventListener('click', async (e) => {
+        const target = e.target;
+        const id = target.dataset.id;
+
+        // Ação de Deletar
+        if (target.classList.contains('delete-btn')) {
+            if (confirm('Tem certeza que deseja excluir este projeto?')) {
+                try {
+                    const response = await fetch(`${apiUrlProjetos}/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (!response.ok) throw new Error('Falha ao excluir.');
+                    
+                    alert('Projeto excluído com sucesso!');
+                    carregarProjetos();
+
+                } catch (error) {
+                    console.error('Erro ao excluir:', error);
+                    alert('Não foi possível excluir o projeto.');
+                }
+            }
+        }
+
+        // Ação de Editar
+        if (target.classList.contains('edit-btn')) {
+            try {
+                const response = await fetch(`${apiUrlProjetos}/${id}`);
+                if (!response.ok) throw new Error('Projeto não encontrado.');
+                const projeto = await response.json();
+
+                // Preenche o formulário com os dados do projeto
+                projetoIdInput.value = projeto.id;
+                nomeInput.value = projeto.nome;
+                descricaoInput.value = projeto.descricao;
+                imagemUrlInput.value = projeto.imagem_url;
+                linkSiteInput.value = projeto.link_site;
+                linkRepositorioInput.value = projeto.link_repositorio;
+                contatoCoordenadorInput.value = projeto.contato_coordenador;
+                esporteSelect.value = projeto.esporte_id;
+
+                submitButton.textContent = 'Atualizar Projeto';
+                cancelEditButton.style.display = 'inline-block';
+                window.scrollTo(0, 0); // Rola a página para o topo
+
+            } catch (error) {
+                console.error('Erro ao buscar para edição:', error);
+                alert('Não foi possível carregar os dados para edição.');
+            }
+        }
+    });
+
+    function resetarFormulario() {
+        form.reset();
+        projetoIdInput.value = '';
+        submitButton.textContent = 'Adicionar Projeto';
+        cancelEditButton.style.display = 'none';
     }
+
+    cancelEditButton.addEventListener('click', resetarFormulario);
+    
+    logoutButton.addEventListener('click', () => {
+        localStorage.removeItem('authToken');
+        window.location.href = 'login.html';
+    });
 });
