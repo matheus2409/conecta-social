@@ -1,27 +1,19 @@
-// backend/routes/projetos.js (Atualizado)
-
 const express = require('express');
 const router = express.Router();
 const supabase = require('../db');
-const authMiddleware = require('../middleware/auth');
+const authMiddleware = require('../middleware/auth'); // Importar o middleware
 
-// Rota para obter todos os projetos (GET /api/projetos)
-router.get('/', async (req, res) => {
-    try {
-        const { data, error } = await supabase.from('projetos').select('*');
+// Rota pública - OK
+router.get('/', async (req, res) => { /* ... */ });
 
-        if (error) {
-            // Se o Supabase retornar um erro, nós o lançamos para o bloco catch
-            throw new Error(error.message);
-        }
+// Rota para adicionar - PRECISA DE PROTEÇÃO
+router.post('/', authMiddleware, async (req, res) => { // <--- ADICIONADO
+    // ... (o resto do seu código)
+});
 
-        res.status(200).json(data);
-
-    } catch (err) {
-        // Captura qualquer erro (do Supabase ou inesperado)
-        console.error('Erro ao buscar projetos:', err.message);
-        res.status(500).json({ error: 'Ocorreu um erro no servidor ao buscar os projetos.' });
-    }
+// Crie também as rotas de DELETE e PUT/PATCH e proteja-as
+router.delete('/:id', authMiddleware, async (req, res) => { // <--- ADICIONADO
+    // Lógica para apagar
 });
 
 // Rota para adicionar um novo projeto (POST /api/projetos)

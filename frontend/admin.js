@@ -1,7 +1,14 @@
 // frontend/admin.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Verifica se o usuário está logado
+    const API_BASE_URL = 'http://localhost:3000/api'; // <--- Centralize aqui
+    const apiUrlProjetos = `${API_BASE_URL}/projetos`; // Use a variável
+    const apiUrlEsportes = `${API_BASE_URL}/esportes`; // Use a variável
+    // ... o resto do código usa estas variáveis
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Verifica se o usuário está autenticado
     const token = localStorage.getItem('authToken');
     if (!token) {
         window.location.href = 'login.html';
