@@ -1,6 +1,7 @@
 const express = require('express');
 const { supabase } = require('../db');
 const router = express.Router();
+const authMiddleware = require('../middleware/auth');
 
 // Rota para criar um novo feedback
 router.post('/', async (req, res) => {

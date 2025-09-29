@@ -1,28 +1,33 @@
+// backend/routes/auth.js (Atualizado)
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs'); // <-- Importar
 const router = express.Router();
+require('dotenv').config();
 
-// Rota de Login
-router.post('/login', (req, res) => {
-    const { username, password } = req.body;
+router.post('/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
 
-    // Pega as credenciais do arquivo .env
-    const adminUser = process.env.ADMIN_USER;
-    const adminPass = process.env.ADMIN_PASS;
-    const jwtSecret = process.env.JWT_SECRET;
+        // Compara o username (continua em texto puro, o que é normal)
+        const isUserValid = username === process.env.ADMIN_USER;
 
-    if (!username || !password) {
-        return res.status(400).json({ error: 'Usuário e senha são obrigatórios.' });
+        // Compara a senha enviada com o HASH armazenado de forma segura
+        const isPasswordValid = await bcrypt.compare(password, process.env.ADMIN_PASS);
+
+        if (isUserValid && isPasswordValid) {
+            // Se ambos forem válidos, gera o token
+            const token = jwt.sign({ user: username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            return res.json({ token });
+        }
+
+        // Mensagem de erro genérica por segurança
+        res.status(401).json({ error: 'Credenciais inválidas' });
+
+    } catch (err) {
+        console.error("Erro no login:", err);
+        res.status(500).json({ error: 'Erro interno do servidor.' });
     }
-
-    // Verifica se as credenciais estão corretas
-    if (username === adminUser && password === adminPass) {
-        // Gera o token JWT
-        const token = jwt.sign({ username: adminUser }, jwtSecret, { expiresIn: '8h' }); // Token expira em 8 horas
-        return res.json({ token });
-    }
-
-    return res.status(401).json({ error: 'Credenciais inválidas.' });
 });
 
 module.exports = router;

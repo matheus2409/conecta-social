@@ -1,302 +1,118 @@
-/* --- Reset Básico e Configuração da Fonte (Mantido do teu ficheiro) --- */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+/* =================================================== */
+/* --- Layout em Grade para a Página de Esportes --- */
+/* =================================================== */
 
-:root {
-    --cor-fundo-principal: #121212;
-    --cor-fundo-secundario: #1a1a1a;
-    --cor-texto-principal: #EAEAEA;
-    --cor-texto-secundario: #B0B0B0;
-    --cor-destaque: #FFFFFF;
-    --cor-link: #8A2BE2; 
-    --cor-botao-primario: #8A2BE2;
-    --cor-botao-primario-hover: #9933FF;
-    --cor-borda: #333;
-}
-
-body {
-    background-color: var(--cor-fundo-principal);
-    color: var(--cor-texto-principal);
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    line-height: 1.6;
-}
-
-a {
-    color: var(--cor-link);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: var(--cor-botao-primario-hover);
-}
-
-.container-fluido {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-}
-
-/* --- Cabeçalho e Rodapé (Mantidos) --- */
-header.cabecalho-principal, footer.rodape-principal {
-    padding: 2.5rem 0;
-    text-align: center;
-    background-color: var(--cor-fundo-secundario);
-    border-bottom: 1px solid var(--cor-borda);
-}
-
-header.cabecalho-principal h1 {
-    font-size: 3rem;
-    margin: 0;
-}
-
-header.cabecalho-principal p {
-    font-size: 1.2rem;
-    max-width: 700px;
-    margin: 0.8rem auto 0;
-    color: var(--cor-texto-secundario);
-}
-
-footer.rodape-principal {
-    margin-top: 4rem;
-    border-top: 1px solid var(--cor-borda);
-    border-bottom: none;
-}
-
-/* --- NOVO: Layout dos Controles de Busca --- */
-.controles-busca {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--cor-borda);
-}
-
-.form-busca-estilo {
-    display: flex;
-    flex-grow: 1;
-    gap: 0.5rem;
-    max-width: 600px;
-}
-
-.input-busca-estilo {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    border: 1px solid var(--cor-borda);
-    border-radius: 8px;
-    background-color: #2c2c2c;
-    color: var(--cor-texto-principal);
-    font-size: 1rem;
-    font-family: 'Montserrat', sans-serif;
-    transition: all 0.3s ease;
-}
-
-.input-busca-estilo:focus {
-    outline: none;
-    border-color: var(--cor-link);
-    box-shadow: 0 0 0 4px rgba(138, 43, 226, 0.2);
-}
-
-.btn-estilo {
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    background-color: var(--cor-botao-primario);
-    color: white;
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    white-space: nowrap;
-}
-
-.btn-estilo:hover {
-    background-color: var(--cor-botao-primario-hover);
-}
-
-.btn-secundario {
-    background-color: #333;
-}
-.btn-secundario:hover {
-    background-color: #444;
-}
-
-/* --- NOVO: Layout da Grelha e dos Cards de Projeto --- */
-.grid-projetos {
+/* 1. O container principal que organiza todos os cards */
+.esportes-grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    padding-top: 2rem;
+    /* Cria colunas que se ajustam ao tamanho do ecrã */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; /* Espaçamento entre os cards */
+    padding: 20px 0;
 }
 
-.mensagem-carregamento {
-    grid-column: 1 / -1;
-    text-align: center;
-    font-size: 1.2rem;
-    color: var(--cor-texto-secundario);
-    padding: 3rem;
-}
-
-.card-projeto {
-    display: flex; /* Usamos flexbox para alinhar o conteúdo */
+/* 2. Estilo base para CADA card de notícia */
+.card-esporte {
+    /* Manteve a sua cor de fundo original, apenas adicionei sombra e bordas */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden; 
+    display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Alinha o conteúdo na base do card */
-    position: relative;
-    height: 400px;
-    overflow: hidden;
-    border-radius: 12px;
-    background-color: var(--cor-fundo-secundario);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card-projeto:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+.card-esporte:hover {
+    transform: translateY(-5px); /* Efeito de "levantar" o card */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.card-projeto img {
-    position: absolute;
-    top: 0;
-    left: 0;
+/* 3. A imagem dentro do card */
+.card-esporte-imagem img {
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* Garante que a imagem cubra todo o card */
-    z-index: 1;
-    transition: transform 0.5s ease;
+    height: 200px;
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+    display: block;
 }
 
-.card-projeto:hover img {
-    transform: scale(1.05); /* Efeito de zoom subtil */
+/* 4. A área de texto do card */
+.card-esporte-conteudo {
+    padding: 20px;
+    flex-grow: 1; /* Faz esta área crescer para ocupar o espaço vazio */
+    display: flex;
+    flex-direction: column;
 }
 
-.card-conteudo {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    padding: 1.5rem;
-    color: white;
-    /* Gradiente para garantir que o texto seja legível sobre a imagem */
-    background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, rgba(0,0,0,0.7) 50%, transparent);
-    box-sizing: border-box; 
-}
-
-.card-conteudo .categoria {
-    display: inline-block;
-    padding: 0.4rem 0.8rem;
-    background-color: var(--cor-link);
-    border-radius: 6px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    margin-bottom: 0.75rem;
-    text-transform: uppercase;
-    color: white;
-}
-
-.card-conteudo .titulo {
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin: 0;
-    line-height: 1.3;
-    color: var(--cor-destaque);
-}
-
-/* --- Responsividade --- */
-@media (max-width: 768px) {
-    .cabecalho-principal h1 { font-size: 2.5rem; }
-    .controles-busca { flex-direction: column; }
-    .grid-projetos { grid-template-columns: 1fr; }
-}
-/* --- ADICIONAR ESTAS REGRAS AO FINAL DO SEU STYLE.CSS --- */
-
-/* --- Layout da Página de Detalhes do Projeto --- */
-.detalhe-container {
-    max-width: 900px;
-    margin: 4rem auto;
-    background-color: var(--cor-fundo-secundario);
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--cor-borda);
-}
-
-.detalhe-header img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-}
-
-.detalhe-conteudo {
-    padding: 2rem 2.5rem;
-}
-
-.detalhe-conteudo h1 {
-    font-size: 2.8rem;
-    font-weight: 700;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-}
-
-.detalhe-conteudo .categoria-tag {
-    display: inline-block;
-    padding: 0.4rem 0.9rem;
-    background-color: var(--cor-primaria);
-    color: white;
+/* 5. A "etiqueta" da categoria */
+.card-esporte-categoria {
+    /* Sem cor de fundo, para usar a que você já definiu */
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 10px;
     border-radius: 20px;
+    margin-bottom: 15px;
+    align-self: flex-start;
+    text-transform: uppercase;
+}
+
+/* 6. O título da notícia */
+.card-esporte-titulo {
+    font-size: 1.25rem;
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+}
+
+/* 7. O resumo da notícia */
+.card-esporte-resumo {
     font-size: 0.9rem;
-    font-weight: 500;
-    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex-grow: 1;
+    margin-bottom: 15px;
 }
-/* Bloco */
+
+/* 8. O link "Leia Mais" */
+.card-esporte-link {
+    text-decoration: none;
+    font-weight: bold;
+    align-self: flex-end; /* Joga o link para o canto direito */
+}
+
+.card-esporte-link:hover {
+    text-decoration: underline;
+}
+
+/* 9. A regra especial para o card de DESTAQUE */
+.card-destaque {
+    grid-column: span 2; /* Faz o card ocupar o espaço de 2 colunas */
+    grid-row: span 2;    /* Faz o card ocupar o espaço de 2 linhas */
+}
+/* Pode manter isto para um efeito extra, se gostar */
 .card {
-  border: 1px solid #ccc;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Elemento dentro do Bloco */
-.card__title {
-  font-size: 1.5em;
-  color: #333;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important; /* !important para sobrescrever o Bootstrap */
 }
 
-/* Modificador do Bloco */
-.card--featured {
-  border-color: blue;
-}
-.info-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    color: var(--cor-texto-secundario);
-    border-left: 3px solid var(--cor-primaria);
-    padding-left: 1rem;
+/* A imagem do card de destaque será maior */
+.card-destaque .card-esporte-imagem img {
+    height: 400px;
 }
 
-.info-item strong {
-    color: var(--cor-texto-principal);
-    font-weight: 500;
+/* --- Ajustes para Telemóveis e Tablets --- */
+@media (max-width: 992px) {
+    /* Em ecrãs médios, o destaque ocupa a largura total mas não afeta a altura */
+    .card-destaque {
+        grid-column: 1 / -1;
+        grid-row: auto;
+    }
 }
 
-.descricao-completa {
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--cor-borda);
-    line-height: 1.8;
-}
-/* Estilos para a página de login */
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f8f9fa;
-}
-.login-box {
-    padding: 2rem;
-    background: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 400px;
+@media (max-width: 768px) {
+    /* Em telemóveis, tudo vira uma única coluna */
+    .esportes-grid-container {
+        grid-template-columns: 1fr;
+    }
 }

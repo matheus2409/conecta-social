@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const supabase = require('../db');
+const authMiddleware = require('../middleware/auth');
 
 // Rota para obter todos os projetos (GET /api/projetos)
 router.get('/', async (req, res) => {
