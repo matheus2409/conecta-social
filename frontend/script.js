@@ -1,109 +1,62 @@
-import { getProjetos } from './apiService.js';
+// frontend/script.js (Atualizado)
 
 document.addEventListener('DOMContentLoaded', () => {
-    // ... (restante do seu código, se houver)
-
     const projetosContainer = document.getElementById('projetos-container');
-    const loadingSpinner = document.getElementById('loading-spinner');
-    const paginacaoContainer = document.getElementById('paginacao');
-    const buscaInput = document.getElementById('busca');
-    const filtroCategoria = document.getElementById('filtro-categoria');
-    const btnLimpar = document.getElementById('btn-limpar-filtros');
+    const loadingIndicator = document.getElementById('loading');
 
-    let paginaAtual = 1;
-
-    function toggleSpinner(show) {
-        loadingSpinner.style.display = show ? 'flex' : 'none';
-        if (show) {
-            projetosContainer.innerHTML = ''; // Limpa o container ao carregar
-        }
-    }
-    
-    async function carregarProjetos() {
-        toggleSpinner(true);
-        const termoBusca = buscaInput.value.trim();
-        const categoria = filtroCategoria.value;
+    const carregarProjetos = async () => {
+        // 1. Mostra o indicador de carregamento e limpa o container
+        loadingIndicator.style.display = 'block';
+        projetosContainer.innerHTML = '';
 
         try {
-            const data = await getProjetos(paginaAtual, termoBusca, categoria);
-            
-            if (data.projetos && data.projetos.length > 0) {
-                projetosContainer.innerHTML = ''; // Limpa o spinner
-                data.projetos.forEach(projeto => {
-                    const card = `
-                        <div class="col-md-4 mb-4">
-                            <div class="card h-100 shadow-sm">
-                                <img src="${projeto.imagem_url || 'https://via.placeholder.com/300x200?text=Sem+Imagem'}" class="card-img-top" alt="${projeto.titulo}">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title">${projeto.titulo}</h5>
-                                    <p class="card-text flex-grow-1">${projeto.descricao.substring(0, 100)}...</p>
-                                    <a href="projeto.html?id=${projeto.id}" class="btn btn-primary mt-auto">Saiba Mais</a>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    projetosContainer.innerHTML += card;
-                });
-                renderizarPaginacao(data.totalDePaginas, data.paginaAtual);
-            } else {
-                projetosContainer.innerHTML = '<p class="col-12 text-center">Nenhum projeto encontrado.</p>';
-                paginacaoContainer.innerHTML = '';
+            // 2. Faz a requisição à API
+            const response = await fetch('http://localhost:3000/api/projetos'); // Garanta que esta URL está correta
+
+            // 3. Verifica se a resposta da API foi bem-sucedida
+            if (!response.ok) {
+                // Se não foi, lança um erro para ser capturado pelo bloco catch
+                throw new Error(`Erro na rede: ${response.statusText}`);
             }
+
+            const projetos = await response.json();
+
+            // 4. Verifica se há projetos para exibir
+            if (projetos.length === 0) {
+                projetosContainer.innerHTML = '<p>Ainda não há projetos para exibir. Seja o primeiro a adicionar um!</p>';
+            } else {
+                // 5. Cria e adiciona os cards de projeto ao container
+                projetos.forEach(projeto => {
+                    const projetoCard = document.createElement('div');
+                    projetoCard.className = 'projeto-card'; // Use esta classe para estilizar no CSS
+
+                    projetoCard.innerHTML = `
+                        <h3>${projeto.nome}</h3>
+                        <p>${projeto.descricao}</p>
+                        ${projeto.link ? `<a href="${projeto.link}" target="_blank" rel="noopener noreferrer">Ver Projeto</a>` : ''}
+                    `;
+                    // O `target="_blank"` abre o link numa nova aba
+                    // O `rel="noopener noreferrer"` é uma boa prática de segurança
+
+                    projetosContainer.appendChild(projetoCard);
+                });
+            }
+
         } catch (error) {
-            console.error('Erro ao carregar projetos:', error);
-            projetosContainer.innerHTML = `<p class="col-12 text-center text-danger">Erro ao carregar os projetos: ${error.message}</p>`;
+            // 6. Se ocorrer qualquer erro, exibe uma mensagem amigável
+            console.error('Falha ao carregar projetos:', error);
+            projetosContainer.innerHTML = `
+                <div class="error-message">
+                    <p>Oops! Não foi possível carregar os projetos.</p>
+                    <p>Por favor, tente recarregar a página mais tarde.</p>
+                </div>
+            `;
         } finally {
-            toggleSpinner(false);
+            // 7. Ao final de tudo (sucesso ou erro), esconde o indicador de carregamento
+            loadingIndicator.style.display = 'none';
         }
-    }
+    };
 
-    function renderizarPaginacao(totalDePaginas, pagina) {
-        paginacaoContainer.innerHTML = '';
-        if (totalDePaginas <= 1) return;
-
-        // Botão "Anterior"
-        const prevDisabled = pagina <= 1 ? 'disabled' : '';
-        paginacaoContainer.innerHTML += `<li class="page-item ${prevDisabled}"><a class="page-link" href="#" data-pagina="${pagina - 1}">Anterior</a></li>`;
-
-        // Botões das páginas
-        for (let i = 1; i <= totalDePaginas; i++) {
-            const active = i === pagina ? 'active' : '';
-            paginacaoContainer.innerHTML += `<li class="page-item ${active}"><a class="page-link" href="#" data-pagina="${i}">${i}</a></li>`;
-        }
-
-        // Botão "Próximo"
-        const nextDisabled = pagina >= totalDePaginas ? 'disabled' : '';
-        paginacaoContainer.innerHTML += `<li class="page-item ${nextDisabled}"><a class="page-link" href="#" data-pagina="${pagina + 1}">Próximo</a></li>`;
-    }
-
-    // Event Listeners
-    buscaInput.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-            paginaAtual = 1;
-            carregarProjetos();
-        }
-    });
-
-    filtroCategoria.addEventListener('change', () => {
-        paginaAtual = 1;
-        carregarProjetos();
-    });
-    
-    btnLimpar.addEventListener('click', () => {
-        buscaInput.value = '';
-        filtroCategoria.value = '';
-        paginaAtual = 1;
-        carregarProjetos();
-    });
-
-    paginacaoContainer.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = e.target;
-        if (target.tagName === 'A' && !target.parentElement.classList.contains('disabled')) {
-            paginaAtual = parseInt(target.dataset.pagina);
-            carregarProjetos();
-        }
-    });
-
+    // Chama a função para carregar os projetos assim que a página estiver pronta
     carregarProjetos();
 });

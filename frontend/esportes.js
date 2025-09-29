@@ -1,37 +1,46 @@
 // frontend/esportes.js
+
 document.addEventListener('DOMContentLoaded', () => {
     const esportesContainer = document.getElementById('esportes-container');
-    // Mude a URL da API para a URL do seu deploy da Vercel quando publicar
-    const apiUrl = 'http://localhost:3001/api/esportes'; 
+    const loadingIndicator = document.getElementById('loading');
 
-    async function carregarEsportes() {
+    const carregarEsportes = async () => {
+        loadingIndicator.style.display = 'block';
+        esportesContainer.innerHTML = '';
+
         try {
-            const response = await fetch(apiUrl);
-            if (!response.ok) throw new Error('Erro ao carregar esportes.');
-            const esportes = await response.json();
+            const response = await fetch('http://localhost:3000/api/esportes');
 
-            esportesContainer.innerHTML = ''; 
-
-            if (esportes.length === 0) {
-                esportesContainer.innerHTML = '<p>Nenhum esporte cadastrado.</p>';
-                return;
+            if (!response.ok) {
+                throw new Error('Erro ao buscar dados de esportes.');
             }
 
-            esportes.forEach(esporte => {
-                const card = document.createElement('a'); // MUDAMOS PARA <a>
-                card.href = `esporte-detalhe.html?id=${esporte.id}`; // Link para a página de detalhes
-                card.className = 'card';
-                card.innerHTML = `
-                    <img src="${esporte.imagem_url || 'placeholder.jpg'}" alt="Imagem de ${esporte.nome}">
-                    <h3>${esporte.nome}</h3>
-                `;
-                esportesContainer.appendChild(card);
-            });
+            const esportes = await response.json();
+
+            if (esportes.length === 0) {
+                esportesContainer.innerHTML = '<p>Nenhum conteúdo de esporte disponível no momento.</p>';
+            } else {
+                esportes.forEach(item => {
+                    const esporteCard = document.createElement('div');
+                    esporteCard.className = 'esporte-card'; // Estilize esta classe no seu CSS
+
+                    // Exemplo de como montar o card. Ajuste com os nomes das suas colunas no Supabase
+                    esporteCard.innerHTML = `
+                        <img src="${item.imagem_url || 'placeholder.jpg'}" alt="Imagem de ${item.titulo}">
+                        <h3>${item.titulo}</h3>
+                        <p>${item.resumo}</p>
+                        <a href="esporte-detalhe.html?id=${item.id}">Ler Mais</a>
+                    `;
+                    esportesContainer.appendChild(esporteCard);
+                });
+            }
         } catch (error) {
-            console.error('Erro:', error);
-            esportesContainer.innerHTML = '<p>Não foi possível carregar os esportes.</p>';
+            console.error('Falha ao carregar esportes:', error);
+            esportesContainer.innerHTML = '<p class="error-message">Não foi possível carregar o conteúdo.</p>';
+        } finally {
+            loadingIndicator.style.display = 'none';
         }
-    }
+    };
 
     carregarEsportes();
 });
