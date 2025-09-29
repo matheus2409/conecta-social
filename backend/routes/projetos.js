@@ -1,47 +1,54 @@
+// backend/routes/projetos.js (Atualizado e Seguro)
+
 const express = require('express');
 const router = express.Router();
 const supabase = require('../db');
-const authMiddleware = require('../middleware/auth'); // Importar o middleware
+const authMiddleware = require('../middleware/auth'); // 1. Importamos o nosso guarda-costas
 
-// Rota pública - OK
-router.get('/', async (req, res) => { /* ... */ });
-
-// Rota para adicionar - PRECISA DE PROTEÇÃO
-router.post('/', authMiddleware, async (req, res) => { // <--- ADICIONADO
-    // ... (o resto do seu código)
+// Rota PÚBLICA para obter todos os projetos (qualquer pessoa pode ver)
+router.get('/', async (req, res) => {
+    try {
+        const { data, error } = await supabase.from('projetos').select('*');
+        if (error) throw error;
+        res.status(200).json(data);
+    } catch (err) {
+        console.error('Erro ao buscar projetos:', err.message);
+        res.status(500).json({ error: 'Ocorreu um erro no servidor.' });
+    }
 });
 
-// Crie também as rotas de DELETE e PUT/PATCH e proteja-as
-router.delete('/:id', authMiddleware, async (req, res) => { // <--- ADICIONADO
-    // Lógica para apagar
-});
-
-// Rota para adicionar um novo projeto (POST /api/projetos)
-router.post('/', async (req, res) => {
+// Rota PRIVADA para adicionar um novo projeto (só com token válido)
+router.post('/', authMiddleware, async (req, res) => { // 2. Adicionamos o guarda-costas à rota
     try {
         const { nome, descricao, link } = req.body;
-
-        // Validação simples dos dados recebidos
         if (!nome || !descricao) {
             return res.status(400).json({ error: 'Nome e descrição são campos obrigatórios.' });
         }
-
         const { data, error } = await supabase
             .from('projetos')
             .insert([{ nome, descricao, link }])
-            .select(); // O .select() faz com que o Supabase retorne o objeto inserido
-
-        if (error) {
-            throw new Error(error.message);
-        }
-
-        // Retorna o projeto recém-criado com status 201 (Created)
+            .select();
+        if (error) throw error;
         res.status(201).json(data[0]);
-
     } catch (err) {
         console.error('Erro ao adicionar projeto:', err.message);
-        res.status(500).json({ error: 'Ocorreu um erro no servidor ao adicionar o projeto.' });
+        res.status(500).json({ error: 'Ocorreu um erro no servidor.' });
     }
 });
+
+// Rota PRIVADA para apagar um projeto
+router.delete('/:id', authMiddleware, async (req, res) => { // 3. Protegemos também a rota de apagar
+    try {
+        const { id } = req.params;
+        const { error } = await supabase.from('projetos').delete().eq('id', id);
+        if (error) throw error;
+        res.status(200).json({ message: 'Projeto apagado com sucesso!' });
+    } catch (err) {
+        console.error('Erro ao apagar projeto:', err.message);
+        res.status(500).json({ error: 'Ocorreu um erro no servidor.' });
+    }
+});
+
+// Adicione aqui as suas rotas de ATUALIZAR (PUT) e proteja-as da mesma forma.
 
 module.exports = router;

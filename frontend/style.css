@@ -1,21 +1,176 @@
-/* Pode manter isto para um efeito extra, se gostar */
+/* ============================================= */
+/* --- Estilos Globais e da Página Principal --- */
+/* ============================================= */
+
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header .logo {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+nav ul {
+    padding: 0;
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #333;
+    color: #fff;
+    margin-top: 40px;
+}
+
+/* ============================================= */
+/* --- Estilos dos Cards de Projeto (Público) --- */
+/* ============================================= */
+.projetos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.projeto-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.projeto-card h3 {
+    margin-top: 0;
+}
+
+.projeto-card a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* ============================================= */
+/* --- Estilos da Página de Login --- */
+/* ============================================= */
+
+.login-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-button:hover {
+    background: #0056b3;
+}
+
+#login-error {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+/* ============================================= */
+/* --- Indicador de Carregamento e Mensagens --- */
+/* ============================================= */
+.loading-indicator {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2rem;
+}
+
+.error-message {
+    text-align: center;
+    color: #d9534f;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+
+/* =================================================== */
+/* --- Personalizações para Bootstrap (Página Esportes) --- */
+/* =================================================== */
+
+/* Adiciona um efeito de "levantar" e uma sombra mais pronunciada
+   ao passar o rato por cima dos cards do Bootstrap.
+   O `!important` é para garantir que o nosso estilo
+   seja mais forte que o padrão do Bootstrap. */
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
-}
-
-/* --- Ajustes para Telemóveis e Tablets --- */
-@media (max-width: 992px) {
-    /* Em ecrãs médios, o destaque ocupa a largura total mas não afeta a altura */
-    .card-destaque {
-        grid-column: 1 / -1;
-        grid-row: auto;
-    }
-}
-
-@media (max-width: 768px) {
-    /* Em telemóveis, tudo vira uma única coluna */
-    .esportes-grid-container {
-        grid-template-columns: 1fr;
-    }
 }
