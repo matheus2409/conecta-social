@@ -50,5 +50,39 @@ router.delete('/:id', authMiddleware, async (req, res) => { // 3. Protegemos tam
 });
 
 // Adicione aqui as suas rotas de ATUALIZAR (PUT) e proteja-as da mesma forma.
+// Adicione este código em: backend/routes/projetos.js
+
+// Rota PRIVADA para atualizar um projeto (PUT /api/projetos/:id)
+router.put('/:id', authMiddleware, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { nome, descricao, link } = req.body;
+
+        // Validação para garantir que os campos necessários foram enviados
+        if (!nome || !descricao) {
+            return res.status(400).json({ error: 'Nome e descrição são campos obrigatórios.' });
+        }
+
+        const { data, error } = await supabase
+            .from('projetos')
+            .update({ nome, descricao, link })
+            .eq('id', id)
+            .select();
+
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        if (!data || data.length === 0) {
+            return res.status(404).json({ error: 'Projeto não encontrado.' });
+        }
+
+        res.status(200).json(data[0]);
+
+    } catch (err) {
+        console.error('Erro ao atualizar projeto:', err.message);
+        res.status(500).json({ error: 'Ocorreu um erro no servidor ao atualizar o projeto.' });
+    }
+});
 
 module.exports = router;

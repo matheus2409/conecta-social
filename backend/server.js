@@ -1,4 +1,4 @@
-// backend/server.js
+// backend/server.js (Atualizado)
 
 const express = require('express');
 const cors = require('cors');
@@ -12,17 +12,17 @@ const esportesRoutes = require('./routes/esportes');
 
 const app = express();
 
-// --- Início da Configuração do CORS ---
+// --- Início da Configuração do CORS Mais Segura ---
 // Lista de endereços que podem aceder à sua API
 const whitelist = ['http://127.0.0.1:5500', 'http://localhost:5500'];
 const corsOptions = {
   origin: function (origin, callback) {
-    // Permite pedidos da mesma origem (se o frontend e backend estiverem no mesmo domínio)
-    // ou se a origem estiver na nossa lista de permissões (whitelist)
+    // Permite pedidos se a origem estiver na nossa lista de permissões (whitelist)
+    // ou se não houver origem (ex: pedidos do mesmo servidor ou de ferramentas como o Postman)
     if (!origin || whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      callback(new Error('Acesso negado pelo CORS'));
+      callback(new Error('Acesso negado pela política de CORS'));
     }
   },
 };
@@ -30,7 +30,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 // --- Fim da Configuração do CORS ---
 
-// Middleware para permitir que o servidor entenda JSON nas requisições
+// Middleware para permitir que o servidor entenda JSON
 app.use(express.json());
 
 // Definição das Rotas da API

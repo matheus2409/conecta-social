@@ -1,62 +1,83 @@
 // frontend/editar-projeto.js
-import { getProjetoPorId, atualizarProjeto } from './apiService.js';
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const projetoId = urlParams.get('id');
-    const form = document.getElementById('edit-form');
-    const submitButton = form.querySelector('button[type="submit"]');
-
-    if (!projetoId) {
-        alert('ID do projeto não fornecido!');
-        window.location.href = 'gerenciar.html';
+document.addEventListener('DOMContentLoaded', () => {
+    // Proteção de rota: se não houver token, volta para o login
+    if (!localStorage.getItem('authToken')) {
+        window.location.href = 'login.html';
         return;
     }
 
-    try {
-        // Busca os dados do projeto usando a função do apiService
-        const projeto = await getProjetoPorId(projetoId);
-        
-        // Preenche o formulário com os dados do projeto
-        document.getElementById('titulo').value = projeto.titulo;
-        document.getElementById('descricao').value = projeto.descricao;
-        document.getElementById('imagem_url').value = projeto.imagem_url;
-        document.getElementById('localizacao').value = projeto.localizacao;
-        document.getElementById('categoria').value = projeto.categoria;
+    // Pega os elementos do formulário
+    const form = document.getElementById('edit-projeto-form');
+    const projetoIdInput = document.getElementById('projeto-id');
+    const nomeInput = document.getElementById('nome');
+    const descricaoInput = document.getElementById('descricao');
+    const linkInput = document.getElementById('link');
+    const feedbackMessage = document.getElementById('feedback-message');
 
-    } catch (error) {
-        console.error('Erro ao buscar dados do projeto:', error);
-        alert(`Não foi possível carregar os dados do projeto: ${error.message}`);
-        window.location.href = 'gerenciar.html';
+    // Extrai o ID do projeto da URL da página
+    const urlParams = new URLSearchParams(window.location.search);
+    const projetoId = urlParams.get('id');
+
+    // Se não houver ID na URL, é um erro. Volta para a página de admin.
+    if (!projetoId) {
+        window.location.href = 'admin.html';
+        return;
     }
 
+    /**
+     * Busca os dados do projeto específico e preenche o formulário.
+     */
+    async function carregarDadosDoProjeto() {
+        try {
+            // Nota: Precisamos de uma rota no backend para buscar UM projeto por ID.
+            // Vamos usar a rota de buscar todos e filtrar por enquanto.
+            const projetos = await fetchFromAPI('/projetos');
+            const projeto = projetos.find(p => p.id == projetoId);
+
+            if (projeto) {
+                projetoIdInput.value = projeto.id;
+                nomeInput.value = projeto.nome;
+                descricaoInput.value = projeto.descricao;
+                linkInput.value = projeto.link || '';
+            } else {
+                throw new Error('Projeto não encontrado.');
+            }
+        } catch (error) {
+            feedbackMessage.innerHTML = `<div class="alert alert-danger">Erro ao carregar dados do projeto: ${error.message}</div>`;
+        }
+    }
+
+    /**
+     * Lida com o envio do formulário de edição.
+     */
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        submitButton.disabled = true;
-        submitButton.textContent = 'Salvando...';
 
         const projetoAtualizado = {
-            titulo: document.getElementById('titulo').value,
-            descricao: document.getElementById('descricao').value,
-            imagem_url: document.getElementById('imagem_url').value,
-            localizacao: document.getElementById('localizacao').value,
-            categoria: document.getElementById('categoria').value,
+            nome: nomeInput.value,
+            descricao: descricaoInput.value,
+            link: linkInput.value,
         };
 
         try {
-            // Atualiza o projeto usando a função do apiService
-            await atualizarProjeto(projetoId, projetoAtualizado);
+            await fetchFromAPI(`/projetos/${projetoId}`, {
+                method: 'PUT',
+                body: JSON.stringify(projetoAtualizado),
+            });
             
-            alert('Projeto atualizado com sucesso!');
-            window.location.href = 'gerenciar.html';
+            feedbackMessage.innerHTML = `<div class="alert alert-success">Projeto atualizado com sucesso! A redirecionar...</div>`;
+
+            // Espera 2 segundos e redireciona de volta para a página de admin
+            setTimeout(() => {
+                window.location.href = 'admin.html';
+            }, 2000);
 
         } catch (error) {
-            console.error('Erro ao atualizar o projeto:', error);
-            alert(`Erro ao atualizar o projeto: ${error.message}`);
-        } finally {
-            submitButton.disabled = false;
-            submitButton.textContent = 'Salvar Alterações';
+            feedbackMessage.innerHTML = `<div class="alert alert-danger">Erro ao salvar as alterações: ${error.message}</div>`;
         }
     });
+
+    // Inicia o processo carregando os dados do projeto
+    carregarDadosDoProjeto();
 });
