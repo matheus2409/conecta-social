@@ -61,11 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Ação de Editar (a implementar)
+        // Ação de Editar (AGORA FUNCIONAL)
         if (target.classList.contains('edit-btn')) {
-            // Aqui vamos adicionar a lógica para edição no próximo passo!
-            alert(`Funcionalidade de editar o projeto com ID: ${id} a ser implementada.`);
-            // window.location.href = `editar-projeto.html?id=${id}`;
+            // Redireciona para a página de edição, passando o ID do projeto na URL
+            window.location.href = `editar-projeto.html?id=${id}`;
         }
     });
     
