@@ -52,11 +52,11 @@ Antes de começar, certifique-se de que você tem as seguintes ferramentas insta
     ```bash
     node server.js
     ```
-    O servidor estará rodando em `http://localhost:3000`.
+    O servidor estará rodando em `http://localhost:3001`.
 
 6.  **Acesse a aplicação:**
     Abra o seu navegador e acesse a URL abaixo para ver o projeto em funcionamento:
-    [http://localhost:3000](http://localhost:3000)
+    [http://localhost:3001](http://localhost:3001)
 
     *Observação: O frontend é construído com HTML, CSS e JavaScript puros, portanto, não requer um passo de compilação ou instalação de dependências.*
 

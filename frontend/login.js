@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
     const errorMessage = document.getElementById('error-message');
     
-    // URL da sua API de autenticação
+    // URL da sua API de autenticação (ajustada para a porta do backend)
     const apiUrl = 'http://localhost:3001/api/auth/login';
 
     loginForm.addEventListener('submit', async (e) => {

@@ -30,10 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     async function carregarDadosDoProjeto() {
         try {
-            // Nota: Precisamos de uma rota no backend para buscar UM projeto por ID.
-            // Vamos usar a rota de buscar todos e filtrar por enquanto.
-            const projetos = await fetchFromAPI('/projetos');
-            const projeto = projetos.find(p => p.id == projetoId);
+            // Usa rota específica para obter um único projeto por ID
+            const projeto = await fetchFromAPI(`/projetos/${projetoId}`);
 
             if (projeto) {
                 projetoIdInput.value = projeto.id;
@@ -44,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Projeto não encontrado.');
             }
         } catch (error) {
+            // Se o erro for de autenticação, o fetchFromAPI já redirecionou.
             feedbackMessage.innerHTML = `<div class="alert alert-danger">Erro ao carregar dados do projeto: ${error.message}</div>`;
         }
     }

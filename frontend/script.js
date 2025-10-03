@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // 2. Faz a requisição à API
-            const response = await fetch('http://localhost:3000/api/projetos'); // Garanta que esta URL está correta
+            const response = await fetch('http://localhost:3001/api/projetos'); // Garanta que esta URL está correta
 
             // 3. Verifica se a resposta da API foi bem-sucedida
             if (!response.ok) {
