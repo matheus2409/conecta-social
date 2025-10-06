@@ -1,6 +1,6 @@
-// backend/db.js (Atualizado com import/export)
-import { createClient } from '@supabase/supabase-js';
-import 'dotenv/config';
+// backend/db.js (Corrigido com CommonJS)
+const { createClient } = require('@supabase/supabase-js');
+require('dotenv').config();
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
@@ -12,4 +12,4 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export default supabase; // Usamos 'export default'
+module.exports = supabase; // Usamos 'module.exports'

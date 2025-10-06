@@ -1,13 +1,12 @@
-// backend/routes/auth.js (Atualizado com import/export)
-import express from 'express';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import 'dotenv/config'; // Forma de importar o dotenv para carregar as variáveis
+// backend/routes/auth.js (Corrigido com CommonJS)
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+require('dotenv').config();
 
 const router = express.Router();
 
 router.post('/login', async (req, res) => {
-    // ... (O resto da sua lógica de login continua igual)
     try {
         const { username, password } = req.body;
         const isUserValid = username === process.env.ADMIN_USER;
@@ -24,4 +23,4 @@ router.post('/login', async (req, res) => {
     }
 });
 
-export default router; // Usamos 'export default'
+module.exports = router; // Usamos 'module.exports'
