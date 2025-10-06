@@ -1,11 +1,8 @@
-// frontend/login.js
+// frontend/login.js (Corrigido)
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
     const errorMessage = document.getElementById('error-message');
-    
-    // URL da sua API de autenticação
-    const apiUrl = 'http://localhost:3001/api/auth/login';
 
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -15,22 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
 
         try {
-            const response = await fetch(apiUrl, {
+            // Usa a função centralizada para a chamada de login
+            const data = await fetchFromAPI('/auth/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
                 body: JSON.stringify({ username, password })
             });
 
-            const data = await response.json();
-
-            if (!response.ok) {
-                // Se a resposta não for 2xx, o erro vem do backend
-                throw new Error(data.error || 'Erro desconhecido');
-            }
-
-            // Se o login for bem-sucedido, data terá o token
             if (data.token) {
                 // Guarda o token no armazenamento local do navegador
                 localStorage.setItem('authToken', data.token);

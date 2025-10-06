@@ -1,29 +1,33 @@
-import { getProjetos, deletarProjeto } from './apiService.js';
+// frontend/gerenciar.js (Corrigido)
 
 document.addEventListener('DOMContentLoaded', () => {
-    const tabelaProjetosBody = document.getElementById('tabela-projetos-body');
+    // Proteção de rota
+    if (!localStorage.getItem('authToken')) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const tabelaProjetosBody = document.getElementById('lista-projetos'); // ID corrigido para corresponder ao HTML
     
     async function carregarProjetosParaGerenciar() {
         try {
-            tabelaProjetosBody.innerHTML = '<tr><td colspan="3" class="text-center">Carregando...</td></tr>';
+            tabelaProjetosBody.innerHTML = '<tr><td colspan="3" class="text-center">A carregar...</td></tr>';
             
-            // Aqui estamos buscando todos os projetos sem paginação para a área de admin
-            // Se a lista ficar muito grande, você pode implementar paginação aqui também.
-            const data = await getProjetos(1, '', ''); // Usando a mesma função, mas pegando a primeira página de todos
-            const projetos = data.projetos;
+            // Usa a função fetchFromAPI para buscar os projetos
+            const projetos = await fetchFromAPI('/projetos');
 
             tabelaProjetosBody.innerHTML = '';
 
             if (projetos.length === 0) {
-                tabelaProjetosBody.innerHTML = '<tr><td colspan="3" class="text-center">Nenhum projeto cadastrado.</td></tr>';
+                tabelaProjetosBody.innerHTML = '<tr><td colspan="3" class="text-center">Nenhum projeto registado.</td></tr>';
                 return;
             }
 
             projetos.forEach(projeto => {
                 const linhaHTML = `
                     <tr id="projeto-${projeto.id}">
-                        <td>${projeto.titulo}</td>
-                        <td>${projeto.categoria}</td>
+                        <td>${projeto.nome || 'Sem nome'}</td>
+                        <td>${projeto.categoria || 'Sem categoria'}</td>
                         <td class="text-end">
                             <a href="editar-projeto.html?id=${projeto.id}" class="btn btn-sm btn-primary">Editar</a>
                             <button class="btn btn-sm btn-danger btn-deletar" data-id="${projeto.id}">Apagar</button>
@@ -43,12 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const botao = event.target;
             const projetoId = botao.dataset.id;
             
-            if (confirm('Tem certeza que deseja apagar este projeto?')) {
+            if (confirm('Tem a certeza de que deseja apagar este projeto?')) {
                 try {
                     botao.disabled = true;
-                    botao.textContent = 'Apagando...';
+                    botao.textContent = 'A apagar...';
                     
-                    await deletarProjeto(projetoId);
+                    // Usa a função fetchFromAPI para apagar o projeto
+                    await fetchFromAPI(`/projetos/${projetoId}`, { method: 'DELETE' });
                     
                     document.getElementById(`projeto-${projetoId}`).remove();
                 } catch (error) {
