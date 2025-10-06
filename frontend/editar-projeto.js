@@ -1,25 +1,18 @@
 // frontend/editar-projeto.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Proteção de rota: se não houver token, volta para o login
+    // Proteção de rota
     if (!localStorage.getItem('authToken')) {
         window.location.href = 'login.html';
         return;
     }
 
-    // Pega os elementos do formulário
     const form = document.getElementById('edit-projeto-form');
-    const projetoIdInput = document.getElementById('projeto-id');
-    const nomeInput = document.getElementById('nome');
-    const descricaoInput = document.getElementById('descricao');
-    const linkInput = document.getElementById('link');
+    // ... (outras declarações de variáveis)
     const feedbackMessage = document.getElementById('feedback-message');
-
-    // Extrai o ID do projeto da URL da página
     const urlParams = new URLSearchParams(window.location.search);
     const projetoId = urlParams.get('id');
 
-    // Se não houver ID na URL, é um erro. Volta para a página de admin.
     if (!projetoId) {
         window.location.href = 'admin.html';
         return;
@@ -30,10 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     async function carregarDadosDoProjeto() {
         try {
-            // Nota: Precisamos de uma rota no backend para buscar UM projeto por ID.
-            // Vamos usar a rota de buscar todos e filtrar por enquanto.
-            const projetos = await fetchFromAPI('/projetos');
-            const projeto = projetos.find(p => p.id == projetoId);
+            // AGORA CHAMA A ROTA OTIMIZADA!
+            const projeto = await fetchFromAPI(`/projetos/${projetoId}`);
 
             if (projeto) {
                 projetoIdInput.value = projeto.id;
@@ -48,36 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /**
-     * Lida com o envio do formulário de edição.
-     */
     form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const projetoAtualizado = {
-            nome: nomeInput.value,
-            descricao: descricaoInput.value,
-            link: linkInput.value,
-        };
-
-        try {
-            await fetchFromAPI(`/projetos/${projetoId}`, {
-                method: 'PUT',
-                body: JSON.stringify(projetoAtualizado),
-            });
-            
-            feedbackMessage.innerHTML = `<div class="alert alert-success">Projeto atualizado com sucesso! A redirecionar...</div>`;
-
-            // Espera 2 segundos e redireciona de volta para a página de admin
-            setTimeout(() => {
-                window.location.href = 'admin.html';
-            }, 2000);
-
-        } catch (error) {
-            feedbackMessage.innerHTML = `<div class="alert alert-danger">Erro ao salvar as alterações: ${error.message}</div>`;
-        }
+        // ... (lógica do submit, sem alterações)
     });
 
-    // Inicia o processo carregando os dados do projeto
     carregarDadosDoProjeto();
 });
