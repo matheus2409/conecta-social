@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         esportesContainer.innerHTML = '';
 
         try {
-            const response = await fetch('http://localhost:3001/api/esportes');
+            const response = await fetch('http://localhost:3000/api/esportes');
 
             if (!response.ok) {
                 throw new Error('Erro ao buscar dados de esportes.');

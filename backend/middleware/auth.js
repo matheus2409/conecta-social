@@ -1,9 +1,9 @@
 // backend/middleware/auth.js (Atualizado com import/export)
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 function verifyToken(req, res, next) {
-    // Lê o cabeçalho Authorization no formato: "Bearer <token>"
-    const authHeader = req.headers['authorization'] || req.headers['Authorization'];
+    // ... (A lógica interna da função continua igual)
+    const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
@@ -19,4 +19,4 @@ function verifyToken(req, res, next) {
     }
 }
 
-module.exports = verifyToken;
+export default verifyToken; // Usamos 'export default'

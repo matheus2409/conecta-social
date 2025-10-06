@@ -11,6 +11,45 @@
 </head>
 <body>
     
+
+    <!-- Modal popup: Você é um projeto? -->
+    <div id="modal-projeto" class="modal-custom" style="display:none;">
+        <div class="modal-content-custom">
+            <h2>Você é um projeto?</h2>
+            <p>Para acessar funcionalidades exclusivas, informe se você é um projeto.</p>
+            <button id="btn-sou-projeto" class="btn-custom btn-primary-custom">Sim</button>
+            <button id="btn-nao-projeto" class="btn-custom btn-secondary-custom">Não</button>
+        </div>
+    </div>
+
+    <!-- Modal Login -->
+    <div id="modal-login" class="modal-custom" style="display:none;">
+        <div class="modal-content-custom">
+            <h2>Login do Projeto</h2>
+            <form id="form-login-projeto">
+                <input type="text" id="login-usuario" class="input-custom" placeholder="Usuário" required><br>
+                <input type="password" id="login-senha" class="input-custom" placeholder="Senha" required><br>
+                <button type="submit" class="btn-custom btn-primary-custom">Entrar</button>
+            </form>
+            <p id="login-msg" class="msg-custom"></p>
+            <button id="btn-cadastro" class="btn-custom btn-link-custom">Não tenho cadastro</button>
+        </div>
+    </div>
+
+    <!-- Modal Cadastro -->
+    <div id="modal-cadastro" class="modal-custom" style="display:none;">
+        <div class="modal-content-custom">
+            <h2>Cadastro de Projeto</h2>
+            <form id="form-cadastro-projeto">
+                <input type="text" id="cadastro-usuario" class="input-custom" placeholder="Usuário" required><br>
+                <input type="password" id="cadastro-senha" class="input-custom" placeholder="Senha" required><br>
+                <input type="email" id="cadastro-email" class="input-custom" placeholder="Email" required><br>
+                <button type="submit" class="btn-custom btn-primary-custom">Cadastrar</button>
+            </form>
+            <p id="cadastro-msg" class="msg-custom"></p>
+        </div>
+    </div>
+
     <header class="cabecalho-principal">
         <div class="container-fluido">
             <h1><a href="index.html" style="color: inherit; text-decoration: none;">Conecta Social</a></h1>

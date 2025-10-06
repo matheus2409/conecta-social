@@ -1,21 +1,106 @@
 /* ============================================= */
 /* --- Estilos Globais e da Página Principal --- */
+/* --- Modais customizados para projetos --- */
+.modal-custom {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.45);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content-custom {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    padding: 2.5rem 2rem;
+    max-width: 350px;
+    width: 90%;
+    text-align: center;
+    animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.input-custom {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #f7f7f7;
+    transition: border-color 0.2s;
+}
+.input-custom:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.btn-custom {
+    padding: 10px 22px;
+    border-radius: 6px;
+    border: none;
+    font-size: 1rem;
+    margin: 8px 4px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.btn-primary-custom {
+    background: #007bff;
+    color: #fff;
+    font-weight: 500;
+}
+.btn-primary-custom:hover {
+    background: #0056b3;
+}
+.btn-secondary-custom {
+    background: #e0e0e0;
+    color: #333;
+}
+.btn-secondary-custom:hover {
+    background: #cfcfcf;
+}
+.btn-link-custom {
+    background: none;
+    color: #007bff;
+    text-decoration: underline;
+    font-size: 0.98rem;
+    border: none;
+    padding: 0;
+}
+.btn-link-custom:hover {
+    color: #0056b3;
+}
+.msg-custom {
+    color: #d9534f;
+    font-size: 0.98rem;
+    margin-top: 8px;
+    min-height: 20px;
+}
 /* ============================================= */
 
 body {
-    font-family: sans-serif;
-    line-height: 1.6;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    line-height: 1.7;
     margin: 0;
     padding: 0;
-    background: #f4f4f4;
-    color: #333;
+    background: #f7fafc;
+    color: #222;
 }
 
 header {
-    background: #333;
+    background: linear-gradient(90deg, #6dd5ed 0%, #2193b0 100%);
     color: #fff;
-    padding: 1rem 0;
+    padding: 1.5rem 0 1rem 0;
     text-align: center;
+    box-shadow: 0 2px 12px rgba(33,147,176,0.08);
 }
 
 header .logo {
@@ -39,13 +124,16 @@ nav a {
 }
 
 main {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 20px auto;
+    padding: 32px 16px;
+    max-width: 1100px;
+    margin: 32px auto;
 }
 
 h1, h2 {
-    color: #333;
+    color: #2193b0;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .lead {
@@ -77,27 +165,55 @@ footer {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 32px;
+
+
+.projetos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+}
+
+.projeto-card {
+    background: #fff;
+    padding: 28px 22px;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(33,147,176,0.10);
+    transition: box-shadow 0.2s, transform 0.2s;
+    border: 1px solid #e3eaf1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.projeto-card:hover {
+    box-shadow: 0 16px 48px rgba(33,147,176,0.18);
+    transform: translateY(-4px) scale(1.02);
+}
 .projeto-card h3 {
     margin-top: 0;
+    color: #2193b0;
+    font-size: 1.35rem;
+    font-weight: 600;
 }
-
 .projeto-card a {
-    color: #007bff;
+    color: #2193b0;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 500;
+    border-bottom: 1.5px solid #6dd5ed;
+    transition: color 0.2s, border-color 0.2s;
 }
-
-/* ============================================= */
-/* --- Estilos da Página de Login --- */
-/* ============================================= */
-
-.login-container {
-    max-width: 400px;
-    margin: 40px auto;
-    padding: 20px;
+.projeto-card a:hover {
+    color: #6dd5ed;
+    border-bottom: 1.5px solid #2193b0;
+}
     background: white;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        margin-top: 0;
+        color: #2193b0;
+        font-size: 1.35rem;
+        font-weight: 600;
 }
 
 .login-container h1 {
@@ -105,9 +221,11 @@ footer {
     margin-bottom: 20px;
 }
 
-.form-group {
-    margin-bottom: 15px;
-}
+        color: #2193b0;
+        text-decoration: none;
+        font-weight: 500;
+        border-bottom: 1.5px solid #6dd5ed;
+        transition: color 0.2s, border-color 0.2s;
 
 .form-group label {
     display: block;
@@ -115,9 +233,8 @@ footer {
 }
 
 .form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
+        color: #6dd5ed;
+        border-bottom: 1.5px solid #2193b0;
     border-radius: 4px;
 }
 

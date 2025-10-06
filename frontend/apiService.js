@@ -1,6 +1,6 @@
 // frontend/apiService.js (Atualizado)
 
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = 'http://localhost:3000/api';
 
 /**
  * Função central para todos os pedidos à API do nosso projeto.
@@ -33,14 +33,6 @@ async function fetchFromAPI(endpoint, options = {}) {
 
         // 5. Se a resposta não for bem-sucedida (ex: erro 401, 404, 500), trata o erro.
         if (!response.ok) {
-            // Se 401 Unauthorized, remove token e redireciona para login
-            if (response.status === 401) {
-                localStorage.removeItem('authToken');
-                window.location.href = 'login.html';
-                // Retorna uma Promise rejeitada para interromper o fluxo atual
-                throw new Error('Não autorizado. Redirecionando para login.');
-            }
-
             const errorData = await response.json().catch(() => ({})); // Tenta ler o corpo do erro
             const errorMessage = errorData.error || `Erro HTTP: ${response.status}`;
             throw new Error(errorMessage);
