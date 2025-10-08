@@ -1,8 +1,8 @@
-// backend/server.js (Atualizado)
+// backend/server.js (versão final e corrigida)
 
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config(); // Garante que as variáveis de ambiente sejam carregadas
+require('dotenv').config(); // Carrega variáveis do .env
 
 // Importa as rotas
 const projetosRoutes = require('./routes/projetos');
@@ -12,34 +12,37 @@ const esportesRoutes = require('./routes/esportes');
 
 const app = express();
 
-// --- Início da Configuração do CORS Mais Segura ---
-// Lista de endereços que podem aceder à sua API
-const whitelist = ['http://127.0.0.1:5500', 'http://localhost:5500'];
+// ========================= CORS =========================
+const whitelist = (process.env.ALLOWED_ORIGINS || 'http://127.0.0.1:5500,http://localhost:5500').split(',');
+
 const corsOptions = {
   origin: function (origin, callback) {
-    // Permite pedidos se a origem estiver na nossa lista de permissões (whitelist)
-    // ou se não houver origem (ex: pedidos do mesmo servidor ou de ferramentas como o Postman)
-    if (!origin || whitelist.indexOf(origin) !== -1) {
+    if (!origin || whitelist.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Acesso negado pela política de CORS'));
+      console.error(`Bloqueado por CORS: ${origin}`);
+      callback(new Error('Acesso negado pela política de CORS.'));
     }
   },
 };
 
 app.use(cors(corsOptions));
-// --- Fim da Configuração do CORS ---
+// =========================================================
 
-// Middleware para permitir que o servidor entenda JSON
+// Middleware para interpretar JSON
 app.use(express.json());
 
-// Definição das Rotas da API
+// Rotas principais
 app.use('/api/projetos', projetosRoutes);
 app.use('/api/feedbacks', feedbacksRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/esportes', esportesRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+// Rota raiz opcional
+app.get('/', (req, res) => {
+  res.send(' API Conecta Social funcionando!');
 });
+
+// Inicialização do servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));

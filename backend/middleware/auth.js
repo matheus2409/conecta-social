@@ -1,21 +1,41 @@
-// backend/middleware/auth.js (Corrigido com CommonJS)
+// backend/middleware/auth.js (versão final e segura)
+
 const jwt = require('jsonwebtoken');
 
-function verifyToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+/**
+ * Middleware para verificar o token JWT enviado pelo cliente.
+ * - O token deve vir no cabeçalho: Authorization: Bearer <token>
+ */
+module.exports = function (req, res, next) {
+  const authHeader = req.headers['authorization'];
 
-    if (!token) {
-        return res.status(401).json({ error: 'Acesso negado. Nenhum token fornecido.' });
+  // Se não houver header de autorização
+  if (!authHeader) {
+    return res.status(401).json({ error: 'Token de autenticação ausente.' });
+  }
+
+  // Extrai o token (remove o prefixo "Bearer ")
+  const token = authHeader.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'Formato de token inválido.' });
+  }
+
+  try {
+    // Verifica e decodifica o token JWT
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Adiciona o usuário decodificado ao request (caso precise depois)
+    req.user = decoded;
+
+    next(); // Passa para o próximo middleware/rota
+  } catch (err) {
+    console.error('❌ Erro ao verificar token JWT:', err.message);
+
+    if (err.name === 'TokenExpiredError') {
+      return res.status(403).json({ error: 'Token expirado. Faça login novamente.' });
     }
 
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
-        next();
-    } catch (error) {
-        return res.status(403).json({ error: 'Token inválido.' });
-    }
-}
-
-module.exports = verifyToken; // Usamos 'module.exports'
+    res.status(403).json({ error: 'Token inválido ou corrompido.' });
+  }
+};

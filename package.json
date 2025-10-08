@@ -1,5 +1,15 @@
 {
-  "name": "conecta-social",
+  "name": "conecta-social-frontend",
   "version": "1.0.0",
-  "description": ""
+  "description": "Frontend do Conecta Social",
+  "type": "module",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx live-server --port=5500"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "serve": "^14.2.1",
+    "live-server": "^1.2.2"
+  }
 }
