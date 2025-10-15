@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Perfil - Conecta Social</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin-style.css"> </head>
+<body>
+    <header><h1>Editar Perfil</h1></header>
+    <main class="container">
+        <form id="editar-perfil-form" class="form-admin-container">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" id="nome" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="bio" class="form-label">Biografia</label>
+                <textarea id="bio" class="form-control" rows="4" placeholder="Fale um pouco sobre si..."></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="interesses" class="form-label">Interesses (separados por vírgula)</label>
+                <input type="text" id="interesses" class="form-control" placeholder="Ex: Educação, Tecnologia, Animais">
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Alterações</button>
+            <a href="perfil.html" class="btn btn-secondary">Cancelar</a>
+        </form>
+        <div id="feedback-message" class="mt-3"></div>
+    </main>
+    <script src="apiService.js"></script>
+    <script src="editar-perfil.js"></script>
+</body>
+</html>
