@@ -4,28 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Conecta Social</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
-    <header>
-        <h1>Acesso Administrativo</h1>
+    <header class="header-main">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">Conecta Social</a>
+            </div>
+            <nav class="nav-main">
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="esportes.html">Esportes</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
-        <form id="login-form">
-            <h2>Login</h2>
-            <div class="form-group">
-                <label for="username">Usuário:</label>
-                <input type="text" id="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Senha:</label>
-                <input type="password" id="password" required>
-            </div>
-            <button type="submit">Entrar</button>
-            <p id="error-message" class="error-text"></p>
-        </form>
+        <div class="form-container">
+            <h2 class="text-center mb-4">Acesso Administrativo</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username" class="form-label">Usuário:</label>
+                    <input type="text" id="username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Senha:</label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                <p id="error-message" class="error-text text-center"></p>
+            </form>
+        </div>
     </main>
 
-    <script src="login.js"></script>
+    <footer class="footer-main">
+        <p>&copy; 2025 Conecta Social. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="login.js" type="module"></script>
 </body>
 </html>

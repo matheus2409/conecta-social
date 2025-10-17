@@ -1,68 +1,36 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conecta Social - Início</title>
-    <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+// frontend/login.js (Corrigido)
+import { fetchFromAPI } from './apiService.js';
 
-    <header class="header-main">
-        <div class="container">
-            <div class="logo">
-                <a href="index.html">Conecta Social</a>
-            </div>
-            <nav class="nav-main">
-                <ul>
-                    <li><a href="index.html">Início</a></li>
-                    <li><a href="esportes.html">Esportes</a></li>
-                    <li><a href="login.html">Login Admin</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
+    const errorMessage = document.getElementById('error-message');
 
-    <main class="container py-5">
-        <div class="text-center mb-5">
-            <h1>Projetos que Transformam</h1>
-            <p class="lead">Encontre e conecte-se a projetos sociais que fazem a diferença na sua comunidade.</p>
-        </div>
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorMessage.textContent = ''; // Limpa mensagens de erro antigas
 
-        <div class="row g-3 mb-4">
-            <div class="col-md-6">
-                <input type="text" id="busca" class="form-control" placeholder="Buscar por nome do projeto...">
-            </div>
-            <div class="col-md-4">
-                <select id="filtro-categoria" class="form-select">
-                    <option value="">Todas as Categorias</option>
-                    <option value="Educação">Educação</option>
-                    <option value="Saúde">Saúde</option>
-                    <option value="Meio Ambiente">Meio Ambiente</option>
-                    <option value="Cultura">Cultura</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <button id="btn-limpar-filtros" class="btn btn-secondary w-100">Limpar</button>
-            </div>
-        </div>
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-        <div id="projetos-container" class="row">
-            <div id="loading-spinner" class="col-12 text-center">
-                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                    <span class="visually-hidden">Carregando...</span>
-                </div>
-            </div>
-        </div>
-    </main>
+        try {
+            // Usa a função centralizada para a chamada de login
+            const data = await fetchFromAPI('/auth/login', {
+                method: 'POST',
+                body: JSON.stringify({ username, password })
+            });
 
-    <footer class="footer-main">
-        <p>&copy; 2025 Conecta Social. Todos os direitos reservados. | <a href="admin.html">Área Administrativa</a></p>
-    </footer>
+            if (data.token) {
+                // Guarda o token no armazenamento local do navegador
+                localStorage.setItem('authToken', data.token);
+                // Redireciona para a página de administração
+                window.location.href = 'admin.html';
+            } else {
+                throw new Error('Token não recebido do servidor.');
+            }
 
-    <script type="module" src="apiService.js"></script>
-    <script type="module" src="script.js"></script>
-</body>
-</html>
+        } catch (error) {
+            console.error('Falha no login:', error);
+            errorMessage.textContent = error.message;
+        }
+    });
+});
