@@ -6,8 +6,9 @@
       "use": "@vercel/node"
     },
     {
-      "src": "frontend/**",
-      "use": "@vercel/static"
+      "src": "frontend/package.json",
+      "use": "@vercel/static",
+      "config": { "distDir": "frontend" }
     }
   ],
   "rewrites": [
