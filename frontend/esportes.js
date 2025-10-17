@@ -1,3 +1,6 @@
+// frontend/esportes.js (Corrigido para usar apiService)
+import { fetchFromAPI } from './apiService.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const esportesContainer = document.getElementById('esportes-container');
     const loadingIndicator = document.getElementById('loading');
@@ -7,21 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
         esportesContainer.innerHTML = '';
 
         try {
-            const response = await fetch('http://localhost:3000/api/esportes');
-
-            if (!response.ok) {
-                throw new Error('Erro ao buscar dados de esportes.');
-            }
-
-            const esportes = await response.json();
+            const esportes = await fetchFromAPI('/esportes');
 
             if (esportes.length === 0) {
-                // Usamos uma classe de alerta do Bootstrap para a mensagem
                 esportesContainer.innerHTML = '<div class="col-12"><div class="alert alert-info">Nenhum conteúdo de esporte disponível no momento.</div></div>';
             } else {
                 let cardsHTML = '';
                 esportes.forEach((item, index) => {
-                    // Define o tamanho da coluna. O primeiro item (destaque) será maior.
                     const colClass = index === 0 ? 'col-lg-8' : 'col-lg-4';
                     
                     cardsHTML += `
@@ -41,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Falha ao carregar esportes:', error);
-            esportesContainer.innerHTML = '<div class="col-12"><div class="alert alert-danger">Não foi possível carregar o conteúdo. Por favor, tente novamente mais tarde.</div></div>';
+            esportesContainer.innerHTML = `<div class="col-12"><div class="alert alert-danger">Não foi possível carregar o conteúdo. Erro: ${error.message}</div></div>`;
         } finally {
             loadingIndicator.style.display = 'none';
         }

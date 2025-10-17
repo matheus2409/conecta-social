@@ -1,7 +1,7 @@
 import requests
 import streamlit as st
 
-API_URL = 'http://localhost:3001/api/projetos'
+API_URL = 'http://localhost:3000/api/projetos' # Corrigido
 
 st.title('Dashboard de Projetos')
 response = requests.get(API_URL)

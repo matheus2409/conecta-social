@@ -1,4 +1,7 @@
 // frontend/esporte-detalhe.js
+// A URL agora é construída dinamicamente, assim como no apiService
+const apiUrl = `${window.location.origin}/api/esportes/${esporteId}`;
+// ... (restante do ficheiro)
 document.addEventListener('DOMContentLoaded', () => {
     const esporteContainer = document.getElementById('esporte-detalhe-container');
     const projetosContainer = document.getElementById('projetos-container');

@@ -2,7 +2,7 @@ import requests
 from email.message import EmailMessage
 import smtplib
 
-API_URL = 'http://localhost:3001/api/projetos'
+API_URL = 'http://localhost:3000/api/projetos' # Corrigido
 EMAIL_ADDRESS = 'seu_email@gmail.com'
 EMAIL_PASSWORD = 'sua_senha'
 DESTINATARIO = 'admin@conectasocial.com'

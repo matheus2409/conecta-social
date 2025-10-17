@@ -2,7 +2,7 @@ import schedule
 import time
 import requests
 
-API_URL = 'http://localhost:3001/api/projetos'
+API_URL = 'http://localhost:3000/api/projetos' # Corrigido
 
 def atualizar_dados():
     response = requests.get(API_URL)

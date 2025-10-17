@@ -2,7 +2,7 @@ import requests
 import networkx as nx
 import matplotlib.pyplot as plt
 
-API_URL = 'http://localhost:3001/api/projetos'
+API_URL = 'http://localhost:3000/api/projetos' # Corrigido
 
 response = requests.get(API_URL)
 projetos = response.json()

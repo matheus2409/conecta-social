@@ -4,13 +4,13 @@ import requests
 app = Flask(__name__)
 
 # URL da tua API Node.js para obter os projetos
-API_PROJETOS_URL = 'http://localhost:3000/api/projetos'
+API_PROJETOS_URL = 'http://localhost:3000/api/projetos' # Corrigido
 
 def obter_projetos():
     """Busca todos os projetos da API principal."""
     try:
         response = requests.get(API_PROJETOS_URL)
-        response.raise_for_status()  # Lança um erro se a resposta não for 200
+        response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
         print(f"Erro ao buscar projetos: {e}")
@@ -27,7 +27,6 @@ def recomendar():
 
     projetos = obter_projetos()
     
-    # O "cérebro" da IA: A mesma lógica de pontuação que tínhamos antes
     recomendacoes = []
     for projeto in projetos:
         pontuacao = 0
@@ -43,11 +42,9 @@ def recomendar():
         if pontuacao > 0:
             recomendacoes.append({**projeto, 'pontuacao': pontuacao})
 
-    # Ordena pela pontuação
     recomendacoes_ordenadas = sorted(recomendacoes, key=lambda p: p['pontuacao'], reverse=True)
     
     return jsonify(recomendacoes_ordenadas)
 
 if __name__ == '__main__':
-    # Roda o serviço de IA numa porta diferente, ex: 5000
     app.run(port=5000, debug=True)

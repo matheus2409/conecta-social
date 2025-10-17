@@ -1,7 +1,7 @@
 import requests
 from twilio.rest import Client
 
-API_URL = 'http://localhost:3001/api/projetos'
+API_URL = 'http://localhost:3000/api/projetos' # Corrigido
 ACCOUNT_SID = 'SEU_TWILIO_SID'
 AUTH_TOKEN = 'SEU_TWILIO_TOKEN'
 FROM_WHATSAPP = 'whatsapp:+14155238886'
