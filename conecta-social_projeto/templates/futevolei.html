@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+<div class="aba-btn-area aba-btn-topo"><a href="/" class="aba-btn aba-btn-futevolei">🏠 Voltar para o Início</a></div>
+<div class="aba-btn-area"><button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('futevolei')">📍 Locais para jogar futevôlei perto de mim</button></div>
+<div id="resultado-localizacao-futevolei" class="resultado-localizacao"></div>
+
+<h1>⚽🏐 Futevôlei</h1>
+<img src="{{ url_for('static', filename='futevolei.jpg') }}" alt="futevolei" class="img-esporte">
+<div style="text-align:left; max-width:700px; margin: 24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
+	<h3>Quando, onde e quem criou?</h3>
+	<p>O futevôlei surgiu nas praias do Rio de Janeiro, Brasil, na década de 1960. Foi criado por jogadores de futebol que buscavam uma alternativa de lazer na areia.</p>
+	<h3>Regras básicas e mais importantes</h3>
+	<ul>
+		<li>Dois times de 2 jogadores cada (podendo variar).</li>
+		<li>Não é permitido usar as mãos ou braços para tocar na bola.</li>
+		<li>O objetivo é passar a bola por cima da rede e fazê-la tocar o chão adversário.</li>
+		<li>O jogo é disputado em sets, geralmente até 18 pontos.</li>
+		<li>Os jogadores podem usar pés, cabeça, ombros, peito e coxas.</li>
+	</ul>
+	<h3>Curiosidades</h3>
+	<ul>
+		<li>O Brasil é referência mundial no futevôlei.</li>
+		<li>O esporte mistura técnicas do futebol e do vôlei.</li>
+		<li>É muito praticado em praias e clubes.</li>
+		<li>Existem campeonatos nacionais e internacionais.</li>
+	</ul>
+	<h3>Benefícios</h3>
+	<ul>
+		<li>Desenvolve coordenação motora, equilíbrio e agilidade.</li>
+		<li>Promove saúde cardiovascular e resistência física.</li>
+		<li>Estimula o trabalho em equipe e a socialização.</li>
+	</ul>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+<div class="aba-btn-area aba-btn-topo"><a href="/" class="aba-btn aba-btn-tenis_de_mesa">🏠 Voltar para o Início</a></div>
+<div class="aba-btn-area"><button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('tenis_de_mesa')">📍 Locais para jogar tênis de mesa perto de mim</button></div>
+<div id="resultado-localizacao-tenis_de_mesa" class="resultado-localizacao"></div>
+
+<h1>🏓 Tênis de Mesa</h1>
+<img src="{{ url_for('static', filename='tenis_de_mesa.jpg') }}" alt="Tênis de Mesa" class="img-esporte">
+<div style="text-align:left; max-width:700px; margin: 24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
+    <h3>Quando, onde e quem criou?</h3>
+    <p>O tênis de mesa surgiu na Inglaterra, no final do século XIX, como uma versão de salão do tênis tradicional. Inicialmente era chamado de "ping-pong".</p>
+    <h3>Regras básicas e mais importantes</h3>
+    <ul>
+        <li>Disputado entre dois jogadores (individual) ou quatro (duplas).</li>
+        <li>O objetivo é marcar pontos fazendo a bola tocar o lado adversário sem que o oponente consiga devolver.</li>
+        <li>O jogo é disputado em sets de 11 pontos, vencendo quem ganhar 3 ou 4 sets (dependendo do torneio).</li>
+        <li>A bola deve quicar uma vez de cada lado antes de ser rebatida.</li>
+        <li>O saque alterna a cada 2 pontos.</li>
+    </ul>
+    <h3>Curiosidades</h3>
+    <ul>
+        <li>O tênis de mesa é esporte olímpico desde 1988.</li>
+        <li>A China é o país mais dominante no esporte.</li>
+        <li>É conhecido por exigir reflexos rápidos e precisão.</li>
+        <li>O termo "ping-pong" foi originalmente uma marca registrada.</li>
+    </ul>
+    <h3>Benefícios</h3>
+    <ul>
+        <li>Desenvolve coordenação motora fina e agilidade.</li>
+        <li>Melhora o raciocínio rápido e a concentração.</li>
+        <li>Promove saúde cardiovascular e socialização.</li>
+    </ul>
+</div>
+{% endblock %}
