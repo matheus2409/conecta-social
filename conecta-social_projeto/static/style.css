@@ -63,12 +63,26 @@
 .aba-btn.aba-btn-volei,
 .aba-btn.aba-btn-futevolei,
 .aba-btn.aba-btn-rugby,
-.aba-btn.aba-btn-projetos {
+.aba-btn.aba-btn-box,
+.aba-btn.aba-btn-muay_thai,
+.aba-btn.aba-btn-judo,
+.aba-btn.aba-btn-jiu_jitsu,
+.aba-btn.aba-btn-karate,
+.aba-btn.aba-btn-krav_maga,
+.aba-btn.aba-btn-kung_fu,
+.aba-btn.aba-btn_projetos {
   font-size: 1.30em;
   padding: 10px 0px;
   min-width: 150px;
 }
 .aba-btn-futebol { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-box { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-muay_thai { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-judo { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-jiu_jitsu { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-karate { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-krav_maga { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-kung_fu { background: linear-gradient(90deg, #1DB954, #1ed760); }
 .aba-btn-tenis_de_mesa { background: linear-gradient(90deg, #173ebe, #173ebe); }
 .aba-btn-basquete { background: linear-gradient(90deg, #ff7300, #ffb347); color: #fff7e6; }
 .aba-btn-volei { background: linear-gradient(90deg, #FFD700, #044883e6); color: #0a2342; }
@@ -123,11 +137,16 @@
 .btn-sport.volei { background: linear-gradient(90deg, #FFD700, #044883e6); color: #ffffff; }
 .btn-sport.rugby { background: linear-gradient(90deg, #013f09, #046419); }
 .btn-sport.btn-sport.futsal { background: linear-gradient(90deg, #0e2a85, #28a745); }
-.btn-sport.volei_de_areia, .btn-sport.volei_de_areia {background: linear-gradient(90deg, #001381, #09daff); color: #ffffff;}
-.btn-sport.futevolei, .btn-sport.futevolei {background: linear-gradient(90deg, #001381, #f8fc23); color: #ffffff;}
-.btn-sport.handebol, .btn-sport.handebol {
-  background: linear-gradient(90deg, #058ec4, #28a745);
-  color: #fff;
+.btn-sport.volei_de_areia {background: linear-gradient(90deg, #001381, #09daff); color: #ffffff;}
+.btn-sport.futevolei {background: linear-gradient(90deg, #001381, #f8fc23); color: #ffffff;}
+.btn-sport.box {background: linear-gradient(90deg, #fcfcfc, #ff122a); color: #ffffff;}
+.btn-sport.muay_thai {background: linear-gradient(90deg, #0724c4, #ff122a); color: #ffffff;}
+.btn-sport.judo {background: linear-gradient(90deg, #fcfcfc, #001381); color: #ffffff;}
+.btn-sport.jiu_jitsu {background: linear-gradient(90deg, #000000, #001381); color: #ffffff;}
+.btn-sport.karate {background: linear-gradient(90deg, #fcfcfc, #001381); color: #ffffff;}
+.btn-sport.krav_maga {background: linear-gradient(90deg, #124f20, #28a745); color: #ffffff;}
+.btn-sport.kung_fu {background: linear-gradient(90deg, #8b0397, #8b0397); color: #ffffff;}
+.btn-sport.handebol {background: linear-gradient(90deg, #058ec4, #28a745);color: #fff;
 }
 .btn-sport:hover {
   transform: translateY(-6px) scale(1.04);
