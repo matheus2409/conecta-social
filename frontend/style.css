@@ -1,273 +1,241 @@
 /* ============================================= */
-/* --- Estilos Globais e da Página Principal --- */
+/* --- Variáveis Globais e Estilo Base --- */
 /* ============================================= */
+:root {
+    --cor-primaria: #2193b0;
+    --cor-secundaria: #6dd5ed;
+    --cor-fundo: #f8f9fa;
+    --cor-texto: #343a40;
+    --cor-branco: #ffffff;
+    --cor-cinza: #6c757d;
+    --cor-sombra: rgba(0, 0, 0, 0.1);
+    --raio-borda: 8px;
+    --font-principal: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
 
 body {
-    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
-    line-height: 1.7;
+    font-family: var(--font-principal);
+    line-height: 1.6;
     margin: 0;
-    padding: 0;
-    background: #f7fafc;
-    color: #222;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-header {
-    background: linear-gradient(90deg, #6dd5ed 0%, #2193b0 100%);
-    color: #fff;
-    padding: 1.5rem 0 1rem;
-    text-align: center;
-    box-shadow: 0 2px 12px rgba(33,147,176,0.08);
+main {
+    flex-grow: 1;
 }
 
-header .logo {
-    font-size: 2rem;
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ============================================= */
+/* --- Cabeçalho e Navegação --- */
+/* ============================================= */
+.header-main {
+    background: linear-gradient(90deg, var(--cor-secundaria) 0%, var(--cor-primaria) 100%);
+    color: var(--cor-branco);
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px var(--cor-sombra);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-main .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    font-size: 1.8rem;
     font-weight: bold;
+    color: var(--cor-branco);
+    text-decoration: none;
 }
 
-nav ul {
+.nav-main ul {
+    margin: 0;
     padding: 0;
     list-style: none;
 }
 
-nav ul li {
-    display: inline;
-    margin-right: 20px;
+.nav-main li {
+    display: inline-block;
+    margin-left: 2rem;
 }
 
-nav a {
-    color: #fff;
+.nav-main a {
+    color: var(--cor-branco);
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+}
+
+.nav-main a:hover {
+    opacity: 0.8;
+}
+
+/* ============================================= */
+/* --- Rodapé --- */
+/* ============================================= */
+.footer-main {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #343a40;
+    color: var(--cor-branco);
+    margin-top: auto;
+}
+.footer-main a {
+    color: var(--cor-secundaria);
     text-decoration: none;
 }
-
-main {
-    padding: 32px 16px;
-    max-width: 1100px;
-    margin: 32px auto;
-}
-
-h1, h2 {
-    color: #2193b0;
-    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-.lead {
-    font-size: 1.25rem;
-    font-weight: 300;
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    background: #333;
-    color: #fff;
-    margin-top: 40px;
-}
-
-/* ============================================= */
-/* --- Modais customizados para projetos --- */
-/* ============================================= */
-
-.modal-custom {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.45);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content-custom {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    padding: 2.5rem 2rem;
-    max-width: 350px;
-    width: 90%;
-    text-align: center;
-    animation: modalFadeIn 0.3s;
-}
-
-@keyframes modalFadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* ============================================= */
-/* --- Inputs e Botões Customizados --- */
-/* ============================================= */
-
-.input-custom {
-    width: 90%;
-    padding: 10px;
-    margin-bottom: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    background: #f7f7f7;
-    transition: border-color 0.2s;
-}
-.input-custom:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-.btn-custom {
-    padding: 10px 22px;
-    border-radius: 6px;
-    border: none;
-    font-size: 1rem;
-    margin: 8px 4px;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-}
-
-.btn-primary-custom {
-    background: #007bff;
-    color: #fff;
-    font-weight: 500;
-}
-.btn-primary-custom:hover {
-    background: #0056b3;
-}
-
-.btn-secondary-custom {
-    background: #e0e0e0;
-    color: #333;
-}
-.btn-secondary-custom:hover {
-    background: #cfcfcf;
-}
-
-.btn-link-custom {
-    background: none;
-    color: #007bff;
+.footer-main a:hover {
     text-decoration: underline;
-    font-size: 0.98rem;
-    border: none;
-    padding: 0;
-}
-.btn-link-custom:hover {
-    color: #0056b3;
-}
-
-.msg-custom {
-    color: #d9534f;
-    font-size: 0.98rem;
-    margin-top: 8px;
-    min-height: 20px;
 }
 
 /* ============================================= */
-/* --- Cards de Projeto (Público) --- */
+/* --- Cards (Projetos, Esportes) --- */
 /* ============================================= */
-
-.projetos-grid {
+.card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 32px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
-.projeto-card {
-    background: #fff;
-    padding: 28px 22px;
-    border-radius: 18px;
-    box-shadow: 0 8px 32px rgba(33,147,176,0.10);
-    transition: box-shadow 0.2s, transform 0.2s;
-    border: 1px solid #e3eaf1;
+.card {
+    background: var(--cor-branco);
+    border: none;
+    border-radius: var(--raio-borda);
+    box-shadow: 0 4px 15px var(--cor-sombra);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
 }
-.projeto-card:hover {
-    box-shadow: 0 16px 48px rgba(33,147,176,0.18);
-    transform: translateY(-4px) scale(1.02);
-}
-.projeto-card h3 {
-    margin-top: 0;
-    color: #2193b0;
-    font-size: 1.35rem;
-    font-weight: 600;
-}
-.projeto-card a {
-    color: #2193b0;
-    text-decoration: none;
-    font-weight: 500;
-    border-bottom: 1.5px solid #6dd5ed;
-    transition: color 0.2s, border-color 0.2s;
-}
-.projeto-card a:hover {
-    color: #6dd5ed;
-    border-bottom: 1.5px solid #2193b0;
-}
-
-/* ============================================= */
-/* --- Login --- */
-/* ============================================= */
-
-.login-container h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.form-group input {
-    color: #6dd5ed;
-    border-bottom: 1.5px solid #2193b0;
-    border-radius: 4px;
-}
-
-.login-button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background: #007bff;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-.login-button:hover {
-    background: #0056b3;
-}
-
-#login-error {
-    color: red;
-    margin-top: 10px;
-    text-align: center;
-}
-
-/* ============================================= */
-/* --- Indicadores e Mensagens --- */
-/* ============================================= */
-
-.loading-indicator {
-    text-align: center;
-    padding: 20px;
-    font-size: 1.2rem;
-}
-
-.error-message {
-    text-align: center;
-    color: #d9534f;
-    background-color: #f2dede;
-    border: 1px solid #ebccd1;
-    padding: 15px;
-    border-radius: 4px;
-}
-
-/* ============================================= */
-/* --- Personalizações para Bootstrap --- */
-/* ============================================= */
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+    border-top-left-radius: var(--raio-borda);
+    border-top-right-radius: var(--raio-borda);
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--cor-primaria);
+}
+
+.card-text {
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+}
+
+/* ============================================= */
+/* --- Formulários (Login, Admin) --- */
+/* ============================================= */
+.form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--cor-branco);
+    border-radius: var(--raio-borda);
+    box-shadow: 0 4px 15px var(--cor-sombra);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ced4da;
+    border-radius: var(--raio-borda);
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(33, 147, 176, 0.2);
+}
+
+/* ============================================= */
+/* --- Botões --- */
+/* ============================================= */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--raio-borda);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+}
+
+.btn-primary:hover {
+    background-color: #1a7b91;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--cor-cinza);
+    color: var(--cor-branco);
+}
+
+/* ============================================= */
+/* --- Mensagens e Alertas --- */
+/* ============================================= */
+.error-text {
+    color: #dc3545;
+    margin-top: 1rem;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: var(--raio-borda);
+    margin: 1rem 0;
+}
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+.alert-info {
+    background-color: #cce5ff;
+    color: #004085;
+    border: 1px solid #b8daff;
 }
