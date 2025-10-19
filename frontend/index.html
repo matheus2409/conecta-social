@@ -1,36 +1,25 @@
-// frontend/login.js (Corrigido)
-import { fetchFromAPI } from './apiService.js';
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Conecta Social</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header>
+    <h1>Conecta Social</h1>
+  </header>
 
-document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('login-form');
-    const errorMessage = document.getElementById('error-message');
+  <main id="app">
+    <!-- Conteúdo principal (substitua/complete conforme sua versão real) -->
+    <section>
+      <h2>Projetos</h2>
+      <div id="projects-container"></div>
+    </section>
+  </main>
 
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        errorMessage.textContent = ''; // Limpa mensagens de erro antigas
-
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-
-        try {
-            // Usa a função centralizada para a chamada de login
-            const data = await fetchFromAPI('/auth/login', {
-                method: 'POST',
-                body: JSON.stringify({ username, password })
-            });
-
-            if (data.token) {
-                // Guarda o token no armazenamento local do navegador
-                localStorage.setItem('authToken', data.token);
-                // Redireciona para a página de administração
-                window.location.href = 'admin.html';
-            } else {
-                throw new Error('Token não recebido do servidor.');
-            }
-
-        } catch (error) {
-            console.error('Falha no login:', error);
-            errorMessage.textContent = error.message;
-        }
-    });
-});
+  <script src="./script.js"></script>
+  <!-- outros scripts que você use nas páginas -->
+</body>
+</html>
