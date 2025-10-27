@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+</div>
+
+<div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('muay_thai')">
+    📍 Locais para praticar Muay Thai perto de mim
+  </button>
+</div>
+
+<div id="resultado-localizacao-muay_thai" class="resultado-localizacao"></div>
+
+<h1>🥊 Muay Thai</h1>
+<img src="{{ url_for('static', filename='muay_thai.webp') }}" alt="Muay Thai" class="img-esporte">
+
+<div style="text-align:left; max-width:750px; margin: 24px auto; background:rgba(255,255,255,0.9); padding:24px; border-radius:16px; color:#0a2342; line-height:1.6;">
+  
+  <h3>📜 Origem e História</h3>
+  <p>O <strong>Muay Thai</strong>, conhecido como <em>“A Arte das Oito Armas”</em>, é uma arte marcial tradicional da <strong>Tailândia</strong> que utiliza punhos, cotovelos, joelhos e canelas como principais armas de ataque e defesa. Suas origens remontam a mais de 2.000 anos, derivando de técnicas militares usadas pelos guerreiros do antigo Reino de Sião.</p>
+  <p>Durante séculos, o Muay Thai era praticado em campos de batalha e em festivais como forma de treinamento, defesa pessoal e entretenimento. No século XX, o esporte foi formalizado com regras, uso de luvas, cronômetros e arbitragem, ganhando reconhecimento mundial.</p>
+
+  <h3>⚖️ Regras Básicas</h3>
+  <ul>
+    <li>As lutas ocorrem em um ringue, com <strong>cinco rounds</strong> de 3 minutos e intervalos de 2 minutos.</li>
+    <li>São permitidos golpes com <strong>punhos, cotovelos, joelhos e pernas</strong>.</li>
+    <li>É proibido golpear abaixo da cintura, aplicar cabeçadas ou golpes nas costas e na nuca.</li>
+    <li>Os lutadores devem usar <strong>luvas, protetor bucal e coquilha</strong>.</li>
+    <li>Vence quem conseguir o <strong>nocaute</strong> ou quem somar mais pontos segundo os juízes.</li>
+  </ul>
+
+  <h3>🧘‍♂️ Filosofia e Tradição</h3>
+  <p>O Muay Thai não é apenas um esporte, mas também uma filosofia de vida baseada em <strong>respeito, disciplina, humildade e honra</strong>. Antes das lutas, os atletas realizam o ritual <em>Wai Kru Ram Muay</em>, uma dança tradicional que homenageia seus mestres, ancestrais e o espírito do esporte.</p>
+  <p>Os praticantes seguem o lema da lealdade e autodisciplina, sendo encorajados a buscar o aperfeiçoamento físico e mental contínuo.</p>
+
+  <h3>🏋️‍♀️ Benefícios</h3>
+  <ul>
+    <li>Melhora o <strong>condicionamento físico</strong> e a <strong>resistência cardiovascular</strong>.</li>
+    <li>Fortalece músculos e articulações.</li>
+    <li>Aumenta a <strong>autoconfiança</strong> e o <strong>controle emocional</strong>.</li>
+    <li>Desenvolve a <strong>coordenação motora</strong> e o <strong>tempo de reação</strong>.</li>
+    <li>Favorece a <strong>queima de calorias</strong> e ajuda no emagrecimento.</li>
+    <li>Promove <strong>disciplina, respeito e equilíbrio mental</strong>.</li>
+  </ul>
+
+  <h3>🥇 Categorias e Competições</h3>
+  <p>O Muay Thai é regulamentado por diversas federações internacionais, como o <strong>WMC (World Muaythai Council)</strong> e a <strong>IFMA (International Federation of Muaythai Associations)</strong>. O esporte é reconhecido pelo <strong>Comitê Olímpico Internacional</strong> e vem ganhando espaço em competições mundiais e nos Jogos Asiáticos.</p>
+
+  <h3>🌍 Muay Thai no Brasil</h3>
+  <p>O Muay Thai chegou ao Brasil na década de 1970, trazido por mestres tailandeses e difundido por professores locais. Hoje, é uma das artes marciais mais praticadas no país, com academias especializadas, eventos profissionais e amadores e lutadores de destaque internacional, como <strong>Anderson Silva</strong> e <strong>José Aldo</strong>, que possuem base técnica no Muay Thai.</p>
+
+  <h3>💡 Curiosidades</h3>
+  <ul>
+    <li>O termo “Muay Thai” significa literalmente <em>“Luta Livre Tailandesa”</em>.</li>
+    <li>É chamado de “A Arte das Oito Armas” porque utiliza <strong>8 pontos de contato</strong>: punhos, cotovelos, joelhos e canelas.</li>
+    <li>O <strong>Wai Kru</strong> é realizado com música tradicional tailandesa tocada ao vivo nos ringues.</li>
+    <li>Durante séculos, os lutadores treinavam em templos budistas e monges os abençoavam antes dos combates.</li>
+    <li>O Muay Thai feminino cresceu muito nas últimas décadas, com campeãs reconhecidas mundialmente.</li>
+  </ul>
+
+  <h3>👑 Grandes Nomes</h3>
+  <ul>
+    <li><strong>Buakaw Banchamek</strong> – ícone global do Muay Thai moderno.</li>
+    <li><strong>Saenchai Sor Kingstar</strong> – conhecido por sua agilidade e estilo criativo.</li>
+    <li><strong>Dieselnoi Chor Thanasukarn</strong> – lendário por seus joelhos poderosos.</li>
+    <li><strong>Samart Payakaroon</strong> – múltiplo campeão mundial e também cantor na Tailândia.</li>
+  </ul>
+
+  <h3>🔥 Conclusão</h3>
+  <p>Mais do que uma arte marcial, o Muay Thai representa uma <strong>expressão cultural e espiritual</strong> do povo tailandês. É uma prática que une corpo, mente e respeito, inspirando milhões de pessoas ao redor do mundo. Seja por esporte, defesa pessoal ou estilo de vida, o Muay Thai é uma jornada de <strong>superação, disciplina e equilíbrio</strong>.</p>
+
+</div>
+{% endblock %}
