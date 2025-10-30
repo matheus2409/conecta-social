@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+<div class="aba-btn-area aba-btn-topo"><a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a></div>
+<div class="aba-btn-area">
+    <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('futebol')">📍 Locais para jogar Futebol perto de mim</button>
+</div>
+<div id="resultado-localizacao-futebol" class="resultado-localizacao"></div>
+
+<h1>⚽ Futebol</h1>
+<img src="{{ url_for('static', filename='futebol.jpg') }}" alt="futebol" class="img-esporte">
+<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
+	<h3>📅 Quando, onde e quem criou?</h3>
+	<p>O futebol moderno surgiu na <strong>Inglaterra</strong> no século XIX 🏴, mas suas raízes vêm de jogos com bola praticados há milhares de anos 🌍. Em <strong>1863</strong>, foi criada a primeira associação de futebol em Londres ⚖️, definindo as regras oficiais do esporte. Desde então, o futebol se tornou o esporte mais popular do mundo 🌎.</p>
+
+	<h3>📜 Regras básicas e mais importantes</h3>
+	<ul>
+		<li>👥 Duas equipes com 11 jogadores cada (incluindo o goleiro 🧤).</li>
+		<li>🥅 O objetivo é marcar mais gols que o adversário.</li>
+		<li>⏱️ O jogo tem 90 minutos (2 tempos de 45 minutos).</li>
+		<li>🖐️ Apenas o goleiro pode usar as mãos, dentro da área.</li>
+		<li>🚫 O impedimento é marcado quando o jogador está à frente da defesa adversária no momento do passe.</li>
+		<li>🟨 Cartão amarelo = advertência | 🟥 Cartão vermelho = expulsão.</li>
+		<li>⚖️ Em partidas eliminatórias, pode haver prorrogação e pênaltis ⚽🥅.</li>
+	</ul>
+
+	<h3>💡 Curiosidades</h3>
+	<ul>
+		<li>🌍 É o esporte mais praticado e assistido do planeta.</li>
+		<li>🏆 A primeira <strong>Copa do Mundo</strong> aconteceu em 1930, no Uruguai 🇺🇾.</li>
+		<li>🇧🇷 O <strong>Brasil</strong> é o maior campeão mundial, com 5 títulos.</li>
+		<li>👑 Pelé e Marta são considerados lendas do futebol.</li>
+		<li>⚽ O futebol feminino tem crescido muito nos últimos anos.</li>
+		<li>🏟️ O maior estádio do mundo é o Rungrado May Day, na Coreia do Norte, com mais de 100 mil lugares.</li>
+	</ul>
+
+	<h3>💪 Benefícios</h3>
+	<ul>
+		<li>🏃 Melhora o condicionamento físico e a resistência.</li>
+		<li>🦵 Fortalece os músculos das pernas e melhora a coordenação motora.</li>
+		<li>🧠 Desenvolve o raciocínio rápido e a tomada de decisão.</li>
+		<li>🤝 Estimula o trabalho em equipe e a comunicação.</li>
+		<li>😌 Reduz o estresse e melhora o bem-estar mental.</li>
+		<li>🎯 Ensina disciplina, respeito e foco.</li>
+		<li>🌈 Promove a inclusão social e o espírito esportivo.</li>
+	</ul>
+
+	<h3>🌎 Popularidade</h3>
+	<p>O futebol é uma paixão global ❤️⚽. Competições como a <strong>Copa do Mundo</strong> 🌍, a <strong>Champions League</strong> 🏆 e os campeonatos nacionais reúnem bilhões de torcedores. No <strong>Brasil</strong> 🇧🇷, o futebol é mais que um esporte — é parte da cultura, da alegria e da identidade do povo.</p>
+</div>
+{% endblock %}

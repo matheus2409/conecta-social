@@ -1,0 +1,395 @@
+.img-esporte {
+  display: block;
+  max-width: 420px;
+  width: 100%;
+  height: auto;
+  margin: 24px auto 12px auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.13);
+}
+.aba-btn-localizacao {
+  background: linear-gradient(90deg, #00cfff, #1ed760);
+  color: #fff;
+  margin-top: 8px;
+  font-size: 1em;
+  padding: 10px 16px;
+}
+.aba-btn-localizacao:hover {
+  filter: brightness(1.08);
+  background: linear-gradient(90deg, #1ed760, #00cfff);
+}
+.resultado-localizacao {
+  margin: 18px 0 0 0;
+  text-align: left;
+  max-width: 700px;
+  margin-left: 10px;
+  color: #222;
+  font-size: 1em;
+}
+.aba-btn-area.aba-btn-topo {
+  justify-content: flex-start;
+  margin: 0 0 24px 0;
+}
+.aba-btn-area.aba-btn-topo .aba-btn {
+  margin-left: 0px;
+}
+.aba-btn-area {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 0;
+}
+.aba-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(90deg, #232526, #414345);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  min-width: unset;
+  width: auto;
+  max-width: 220px;
+}
+.aba-btn.aba-btn-futebol,
+.aba-btn.aba-btn-volei_de_areia,
+.aba-btn.aba-btn-tenis_de_mesa,
+.aba-btn.aba-btn-basquete,
+.aba-btn.aba-btn-volei,
+.aba-btn.aba-btn-futevolei,
+.aba-btn.aba-btn-rugby,
+.aba-btn.aba-btn-box,
+.aba-btn.aba-btn-muay_thai,
+.aba-btn.aba-btn-judo,
+.aba-btn.aba-btn-jiu_jitsu,
+.aba-btn.aba-btn-karate,
+.aba-btn.aba-btn-krav_maga,
+.aba-btn.aba-btn-kung_fu,
+.aba-btn.aba-btn_projetos {
+  font-size: 1.30em;
+  padding: 10px 0px;
+  min-width: 150px;
+}
+.aba-btn-futebol { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-box { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-muay_thai { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-judo { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-jiu_jitsu { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-karate { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-krav_maga { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-kung_fu { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.aba-btn-tenis_de_mesa { background: linear-gradient(90deg, #173ebe, #173ebe); }
+.aba-btn-basquete { background: linear-gradient(90deg, #ff7300, #ffb347); color: #fff7e6; }
+.aba-btn-volei { background: linear-gradient(90deg, #FFD700, #044883e6); color: #0a2342; }
+.aba-btn-volei_de_areia { background: linear-gradient(90deg, #001381, #09daff); color: #fff7e6; }
+.aba-btn-projetos { background: linear-gradient(90deg, #8e2de2, #8e2de2); }
+.aba-btn-rugby { background: linear-gradient(90deg, #013f09, #046419); }
+.aba-btn.aba-btn-futevolei, .aba-btn.aba-btn-volei-de-areia { background: linear-gradient(90deg, #044883e6, #f8fc23); color: #ffffff; }
+.aba-btn.aba-btn-handebol, .aba-btn.aba-btn.aba-btn-handebol { background: linear-gradient(90deg, #058ec4, #28a745); color: #fff; }
+.aba-btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.16);
+  filter: brightness(1.10);
+}
+.index-sports-btns {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin: 48px 0 32px 0;
+}
+@media (max-width: 900px) {
+  .index-sports-btns {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .btn-sport {
+    width: 90vw;
+    max-width: 340px;
+    font-size: 1.1em;
+    padding: 14px 10px;
+  }
+}
+.btn-sport {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3em;
+  font-weight: bold;
+  padding: 18px 36px;
+  border-radius: 12px;
+  border: none;
+  text-decoration: none;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.btn-sport.futebol { background: linear-gradient(90deg, #1DB954, #1ed760); }
+.btn-sport.tenis_de_mesa { background: linear-gradient(90deg, #173ebe, #173ebe); }
+.btn-sport.basquete { background: linear-gradient(90deg, #ff7300, #ffb347); color: #fff7e6; }
+.btn-sport.volei { background: linear-gradient(90deg, #FFD700, #044883e6); color: #ffffff; }
+.btn-sport.rugby { background: linear-gradient(90deg, #013f09, #046419); }
+.btn-sport.btn-sport.futsal { background: linear-gradient(90deg, #0e2a85, #28a745); }
+.btn-sport.volei_de_areia {background: linear-gradient(90deg, #001381, #09daff); color: #ffffff;}
+.btn-sport.futevolei {background: linear-gradient(90deg, #001381, #f8fc23); color: #ffffff;}
+.btn-sport.box {background: linear-gradient(90deg, #fcfcfc, #ff122a); color: #ffffff;}
+.btn-sport.muay_thai {background: linear-gradient(90deg, #0724c4, #ff122a); color: #ffffff;}
+.btn-sport.judo {background: linear-gradient(90deg, #fcfcfc, #001381); color: #ffffff;}
+.btn-sport.jiu_jitsu {background: linear-gradient(90deg, #000000, #001381); color: #ffffff;}
+.btn-sport.karate {background: linear-gradient(90deg, #fcfcfc, #001381); color: #ffffff;}
+.btn-sport.krav_maga {background: linear-gradient(90deg, #124f20, #28a745); color: #ffffff;}
+.btn-sport.kung_fu {background: linear-gradient(90deg, #8b0397, #8b0397); color: #ffffff;}
+.btn-sport.handebol {background: linear-gradient(90deg, #058ec4, #28a745);color: #fff;
+}
+.btn-sport:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  filter: brightness(1.08);
+}
+.index-projetos-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+.btn-projetos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.15em;
+  font-weight: bold;
+  padding: 14px 32px;
+  border-radius: 10px;
+  border: none;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(90deg, #8e2de2, #8e2de2);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.btn-projetos:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.16);
+  filter: brightness(1.10);
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  color: white;
+  text-align: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100vh;
+  background: linear-gradient(180deg, #232526 0%, #414345 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.15);
+  z-index: 200;
+  overflow-y: auto;
+}
+.sidebar-title {
+  margin: 32px 0 24px 0;
+  text-align: center;
+}
+.sidebar-title h1 {
+  font-size: 1.3em;
+  line-height: 1.2;
+  letter-spacing: 1px;
+}
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  align-items: stretch;
+}
+.sidebar-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.13em;
+  padding: 10px 0;
+  margin-bottom: 0;
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.sidebar-nav a:hover {
+  background: #1ed760;
+  color: #232526;
+}
+main {
+  padding: 60px 20px;
+  backdrop-filter: brightness(90%);
+  min-height: 100vh;
+  transition: margin-left 0.3s;
+}
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+.card {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 20px;
+  width: 150px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+}
+footer {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+body.volei footer {
+  color: #ffffff;
+}
+body.futebol {
+  background-image: linear-gradient(120deg, #28a745 0%, #28a745 100%);
+  color: #ffffff;
+}
+body.futebol main {
+  background: rgba(255,255,255,0.15);
+  color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+  padding: 32px 16px;
+  margin-top: 32px;
+}
+body.futevolei {
+  background-image: linear-gradient(120deg, #044883e6 30%, #f8fc23 100%);
+  color: #ffffff;
+}
+body.futevolei main {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+  padding: 32px 16px;
+  margin-top: 32px;
+}
+body.volei_de_areia {
+  background-image: linear-gradient(120deg, #001381 30%, #09daff 100%);
+  color: #ffffff;
+}
+body.volei_de_areia main {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+  padding: 32px 16px;
+  margin-top: 32px;
+}
+body.tenis_de_mesa {
+  background-image: linear-gradient(120deg, #173ebe 0%, #0e2a85 100%);
+  color: #ffffff;
+}
+body.futsal {
+  background-image: linear-gradient(120deg, #0e2a85 30%, #28a745 100%);
+  color: #ffffff;
+}
+body.handebol {
+  background-image: linear-gradient(120deg, #058ec4 50%, #28a745 100%);
+  color: #ffffff;
+}
+body.basquete {
+  background-image: linear-gradient(120deg, #ff7300 0%, #ffb347 100%);
+  color: #fff7e6;
+}
+body.basquete main {
+  background: rgba(255,255,255,0.10);
+  color: #fff7e6;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+  padding: 32px 16px;
+  margin-top: 32px;
+}
+body.volei {
+  background-image: linear-gradient(120deg, #FFD700 0%, #044883e6 100%);
+  color: #0a2342;
+}
+body.volei main {
+  background: #044883e6;
+  color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 18px rgba(0, 0, 0, 0.12);
+  padding: 32px 16px;
+  margin-top: 32px;
+  text-shadow: 0 1px 3px rgba(255,255,255,0.6);
+}
+body.rugby {
+  background-image: linear-gradient(120deg, #013f09 0%, #046419 100%);
+  color: #fff;
+}
+body.rugby main {
+  background: rgba(248, 0, 0, 0.08);
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+  padding: 32px 16px;
+  margin-top: 32px;
+}
+body.projetos {
+  background-image: linear-gradient(rgba(255, 145, 0, 0.4), rgba(128,0,128,0.4)), url('');
+  color: #e0d4ff;
+}
+body.index {
+  background: linear-gradient(45deg, #28a745, #007bff);
+}
+
+
+/* === MODO ESCURO GLOBAL === */
+body.dark-mode {
+  background: linear-gradient(180deg, #121212, #1e1e1e);
+  color: #f0f0f0;
+}
+
+body.dark-mode main {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f0f0f0;
+}
+
+body.dark-mode .sidebar {
+  background: linear-gradient(180deg, #1e1e1e, #2c2c2c);
+}
+
+body.dark-mode .sidebar-nav a:hover {
+  background: #00cfff;
+  color: #1e1e1e;
+}
+
+body.dark-mode .aba-btn {
+  background: linear-gradient(90deg, #333, #555);
+  color: #fff;
+}
+
+body.dark-mode footer {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #ccc;
+}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+<div class="aba-btn-area aba-btn-topo"><a href="/" class="aba-btn aba-btn-basquete">🏠 Voltar para o Início</a></div>
+<div class="aba-btn-area"><button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('basquete')">📍 Locais para jogar basquete perto de mim</button></div>
+<div id="resultado-localizacao-basquete" class="resultado-localizacao"></div>
+
+<h1>🏀 Basquete</h1>
+<img src="{{ url_for('static', filename='basquete.webp') }}" alt="Basquete" class="img-esporte">
+<div style="text-align:left; max-width:700px; margin: 24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
+	<h3>Quando, onde e quem criou?</h3>
+	<p>O basquete foi criado em 1891 por James Naismith, um professor canadense, na cidade de Springfield, Massachusetts (EUA). O objetivo era criar um esporte indoor para os alunos durante o inverno.</p>
+	<h3>Regras básicas e mais importantes</h3>
+	<ul>
+		<li>Dois times de 5 jogadores cada.</li>
+		<li>O objetivo é fazer pontos arremessando a bola na cesta do adversário.</li>
+		<li>O jogo é dividido em 4 períodos de 10 ou 12 minutos.</li>
+		<li>Não é permitido correr segurando a bola (deve-se driblar).</li>
+		<li>Faltas, tempo de posse (24 segundos) e linha dos 3 pontos são regras essenciais.</li>
+	</ul>
+	<h3>Curiosidades</h3>
+	<ul>
+		<li>O basquete é um dos esportes mais populares dos EUA e do mundo.</li>
+		<li>A NBA é a liga de basquete mais famosa e reúne os melhores jogadores do planeta.</li>
+		<li>O Brasil já foi campeão mundial masculino em 1959 e 1963.</li>
+		<li>O primeiro jogo de basquete usou uma cesta de pêssegos como alvo.</li>
+	</ul>
+	<h3>Benefícios</h3>
+	<ul>
+		<li>Desenvolve agilidade, coordenação e raciocínio rápido.</li>
+		<li>Estimula o trabalho em equipe e a comunicação.</li>
+		<li>Melhora a saúde cardiovascular e a resistência física.</li>
+		<li>Promove inclusão social e respeito às regras.</li>
+	</ul>
+	<h3>Popularidade</h3>
+	<p>O basquete é praticado em mais de 200 países, sendo extremamente popular em escolas, clubes e comunidades. É símbolo de superação, talento e espetáculo.</p>
+</div>
+{% endblock %}
