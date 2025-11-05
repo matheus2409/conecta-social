@@ -1,35 +1,61 @@
 {% extends 'base.html' %}
 {% block content %}
 <button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
-<div class="aba-btn-area aba-btn-topo"><a href="/" class="aba-btn aba-btn-futsal">🏠 Voltar para o Início</a></div>
-<div class="aba-btn-area"><button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('futsal')">📍 Locais para jogar futsal perto de mim</button></div>
+
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+</div>
+
+<div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('futsal')">
+    📍 Locais para jogar Futsal perto de mim
+  </button>
+</div>
+
 <div id="resultado-localizacao-futsal" class="resultado-localizacao"></div>
 
 <h1>⚽ Futsal</h1>
 <img src="{{ url_for('static', filename='futsal.jpg') }}" alt="futsal" class="img-esporte">
-<div style="text-align:left; max-width:700px; margin: 24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
-	<h3>Quando, onde e quem criou?</h3>
-	<p>O futsal foi criado no Uruguai, em 1934, por Juan Carlos Ceriani. O esporte se popularizou rapidamente na América do Sul e no mundo.</p>
-	<h3>Regras básicas e mais importantes</h3>
-	<ul>
-		<li>Dois times de 5 jogadores cada, incluindo o goleiro.</li>
-		<li>O objetivo é marcar gols na baliza adversária.</li>
-		<li>O jogo é disputado em dois tempos de 20 minutos.</li>
-		<li>Substituições ilimitadas durante a partida.</li>
-		<li>O goleiro pode jogar com os pés fora da área, mas há restrições de tempo de posse.</li>
-	</ul>
-	<h3>Curiosidades</h3>
-	<ul>
-		<li>O Brasil é o maior campeão mundial de futsal.</li>
-		<li>Grandes jogadores de futebol começaram no futsal, como Ronaldinho e Neymar.</li>
-		<li>O futsal é jogado em quadras menores, o que exige mais habilidade e rapidez.</li>
-		<li>Existem ligas e campeonatos nacionais e internacionais.</li>
-	</ul>
-	<h3>Benefícios</h3>
-	<ul>
-		<li>Desenvolve técnica, agilidade e raciocínio rápido.</li>
-		<li>Estimula o trabalho em equipe e a comunicação.</li>
-		<li>Promove saúde cardiovascular e resistência física.</li>
-	</ul>
+
+<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342; line-height:1.6;">
+
+  <h3>📜 Origem e História</h3>
+  <p>O <strong>Futsal</strong> surgiu no <strong>Uruguai</strong> 🇺🇾 em 1930, como uma adaptação do futebol para ambientes fechados 🏟️.  
+  O objetivo era criar uma versão do futebol que pudesse ser praticada em ginásios, quadras de escolas e clubes, usando uma bola menor e regras específicas.  
+  No Brasil 🇧🇷, o futsal se popularizou rapidamente e ajudou a formar grandes jogadores de futebol profissional.</p>
+
+  <h3>⚔️ Regras Básicas</h3>
+  <ul>
+    <li>👥 Cada equipe joga com 5 jogadores (incluindo o goleiro 🧤).</li>
+    <li>⏱️ O jogo é dividido em dois tempos de 20 minutos corridos.</li>
+    <li>⚽ A bola é menor e menos saltitante que a do futebol de campo.</li>
+    <li>🖐️ Apenas o goleiro pode usar as mãos, dentro da área.</li>
+    <li>🚫 Não é permitido contato físico excessivo; faltas acumulam.</li>
+    <li>🟨 Cartão amarelo = advertência | 🟥 Cartão vermelho = expulsão.</li>
+    <li>🥅 Gols são marcados quando a bola cruza completamente a linha da meta adversária.</li>
+  </ul>
+
+  <h3>💪 Benefícios</h3>
+  <ul>
+    <li>🏃 Melhora agilidade, velocidade e reflexos.</li>
+    <li>🦵 Fortalece pernas e tronco.</li>
+    <li>🧠 Desenvolve raciocínio rápido, tomada de decisão e visão de jogo.</li>
+    <li>🤝 Estimula trabalho em equipe e cooperação.</li>
+    <li>🎯 Aprimora coordenação motora e precisão nos passes e chutes.</li>
+    <li>😌 Ajuda a reduzir o estresse e melhorar o bem-estar físico e mental.</li>
+  </ul>
+
+  <h3>💡 Curiosidades</h3>
+  <ul>
+    <li>🌍 O futsal é praticado em todo o mundo, com campeonatos internacionais como a Copa do Mundo de Futsal da FIFA.</li>
+    <li>🇧🇷 Muitos grandes jogadores de futebol, como Pelé, Zico, Ronaldinho e Neymar, começaram jogando futsal.</li>
+    <li>⚡ O futsal exige grande habilidade com dribles e passes curtos, tornando o jogo rápido e técnico.</li>
+    <li>🏟️ A quadra de futsal é menor que a de futebol de campo, o que favorece a dinâmica intensa e rápida do jogo.</li>
+  </ul>
+
+  <h3>🌎 Popularidade</h3>
+  <p>O futsal é extremamente popular no Brasil 🇧🇷 e em países da América do Sul 🌎, além de crescer em popularidade na Europa e Ásia.  
+  Além de ser uma forma de lazer e prática esportiva nas escolas e clubes, também é um caminho para revelar talentos para o futebol profissional ⚽🏆.</p>
+
 </div>
 {% endblock %}

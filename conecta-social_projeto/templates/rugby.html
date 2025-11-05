@@ -1,39 +1,62 @@
 {% extends 'base.html' %}
 {% block content %}
 <button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
-<div class="aba-btn-area aba-btn-topo"><a href="/" class="aba-btn aba-btn-rugby">🏠 Voltar para o Início</a></div>
-<div class="aba-btn-area"><button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('rugby')">📍 Locais para jogar rugby perto de mim</button></div>
+
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+</div>
+
+<div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('rugby')">
+    📍 Locais para jogar Rugby perto de mim
+  </button>
+</div>
+
 <div id="resultado-localizacao-rugby" class="resultado-localizacao"></div>
 
 <h1>🏉 Rugby</h1>
-<img src="{{ url_for('static', filename='rugby.jpg') }}" alt="Rugby" class="img-esporte">
+<img src="{{ url_for('static', filename='rugby.jpg') }}" alt="rugby" class="img-esporte">
 
-<div style="text-align:left; max-width:700px; margin: 24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
-	<h3>Quando, onde e quem criou?</h3>
-	<p>O rugby foi criado em 1823 por William Webb Ellis, um estudante da Rugby School, na cidade de Rugby, Inglaterra. Diz a lenda que, durante uma partida de futebol, ele pegou a bola com as mãos e correu em direção ao gol adversário, quebrando as regras e dando origem a um novo esporte.</p>
-	<h3>Regras básicas e mais importantes</h3>
-	<ul>
-		<li>Dois times de 15 jogadores (na modalidade Union) ou 13 (na modalidade League).</li>
-		<li>O objetivo é marcar pontos levando a bola até a área de in-goal do adversário (try) ou chutando-a entre os postes do "H".</li>
-		<li>A bola só pode ser passada para trás com as mãos. Para avançar, os jogadores devem correr com a bola ou chutá-la para frente.</li>
-		<li>O tackle (derrubar o jogador com a posse de bola) é um fundamento essencial para a defesa.</li>
-		<li>Scrum e Lineout são formações usadas para reiniciar o jogo após uma infração ou quando a bola sai de campo.</li>
-	</ul>
-	<h3>Curiosidades</h3>
-	<ul>
-		<li>O "Haka", uma dança de guerra Maori, é famosa por ser realizada pela seleção da Nova Zelândia, os All Blacks, antes dos jogos.</li>
-		<li>A Copa do Mundo de Rugby é o terceiro evento esportivo mais assistido do mundo.</li>
-		<li>O rugby é um esporte olímpico na sua versão de 7 jogadores (Rugby Sevens).</li>
-		<li>A bola de rugby é oval para facilitar os passes com as mãos e os quiques imprevisíveis.</li>
-	</ul>
-	<h3>Benefícios</h3>
-	<ul>
-		<li>Desenvolve força, resistência física e agilidade.</li>
-		<li>Estimula o respeito, a disciplina e o trabalho em equipe, com forte ênfase no "terceiro tempo" (confraternização pós-jogo).</li>
-		<li>Melhora o raciocínio estratégico e a tomada de decisão sob pressão.</li>
-		<li>Promove um forte senso de comunidade e camaradagem.</li>
-	</ul>
-	<h3>Popularidade</h3>
-	<p>O rugby é extremamente popular em países como Nova Zelândia, África do Sul, Inglaterra, França e Argentina. No Brasil, o esporte vem crescendo rapidamente, com a criação de novas equipes e um aumento no número de praticantes e fãs.</p>
+<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342; line-height:1.6;">
+
+  <h3>📜 Origem e História</h3>
+  <p>O <strong>Rugby</strong> surgiu na <strong>Inglaterra</strong> 🏴 em 1823, quando, segundo a lenda, William Webb Ellis decidiu pegar a bola com as mãos durante uma partida de futebol.  
+  Isso deu origem a um novo esporte, com regras próprias, que se espalhou pelo mundo 🌍.  
+  Existem duas modalidades principais: <strong>Rugby Union</strong> e <strong>Rugby League</strong>, cada uma com regras ligeiramente diferentes.</p>
+
+  <h3>⚔️ Regras Básicas</h3>
+  <ul>
+    <li>👥 Cada equipe tem 15 jogadores (Rugby Union) ou 13 jogadores (Rugby League).</li>
+    <li>⏱️ Partidas têm dois tempos de 40 minutos cada.</li>
+    <li>⚽ O objetivo é marcar pontos levando a bola até a zona de try adversária ou chutando entre os postes 🏉.</li>
+    <li>🤾 O passe só pode ser lateral ou para trás; passes para frente são proibidos.</li>
+    <li>🛡️ Contatos físicos são permitidos, mas golpes ilegais são punidos com faltas ou cartões 🟨🟥.</li>
+    <li>🥅 O try vale 5 pontos (Union) ou 4 pontos (League); conversões, penais e drops somam pontos adicionais.</li>
+    <li>⚡ O jogo é físico e estratégico, combinando força, velocidade e tática.</li>
+  </ul>
+
+  <h3>💪 Benefícios</h3>
+  <ul>
+    <li>🏋️ Aumenta força muscular e resistência física.</li>
+    <li>🏃 Melhora agilidade, velocidade e coordenação.</li>
+    <li>🧠 Desenvolve estratégia, raciocínio rápido e trabalho em equipe 🤝.</li>
+    <li>⚡ Estimula disciplina, coragem e resiliência.</li>
+    <li>😌 Ajuda no controle do estresse e na confiança pessoal.</li>
+    <li>🎯 Trabalha equilíbrio, reflexos e resistência cardiovascular.</li>
+  </ul>
+
+  <h3>💡 Curiosidades</h3>
+  <ul>
+    <li>🌍 O Rugby é mais popular em países como Nova Zelândia 🇳🇿, Austrália 🇦🇺, Inglaterra 🏴 e África do Sul 🇿🇦.</li>
+    <li>🏆 A Copa do Mundo de Rugby é realizada a cada quatro anos desde 1987.</li>
+    <li>🇧🇷 No Brasil, o rugby vem crescendo, principalmente nas categorias de base e universidades.</li>
+    <li>🐏 A seleção da Nova Zelândia é conhecida como <strong>All Blacks</strong> e é famosa por seu haka antes das partidas.</li>
+  </ul>
+
+  <h3>🌎 Popularidade</h3>
+  <p>O rugby é um esporte internacional, com milhões de praticantes e fãs 🌍.  
+  Embora mais popular em países da Oceania e Europa, ele cresce em outras regiões, incluindo América do Sul e Ásia.  
+  O esporte combina técnica, força e espírito de equipe, tornando-o uma paixão global 🏉🌟.</p>
+
 </div>
 {% endblock %}

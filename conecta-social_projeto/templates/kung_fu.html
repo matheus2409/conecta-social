@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-kungfu">🏠 Voltar para o Início</a>
+</div>
+
+<div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('kung_fu')">
+    📍 Locais para praticar Kung Fu perto de mim
+  </button>
+</div>
+
+<div id="resultado-localizacao-kung_fu" class="resultado-localizacao"></div>
+
+<h1>🐉 Kung Fu</h1>
+<img src="{{ url_for('static', filename='kung_fu.jpg') }}" alt="Kung Fu" class="img-esporte">
+
+<div style="text-align:left; max-width:750px; margin:24px auto; background:rgba(255,255,255,0.9); padding:24px; border-radius:16px; color:#0a2342; line-height:1.6;">
+
+  <h3>📜 Origem e História</h3>
+  <p>O <strong>Kung Fu</strong> é uma das artes marciais mais antigas e tradicionais do mundo, com origens que remontam há mais de <strong>4.000 anos na China</strong>.  
+  O termo “Kung Fu” (功夫) significa literalmente <em>“habilidade adquirida com esforço”</em> — ou seja, representa qualquer disciplina dominada através da prática e da dedicação.</p>
+  <p>Embora existam muitos estilos diferentes, as bases do Kung Fu moderno foram influenciadas pelos <strong>monges do Templo Shaolin</strong>, que desenvolveram técnicas para fortalecer o corpo e o espírito, unindo filosofia, meditação e combate.</p>
+
+  <h3>☯️ Filosofia e Princípios</h3>
+  <p>Mais do que uma luta, o Kung Fu é um <strong>caminho de autodescoberta e equilíbrio</strong>.  
+  Inspirado nos princípios do <strong>taoismo, budismo e confucionismo</strong>, ele ensina que a verdadeira força está no controle interior e no respeito à vida.</p>
+  <ul>
+    <li><strong>Equilíbrio:</strong> corpo e mente devem agir em harmonia.</li>
+    <li><strong>Disciplina:</strong> a evolução vem através da prática contínua.</li>
+    <li><strong>Respeito:</strong> para consigo mesmo, para com o mestre e para com os outros.</li>
+    <li><strong>Controle:</strong> o verdadeiro guerreiro evita o confronto sempre que possível.</li>
+  </ul>
+
+  <h3>🐅 Estilos e Escolas</h3>
+  <p>Existem centenas de estilos de Kung Fu, cada um com movimentos, filosofias e tradições próprias. Os principais são divididos em duas grandes categorias:</p>
+  <ul>
+    <li><strong>Estilos do Norte:</strong> priorizam chutes altos, agilidade e longos deslocamentos. Exemplo: <em>Shaolin do Norte</em>.</li>
+    <li><strong>Estilos do Sul:</strong> focam em técnicas curtas, socos rápidos e defesa próxima. Exemplo: <em>Wing Chun</em>.</li>
+  </ul>
+  <p>Entre os estilos mais conhecidos estão:</p>
+  <ul>
+    <li>🐉 <strong>Shaolin Kung Fu:</strong> o mais tradicional, ligado aos monges do templo Shaolin.</li>
+    <li>🦁 <strong>Wing Chun:</strong> famoso por ser o estilo de <strong>Bruce Lee</strong> e por seus movimentos rápidos e diretos.</li>
+    <li>🐍 <strong>Tai Chi Chuan:</strong> estilo interno que foca na energia, respiração e meditação.</li>
+    <li>🦅 <strong>Hung Gar:</strong> combina força, estabilidade e movimentos inspirados em animais.</li>
+    <li>🐯 <strong>Estilo dos Cinco Animais:</strong> baseia-se nos movimentos do tigre, garça, leopardo, serpente e dragão.</li>
+  </ul>
+
+  <h3>⚔️ Regras e Estrutura</h3>
+  <p>O Kung Fu pode ser praticado de duas formas principais:</p>
+  <ul>
+    <li><strong>Tradicional:</strong> foco no treinamento técnico, filosófico e espiritual.</li>
+    <li><strong>Esportivo:</strong> conhecido como <em>Wushu</em>, com regras, pontuação e apresentações acrobáticas.</li>
+  </ul>
+  <p>Em competições, os praticantes demonstram katis (rotinas coreografadas) ou participam de combates com proteção e pontuação baseada em técnica e controle.</p>
+
+  <h3>🥋 Graduações</h3>
+  <p>As graduações variam conforme o estilo e a escola, mas normalmente seguem o uso de faixas ou cordões de cores diferentes para indicar o nível do praticante:</p>
+  <ul>
+    <li>⚪ <strong>Branca:</strong> iniciante.</li>
+    <li>🟡 <strong>Amarela:</strong> fundamentos básicos e primeiros movimentos.</li>
+    <li>🟠 <strong>Laranja:</strong> coordenação e foco técnico.</li>
+    <li>🟢 <strong>Verde:</strong> equilíbrio e controle corporal.</li>
+    <li>🔵 <strong>Azul:</strong> domínio das formas intermediárias.</li>
+    <li>🟣 <strong>Roxa:</strong> aperfeiçoamento e fluidez dos movimentos.</li>
+    <li>⚫ <strong>Preta:</strong> maestria e responsabilidade de transmitir o conhecimento.</li>
+  </ul>
+
+  <h3>🏋️‍♂️ Benefícios do Kung Fu</h3>
+  <ul>
+    <li>Melhora o <strong>condicionamento físico</strong> e a <strong>flexibilidade</strong>.</li>
+    <li>Desenvolve <strong>autocontrole, paciência e concentração</strong>.</li>
+    <li>Fortalece a <strong>coordenação motora</strong> e o <strong>equilíbrio</strong>.</li>
+    <li>Ajuda na <strong>autodefesa</strong> e na <strong>confiança pessoal</strong>.</li>
+    <li>Reduz o <strong>estresse</strong> e melhora a <strong>saúde mental</strong>.</li>
+    <li>Promove a <strong>harmonia entre corpo, mente e espírito</strong>.</li>
+  </ul>
+
+  <h3>🌍 Kung Fu no Mundo e no Brasil</h3>
+  <p>O Kung Fu se espalhou globalmente através do cinema e de grandes mestres, sendo popularizado por ícones como <strong>Bruce Lee</strong>, <strong>Jackie Chan</strong> e <strong>Jet Li</strong>.  
+  Hoje, é praticado em academias, templos e escolas em todos os continentes.</p>
+  <p>No <strong>Brasil</strong>, o Kung Fu chegou nos anos 1970 e cresceu rapidamente. Atualmente, existem diversas federações, e o país participa de competições internacionais de <strong>Wushu</strong>, a versão esportiva da arte.</p>
+
+  <h3>💡 Curiosidades</h3>
+  <ul>
+    <li>O Kung Fu inspirou vários outros estilos de artes marciais, incluindo o Karatê e o Taekwondo.</li>
+    <li>Alguns estilos de Kung Fu são inspirados em animais, como tigre, garça, macaco, serpente e dragão.</li>
+    <li>O treino tradicional inclui <strong>meditação</strong>, <strong>exercícios de respiração</strong> e <strong>armas chinesas</strong> (como bastão, espada e lança).</li>
+    <li>Os monges Shaolin viam o Kung Fu como uma forma de <strong>equilibrar corpo e mente</strong> durante a meditação.</li>
+    <li>O <strong>Wushu moderno</strong> é reconhecido pelo Comitê Olímpico Internacional como esporte oficial.</li>
+  </ul>
+
+  <h3>🔥 Conclusão</h3>
+  <p>O <strong>Kung Fu</strong> é uma arte marcial completa — física, mental e espiritual.  
+  Ele ensina disciplina, respeito e autoconhecimento, mostrando que a verdadeira vitória está em dominar a si mesmo.  
+  Seja como esporte, defesa pessoal ou filosofia de vida, o Kung Fu continua sendo um símbolo de <strong>sabedoria e equilíbrio</strong> milenar.</p>
+
+</div>
+{% endblock %}

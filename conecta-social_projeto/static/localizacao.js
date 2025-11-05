@@ -35,6 +35,30 @@ function buscarLocaisProximos(esporte) {
 		window.open('https://www.google.com/maps/place/NEW+PONG+-+Academia+de+T%C3%AAnis+de+Mesa/@-20.8611262,-49.3065275,11.88z/data=!4m6!3m5!1s0x94bdad45481f4781:0x98ac37500298741!8m2!3d-20.8381911!4d-49.3697763!16s%2Fg%2F11t7fqv2tb!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAxMi4wIKXMDSoASAFQAw%3D%3D', '_blank');
 		return;
 	}
+	if (esporte === 'boxe') {
+		window.open('https://www.google.com/maps/search/academias+de+boxe+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+		return;
+	}
+if (esporte === 'muay_thai') {
+		window.open('https://www.google.com/maps/search/academias+de+muay+thai+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+		return;
+	}
+	if (esporte === 'judo') {
+		window.open('https://www.google.com/maps/search/academias+de+judo+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+		return;
+	}
+if (esporte === 'jiu_jitsu') {
+		window.open('https://www.google.com/maps/search/academias+de+jiu+jitsu+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+	}
+if (esporte === 'karate') {
+		window.open('https://www.google.com/maps/search/academias+de+karate+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+	}
+if (esporte === 'krav_maga') {
+		window.open('https://www.google.com/maps/search/academias+de+krav+maga+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+	}
+if (esporte === 'kung_fu') {
+		window.open('https://www.google.com/maps/search/academias+de+kung+fu+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+	}
 	if (!navigator.geolocation) {
 		alert('Geolocalização não suportada pelo navegador.');
 		return;
