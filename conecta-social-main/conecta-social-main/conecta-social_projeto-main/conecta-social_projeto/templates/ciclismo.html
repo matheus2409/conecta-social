@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+</div>
+
+<div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('ciclismo')">📍 Locais para praticar Ciclismo perto de mim</button>
+</div>
+
+<div id="resultado-localizacao-ciclismo" class="resultado-localizacao"></div>
+
+<h1>🚴‍♂️ Ciclismo</h1>
+<img src="{{ url_for('static', filename='ciclismo.jpeg') }}" alt="ciclismo" class="img-esporte">
+
+<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
+
+  <h3>📜 Quando, onde e quem criou?</h3>
+  <p>
+    O <strong>Ciclismo 🚴‍♀️</strong> surgiu na <strong>Europa no século XIX</strong>, logo após a invenção da bicicleta.  
+    As primeiras competições aconteceram na <strong>França 🇫🇷 e Inglaterra 🇬🇧</strong>, por volta de 1868.  
+    Em 1896, o ciclismo se tornou um dos primeiros esportes disputados nos <strong>Jogos Olímpicos Modernos 🏅</strong>.  
+    Desde então, o esporte evoluiu, com modalidades de estrada, pista, mountain bike e BMX 🚵‍♂️.
+  </p>
+
+  <h3>📏 Regras básicas e fundamentos</h3>
+  <ul>
+    <li>Os ciclistas competem percorrendo um trajeto no menor tempo possível ⏱️.</li>
+    <li>O uso de capacete é obrigatório em todas as provas 🪖.</li>
+    <li>Existem diferentes modalidades: estrada, pista, mountain bike, ciclismo indoor e BMX 🚲.</li>
+    <li>As provas podem ser individuais ou em equipe 👥.</li>
+    <li>Os atletas devem respeitar as regras de ultrapassagem e sinalização 🚦.</li>
+    <li>As bicicletas precisam estar dentro dos padrões técnicos exigidos pela federação internacional (UCI) ⚙️.</li>
+  </ul>
+
+  <h3>💪 Benefícios</h3>
+  <ul>
+    <li>Melhora o condicionamento físico e cardiovascular ❤️‍🔥.</li>
+    <li>Fortalece pernas, glúteos e abdômen 🦵.</li>
+    <li>Reduz o estresse e melhora a saúde mental 🧘‍♂️.</li>
+    <li>Ajuda na perda de peso e aumenta a resistência física 💧.</li>
+    <li>Estimula a socialização e a prática esportiva ao ar livre 🌳.</li>
+    <li>É uma atividade sustentável e ecológica 🌍.</li>
+  </ul>
+
+  <h3>🌟 Curiosidades</h3>
+  <ul>
+    <li>O <strong>Tour de France 🇫🇷</strong> é a competição de ciclismo mais famosa do mundo, realizada desde 1903 🚴‍♂️.</li>
+    <li>Um ciclista profissional pode pedalar mais de 200 km em um único dia 😮.</li>
+    <li>O recorde mundial de velocidade em bicicleta ultrapassa os 280 km/h ⚡.</li>
+    <li>O ciclismo é um dos esportes mais completos e com menor impacto nas articulações 🤩.</li>
+    <li>O Brasil 🇧🇷 tem destaque em provas de mountain bike, com atletas como Henrique Avancini 🥇.</li>
+  </ul>
+
+  <h3>🌎 Popularidade</h3>
+  <p>
+    O ciclismo é um dos esportes mais populares do planeta 🌍, com milhões de praticantes, seja de forma competitiva ou recreativa.  
+    É comum ver grupos pedalando pelas cidades e trilhas ao redor do mundo, incentivando um estilo de vida ativo e sustentável 🚴‍♂️🌱.  
+    No Brasil, cresce a cada ano, com mais ciclovias e eventos como o “Pedala São Paulo” 🚦🇧🇷.
+  </p>
+
+</div>
+{% endblock %}

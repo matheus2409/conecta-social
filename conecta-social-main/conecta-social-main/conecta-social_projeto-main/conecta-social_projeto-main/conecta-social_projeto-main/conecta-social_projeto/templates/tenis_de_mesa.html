@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+</div>
+
+<div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('tenis_de_mesa')">
+    📍 Locais para jogar Tênis de Mesa perto de mim
+  </button>
+</div>
+
+<div id="resultado-localizacao-tenis_de_mesa" class="resultado-localizacao"></div>
+
+<h1>🏓 Tênis de Mesa</h1>
+<img src="{{ url_for('static', filename='tenis_de_mesa.jpg') }}" alt="tênis de mesa" class="img-esporte">
+
+<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342; line-height:1.6;">
+
+  <h3>📜 Origem e História</h3>
+  <p>O <strong>Tênis de Mesa</strong>, também conhecido como <em>pingue-pongue</em> 🏓, surgiu no final do século XIX na Inglaterra 🏴, como uma versão indoor do tênis.  
+  Inicialmente jogado em mesas com livros ou caixas como rede, evoluiu para o esporte oficial que conhecemos hoje, com regras padronizadas.  
+  Tornou-se esporte olímpico em 1988 em Seul 🇰🇷.</p>
+
+  <h3>⚔️ Regras Básicas</h3>
+  <ul>
+    <li>👥 Pode ser jogado em simples (1x1) ou duplas (2x2).</li>
+    <li>🏓 A bola deve quicar no lado do adversário após ser golpeada com a raquete.</li>
+    <li>⏱️ Jogos oficiais são disputados em sets de 11 pontos, com diferença mínima de 2 pontos.</li>
+    <li>🖐️ A raquete deve ser usada para golpear a bola, e não é permitido tocar a rede ou a mesa com as mãos.</li>
+    <li>⚡ O saque deve ser lançado verticalmente, pelo menos 16 cm acima da mão aberta do jogador.</li>
+    <li>🥇 Vence quem ganhar a maioria dos sets estipulados na partida (geralmente melhor de 5 ou 7).</li>
+  </ul>
+
+  <h3>💪 Benefícios</h3>
+  <ul>
+    <li>🧠 Melhora reflexos, concentração e raciocínio rápido.</li>
+    <li>🏃 Desenvolve coordenação motora e agilidade.</li>
+    <li>🤝 Estimula socialização e espírito esportivo.</li>
+    <li>⚡ Fortalece braços, punhos e antebraços.</li>
+    <li>😌 Ajuda a reduzir estresse e melhorar o bem-estar mental.</li>
+    <li>🎯 Melhora a precisão e a capacidade de tomada de decisão sob pressão.</li>
+  </ul>
+
+  <h3>💡 Curiosidades</h3>
+  <ul>
+    <li>🌍 O tênis de mesa é muito popular na Ásia, especialmente na China 🇨🇳, que domina campeonatos mundiais.</li>
+    <li>🏆 Existem competições internacionais como o Campeonato Mundial e a Copa do Mundo de Tênis de Mesa.</li>
+    <li>⚡ É conhecido por ser rápido e técnico, com jogadas que exigem reflexos incríveis.</li>
+    <li>🇧🇷 No Brasil, o esporte é praticado em clubes, escolas e academias, revelando talentos competitivos.</li>
+  </ul>
+
+  <h3>🌎 Popularidade</h3>
+  <p>O tênis de mesa é um esporte global 🌍, muito praticado na Ásia, Europa e América Latina.  
+  Além de ser competitivo, é um esporte acessível, podendo ser jogado por todas as idades e níveis de habilidade 🏓🎉.</p>
+
+</div>
+{% endblock %}

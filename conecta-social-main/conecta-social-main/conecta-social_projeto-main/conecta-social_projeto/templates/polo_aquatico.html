@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+</div>
+
+<div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('polo aquático')">📍 Locais para praticar Polo Aquático perto de mim</button>
+</div>
+
+<div id="resultado-localizacao-polo" class="resultado-localizacao"></div>
+
+<h1>🤽‍♂️ Polo Aquático</h1>
+<img src="{{ url_for('static', filename='polo_aquatico.j') }}" alt="polo aquático" class="img-esporte">
+
+<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
+
+  <h3>📜 Quando, onde e quem criou?</h3>
+  <p>
+    O <strong>Polo Aquático 💦</strong> surgiu no final do século XIX, na <strong>Inglaterra 🇬🇧</strong>, inspirado em jogos de bola realizados sobre cavalos — daí o nome “polo”.  
+    No entanto, os cavalos foram substituídos por jogadores nadando em uma piscina 🏊‍♂️.  
+    A primeira competição oficial aconteceu em 1870, e o esporte se tornou olímpico já em 1900 🥇.
+  </p>
+
+  <h3>📏 Regras básicas e fundamentos</h3>
+  <ul>
+    <li>O jogo é disputado entre duas equipes de 7 jogadores (6 de linha + 1 goleiro) 🤽‍♀️.</li>
+    <li>O objetivo é marcar gols arremessando a bola na baliza adversária 🥅.</li>
+    <li>Os jogadores não podem tocar o fundo da piscina e devem se manter flutuando o tempo todo 💧.</li>
+    <li>Cada partida tem 4 tempos de 8 minutos ⏱️.</li>
+    <li>Não é permitido segurar a bola com as duas mãos, exceto o goleiro ✋.</li>
+    <li>O contato físico é permitido, mas o excesso pode gerar faltas ou exclusões 🚫.</li>
+  </ul>
+
+  <h3>💪 Benefícios</h3>
+  <ul>
+    <li>Melhora a resistência física e cardiovascular ❤️‍🔥.</li>
+    <li>Fortalece músculos de todo o corpo — especialmente pernas, braços e abdômen 🏋️‍♂️.</li>
+    <li>Desenvolve trabalho em equipe, agilidade e tomada de decisão 🤝.</li>
+    <li>Ajuda no controle da respiração e no equilíbrio dentro d’água 🌊.</li>
+    <li>É um excelente exercício de alto gasto calórico 🔥.</li>
+  </ul>
+
+  <h3>🌟 Curiosidades</h3>
+  <ul>
+    <li>É um dos esportes olímpicos mais antigos ainda em disputa 🏅.</li>
+    <li>O Polo Aquático feminino só estreou nas Olimpíadas em 2000, em Sydney 👩‍🦰.</li>
+    <li>As partidas podem ser muito intensas — jogadores chegam a nadar até 3 km em um único jogo 😮.</li>
+    <li>A Hungria 🇭🇺 é o país com mais títulos olímpicos na modalidade 🏆.</li>
+    <li>No Brasil 🇧🇷, o esporte vem crescendo, com destaque para clubes como Pinheiros e Fluminense 💛💙.</li>
+  </ul>
+
+  <h3>🌎 Popularidade</h3>
+  <p>
+    O Polo Aquático é especialmente popular na <strong>Europa e nos Estados Unidos 🌍</strong>, sendo considerado um dos esportes aquáticos mais desafiadores e estratégicos.  
+    Exige força, coordenação e muita resistência, combinando elementos da natação, handebol e xadrez — tudo dentro d’água 💦.  
+    No Brasil, vem ganhando visibilidade com novos campeonatos e seleções em evolução. 🇧🇷
+  </p>
+
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+</div>
+
+<div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('volei')">
+    📍 Locais para jogar Vôlei perto de mim
+  </button>
+</div>
+
+<div id="resultado-localizacao-volei" class="resultado-localizacao"></div>
+
+<h1>🏐 Vôlei</h1>
+<img src="{{ url_for('static', filename='volei.webp') }}" alt="vôlei" class="img-esporte">
+
+<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342; line-height:1.6;">
+
+  <h3>📜 Origem e História</h3>
+  <p>O <strong>Vôlei</strong> foi criado em <strong>1895</strong> pelo professor americano <strong>William G. Morgan</strong> 🇺🇸, em Massachusetts.  
+  Inicialmente chamado de “Mintonette”, o esporte combinava elementos do tênis e do basquete 🏀, mas era praticado sem contato físico intenso.  
+  Tornou-se esporte olímpico em 1964 em Tóquio 🇯🇵.</p>
+
+  <h3>⚔️ Regras Básicas</h3>
+  <ul>
+    <li>👥 Duas equipes com 6 jogadores cada.</li>
+    <li>⏱️ O jogo é disputado em sets de 25 pontos, com diferença mínima de 2 pontos (o último set vai até 15).</li>
+    <li>🏐 O objetivo é enviar a bola por cima da rede para o campo adversário e evitar que ela toque o chão do próprio lado.</li>
+    <li>⚡ Cada equipe pode tocar a bola até 3 vezes antes de enviá-la ao adversário.</li>
+    <li>🚫 É proibido segurar ou carregar a bola.</li>
+    <li>🟨 Cartão amarelo = advertência | 🟥 Cartão vermelho = expulsão ou exclusão temporária.</li>
+  </ul>
+
+  <h3>💪 Benefícios</h3>
+  <ul>
+    <li>🏃 Melhora condicionamento físico, agilidade e resistência.</li>
+    <li>🦵 Fortalece pernas, tronco e braços.</li>
+    <li>🧠 Desenvolve raciocínio rápido e percepção espacial.</li>
+    <li>🤝 Estimula trabalho em equipe, cooperação e comunicação.</li>
+    <li>⚡ Aprimora coordenação motora e reflexos.</li>
+    <li>😌 Ajuda a reduzir estresse e melhorar bem-estar mental.</li>
+  </ul>
+
+  <h3>💡 Curiosidades</h3>
+  <ul>
+    <li>🌍 O vôlei é popular em todo o mundo, especialmente no Brasil 🇧🇷, Rússia 🇷🇺, Itália 🇮🇹 e EUA 🇺🇸.</li>
+    <li>🏆 Existe o Vôlei de Praia, que se tornou olímpico em 1996, com duplas em quadras de areia 🏖️.</li>
+    <li>⚡ O esporte exige muita técnica, precisão e força nos saques, bloqueios e ataques.</li>
+    <li>🇧🇷 O Brasil é referência mundial no vôlei, com conquistas olímpicas e mundiais tanto no masculino quanto no feminino.</li>
+  </ul>
+
+  <h3>🌎 Popularidade</h3>
+  <p>O vôlei é um dos esportes mais praticados do mundo 🌍, presente em escolas, clubes e academias.  
+  É um esporte de destaque em competições internacionais como a Liga Mundial, os Jogos Olímpicos e o Campeonato Mundial, atraindo milhões de fãs ⚡🏐.</p>
+
+</div>
+{% endblock %}

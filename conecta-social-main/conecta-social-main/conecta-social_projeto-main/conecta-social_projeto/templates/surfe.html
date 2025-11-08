@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+</div>
+<div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('surfe')">📍 Locais para praticar Surfe perto de mim</button>
+</div>
+<div id="resultado-localizacao-surfe" class="resultado-localizacao"></div>
+
+<h1>🏄‍♂️ Surfe</h1>
+<img src="{{ url_for('static', filename='surfe.jpeg') }}" alt="surfe" class="img-esporte">
+
+<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
+
+  <h3>📜 Quando, onde e quem criou?</h3>
+  <p>
+    O <strong>Surfe 🌊🏄‍♂️</strong> tem suas origens nas antigas civilizações da <strong>Polinésia</strong>, especialmente no <strong>Havaí 🇺🇸</strong>, 
+    onde era uma prática cultural e espiritual dos nativos.  
+    Os havaianos acreditavam que surfar conectava o homem com o mar, sendo uma forma de respeito e harmonia com a natureza 🌺.  
+    O esporte moderno ganhou destaque mundial no século XX, com o surgimento de competições e pranchas feitas com materiais leves e resistentes.
+  </p>
+
+  <h3>📏 Regras básicas e fundamentos</h3>
+  <ul>
+    <li>O objetivo do surfe é realizar manobras sobre as ondas, mostrando equilíbrio, controle e estilo 🌊.</li>
+    <li>Os juízes avaliam cada onda com base em critérios como velocidade, fluidez e dificuldade das manobras ⚖️.</li>
+    <li>Cada atleta pode pegar um número limitado de ondas por bateria (geralmente 10) 🕐.</li>
+    <li>O mar é dividido em zonas, e há uma ordem de prioridade para evitar colisões entre surfistas 🚫.</li>
+    <li>As pranchas variam de tamanho — as principais são <strong>shortboard</strong>, <strong>longboard</strong> e <strong>funboard</strong> 🏄‍♀️.</li>
+  </ul>
+
+  <h3>💪 Benefícios</h3>
+  <ul>
+    <li>Fortalece braços, pernas, abdômen e costas 💪.</li>
+    <li>Melhora o equilíbrio, coordenação e reflexos ⚡.</li>
+    <li>Estimula a concentração e o controle emocional 🧘‍♂️.</li>
+    <li>Proporciona contato direto com a natureza e o mar 🌴.</li>
+    <li>Reduz o estresse e aumenta a sensação de bem-estar 😌.</li>
+  </ul>
+
+  <h3>🌟 Curiosidades</h3>
+  <ul>
+    <li>O surfe se tornou esporte olímpico em <strong>Tóquio 2020 🇯🇵</strong>.</li>
+    <li><strong>Kelly Slater 🏆</strong> é o maior campeão da história, com 11 títulos mundiais 🌍.</li>
+    <li>No Brasil 🇧🇷, o surfe é um dos esportes mais populares nas praias do litoral, especialmente em Florianópolis, Ubatuba, Saquarema e Fernando de Noronha 🏖️.</li>
+    <li>O brasileiro <strong>Gabriel Medina</strong> é tricampeão mundial e um dos maiores nomes da atualidade 🥇.</li>
+  </ul>
+
+  <h3>🌎 Popularidade</h3>
+  <p>
+    O Surfe é um símbolo de liberdade e conexão com a natureza 🌊.  
+    Hoje, é praticado em praticamente todos os continentes e atrai milhões de fãs.  
+    No Brasil, a “<strong>Brazilian Storm 🌪️</strong>” — geração de surfistas campeões — colocou o país entre as potências mundiais do esporte.  
+    Seja por lazer ou competição, surfar é mais do que um esporte: é um estilo de vida 🌅.
+  </p>
+
+</div>
+{% endblock %}
