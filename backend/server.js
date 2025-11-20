@@ -8,7 +8,7 @@ require('dotenv').config(); // Carrega variáveis do .env
 const projetosRoutes = require('./routes/projetos');
 const feedbacksRoutes = require('./routes/feedbacks');
 const authRoutes = require('./routes/auth');
-const esportesRoutes = require('./routes/esportes');
+// const esportesRoutes = require('./routes/esportes'); // REMOVIDO
 
 const app = express();
 
@@ -36,7 +36,7 @@ app.use(express.json());
 app.use('/api/projetos', projetosRoutes);
 app.use('/api/feedbacks', feedbacksRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/esportes', esportesRoutes);
+// app.use('/api/esportes', esportesRoutes); // REMOVIDO
 
 // Rota raiz opcional
 app.get('/', (req, res) => {
