@@ -45,4 +45,11 @@ app.get('/', (req, res) => {
 
 // Inicialização do servidor
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+
+// Apenas inicia o servidor se estiver rodando localmente (não no Vercel)
+if (require.main === module) {
+    app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+}
+
+// Exporta o app para o Vercel (Serverless)
+module.exports = app;
