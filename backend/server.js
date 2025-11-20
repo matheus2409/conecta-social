@@ -1,55 +1,47 @@
-// backend/server.js (versão final e corrigida)
+// backend/server.js (Corrigido para Vercel Serverless)
 
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config(); // Carrega variáveis do .env
+require('dotenv').config(); 
 
 // Importa as rotas
 const projetosRoutes = require('./routes/projetos');
 const feedbacksRoutes = require('./routes/feedbacks');
 const authRoutes = require('./routes/auth');
-// const esportesRoutes = require('./routes/esportes'); // REMOVIDO
+const voluntariosRoutes = require('./routes/voluntarios'); // Adicionei esta linha que faltava
 
 const app = express();
 
 // ========================= CORS =========================
-const whitelist = (process.env.ALLOWED_ORIGINS || 'http://127.0.0.1:5500,http://localhost:5500').split(',');
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || whitelist.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.error(`Bloqueado por CORS: ${origin}`);
-      callback(new Error('Acesso negado pela política de CORS.'));
-    }
-  },
-};
-
-app.use(cors(corsOptions));
+// Permite requisições de qualquer origem (temporariamente para garantir que funciona)
+app.use(cors()); 
 // =========================================================
 
 // Middleware para interpretar JSON
 app.use(express.json());
 
+// Rota de teste simples
+app.get('/api', (req, res) => {
+    res.json({ message: "API do Conecta Social funcionando!" });
+});
+
 // Rotas principais
 app.use('/api/projetos', projetosRoutes);
 app.use('/api/feedbacks', feedbacksRoutes);
 app.use('/api/auth', authRoutes);
-// app.use('/api/esportes', esportesRoutes); // REMOVIDO
+app.use('/api/voluntarios', voluntariosRoutes); 
 
-// Rota raiz opcional
-app.get('/', (req, res) => {
-  res.send(' API Conecta Social funcionando!');
+// Tratamento de erro global (opcional, mas recomendado)
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Algo deu errado no servidor!' });
 });
 
-// Inicialização do servidor
-const PORT = process.env.PORT || 3000;
-
-// Apenas inicia o servidor se estiver rodando localmente (não no Vercel)
-if (require.main === module) {
-    app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
-}
-
-// Exporta o app para o Vercel (Serverless)
+// Exporta o app para a Vercel (Serverless)
 module.exports = app;
+
+// Apenas inicia o servidor se estiver rodando localmente
+if (require.main === module) {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => console.log(`Servidor rodando localmente na porta ${PORT}`));
+}
