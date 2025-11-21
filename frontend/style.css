@@ -316,3 +316,124 @@ body.dark-mode footer {
   background-color: rgba(0, 0, 0, 0.9);
   color: #ccc;
 }
+/* === ESTILOS ESPECÍFICOS PARA LOGIN (NOVO) === */
+
+/* Define o fundo e centralização da página de login */
+body.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #111 0%, #232526 100%);
+  margin: 0;
+  padding: 20px;
+}
+
+/* O cartão flutuante do formulário */
+.login-card {
+  background: rgba(255, 255, 255, 0.05); /* Efeito de vidro escuro */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  color: #fff;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.login-card h2 {
+  margin-bottom: 24px;
+  color: var(--verde); /* Usa a variável global */
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* Inputs do formulário */
+.login-card .form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.login-card label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #222;
+  color: #fff;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.login-card input:focus {
+  border-color: var(--verde);
+  box-shadow: 0 0 8px rgba(29, 185, 84, 0.3);
+  outline: none;
+}
+
+/* Botão de entrar */
+.login-card button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  font-size: 1.1rem;
+  background: linear-gradient(90deg, var(--verde), var(--verde-claro));
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #000; /* Preto para contraste com o verde */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.login-card button[type="submit"]:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 4px 15px rgba(29, 185, 84, 0.4);
+}
+
+/* Links auxiliares (voltar, registar) */
+.links-auxiliares {
+  margin-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 16px;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.links-auxiliares a {
+  color: var(--azul-claro, #4facfe); /* Azul ou a cor que preferir */
+  text-decoration: none !important;
+  font-weight: bold;
+  background: none !important; /* Remove estilos de botão padrão */
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: inline !important;
+  text-shadow: none !important;
+}
+
+.links-auxiliares a:hover {
+  text-decoration: underline !important;
+  color: #fff;
+  transform: none !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
