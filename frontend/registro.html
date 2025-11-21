@@ -3,40 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registo de Voluntário - Conecta Social</title>
+    <title>Registo - Conecta Social</title>
+    <link rel="icon" href="data:,">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <header><h1>Junte-se a nós!</h1></header>
-    <main>
-        <div class="form-container"> <form id="registo-voluntario-form">
-                <h2>Crie a sua conta de Voluntário</h2>
-                
-                <div class="form-group">
-                    <label for="nome">Nome Completo:</label>
-                    <input type="text" id="nome" required>
-                </div>
+<body class="login-page">
 
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" required>
-                </div>
+    <div class="login-card">
+        <h1 style="margin:0; font-size:1.5rem; color:#fff;">Conecta Social</h1>
+        <h2 style="margin-top: 5px;">Junte-se a nós!</h2>
 
-                <div class="form-group">
-                    <label for="password">Senha:</label>
-                    <input type="password" id="password" required minlength="6" placeholder="Mínimo 6 caracteres">
-                </div>
+        <form id="registo-voluntario-form">
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" placeholder="O seu nome" required>
+            </div>
 
-                <button type="submit" class="btn-primary">Criar Conta</button>
-                
-                <p id="feedback-message" class="error-text" style="margin-top: 15px; font-weight: bold;"></p>
-                
-                <p style="margin-top: 20px;">
-                    Já tem conta? <a href="login-voluntario.html">Faça login aqui</a>.
-                </p>
-            </form>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="seu@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" placeholder="Crie uma senha (min. 6)" required minlength="6">
+            </div>
+
+            <button type="submit">Criar Conta</button>
+            
+            <p id="feedback-message" class="error-text text-center" style="margin-top: 15px;"></p>
+        </form>
+
+        <div class="links-auxiliares">
+            <p>Já tem conta? <a href="login-voluntario.html">Faça login aqui</a></p>
+            <p style="margin-top: 10px;"><a href="index.html">← Voltar ao Início</a></p>
         </div>
-    </main>
+    </div>
+
     <script src="apiService.js"></script>
     <script src="registo.js"></script>
 </body>
