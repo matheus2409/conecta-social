@@ -5,11 +5,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middleware/auth');
 
-// ===================== ROTA DE REGISTRO =====================
+// ===================== ROTA DE REGISTRO (POST) =====================
 router.post('/registro', async (req, res) => {
     try {
         const { nome, email, password } = req.body;
 
+        // Validações
         if (!nome || !email || !password) {
             return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
         }
@@ -18,18 +19,18 @@ router.post('/registro', async (req, res) => {
             return res.status(400).json({ error: 'A senha deve ter pelo menos 6 caracteres.' });
         }
 
-        // Verifica se email já existe
+        // Verifica se o usuário já existe
         const { data: usuarioExistente } = await supabase
             .from('voluntarios')
             .select('id')
             .eq('email', email)
-            .maybeSingle();
+            .maybeSingle(); // Evita erro 406 se não encontrar nada
 
         if (usuarioExistente) {
             return res.status(400).json({ error: 'Este e-mail já está cadastrado.' });
         }
 
-        // Cria o hash da senha
+        // Criptografa a senha
         const salt = await bcrypt.genSalt(10);
         const passwordHash = await bcrypt.hash(password, salt);
 
@@ -45,11 +46,11 @@ router.post('/registro', async (req, res) => {
 
         if (error) throw error;
 
-        res.status(201).json({ message: 'Voluntário cadastrado com sucesso!' });
+        res.status(201).json({ message: 'Conta criada com sucesso!' });
 
     } catch (err) {
         console.error('Erro no registro:', err.message);
-        res.status(500).json({ error: 'Erro interno ao criar conta: ' + err.message });
+        res.status(500).json({ error: 'Erro interno ao criar conta.' });
     }
 });
 
@@ -63,7 +64,7 @@ router.post('/login', async (req, res) => {
             .from('voluntarios')
             .select('*')
             .eq('email', email)
-            .single();
+            .maybeSingle();
 
         if (error || !voluntario) return res.status(401).json({ error: 'Credenciais inválidas.' });
 
@@ -83,7 +84,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// Rotas de Perfil (Mantidas iguais, necessárias para não quebrar o app.use)
+// Rotas de Perfil (Necessárias para não quebrar o módulo)
 router.get('/perfil', authMiddleware, async (req, res) => {
     const { data, error } = await supabase.from('voluntarios').select('id, nome, email, bio, interesses').eq('id', req.user.id).single();
     if (error) return res.status(500).json({ error: 'Erro ao buscar perfil' });
