@@ -1,5 +1,3 @@
-// backend/server.js (Configurado para Vercel sem erro 405)
-
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config(); 
@@ -12,45 +10,37 @@ const voluntariosRoutes = require('./routes/voluntarios');
 
 const app = express();
 
-// ========================= CORS (BLINDAGEM VERCEL) =========================
-// 1. Configura quais métodos e cabeçalhos são aceitos
+// ========================= SOLUÇÃO DO BLOQUEIO (CORS) =========================
+// Isso permite que o Frontend envie os dados para serem salvos no banco
 app.use(cors({
-    origin: '*', // Permite qualquer origem (ajuste para produção se necessário)
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Lista explícita de métodos
-    allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
+    origin: '*', // Aceita conexões de qualquer lugar (Frontend)
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Permite CRIAR (POST) e EDITAR (PUT)
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
 
-// 2. Responde explicitamente às requisições OPTIONS (Preflight)
-// Isso é o que evita o erro 405 no Vercel
+// Garante que o servidor responda "SIM" quando o navegador perguntar se pode enviar dados
 app.options('*', cors());
-// ===========================================================================
+// ===============================================================================
 
-// Middleware para interpretar JSON
 app.use(express.json());
 
-// Rota de teste simples
+// Rota de teste
 app.get('/api', (req, res) => {
-    res.json({ status: "ok", message: "API do Conecta Social online!" });
+    res.json({ message: "API Conecta Social Pronta!" });
 });
 
-// Rotas principais
+// Rotas
 app.use('/api/projetos', projetosRoutes);
 app.use('/api/feedbacks', feedbacksRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/voluntarios', voluntariosRoutes); 
 
-// Tratamento de erro global
-app.use((err, req, res, next) => {
-  console.error("Erro no servidor:", err.stack);
-  res.status(500).json({ error: 'Erro interno do servidor.', details: err.message });
-});
-
-// Exporta o app para a Vercel (Serverless)
+// Exporta para o Vercel
 module.exports = app;
 
-// Apenas inicia o servidor se estiver rodando localmente
+// Inicia localmente se não estiver no Vercel
 if (require.main === module) {
     const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => console.log(`Servidor rodando localmente na porta ${PORT}`));
+    app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
 }
