@@ -1,4 +1,5 @@
 // frontend/registro.js
+import { fetchFromAPI } from './apiService.js'; // <--- ADICIONE ESTA LINHA
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('registo-voluntario-form');
@@ -15,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
 
         try {
-            // Rota corrigida para PT-BR
             await fetchFromAPI('/voluntarios/registro', {
                 method: 'POST',
                 body: JSON.stringify({ nome, email, password })

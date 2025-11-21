@@ -3,75 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Projeto</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Cadastro - Conecta Social</title>
+    <link rel="icon" href="data:,">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    
+<body class="login-page">
 
-    <!-- Modal popup: Você é um projeto? -->
-    <div id="modal-projeto" class="modal-custom" style="display:none;">
-        <div class="modal-content-custom">
-            <h2>Você é um projeto?</h2>
-            <p>Para acessar funcionalidades exclusivas, informe se você é um projeto.</p>
-            <button id="btn-sou-projeto" class="btn-custom btn-primary-custom">Sim</button>
-            <button id="btn-nao-projeto" class="btn-custom btn-secondary-custom">Não</button>
+    <div class="login-card">
+        <h1 style="margin:0; font-size:1.5rem; color:#fff;">Conecta Social</h1>
+        <h2 style="margin-top: 5px;">Junte-se a nós!</h2>
+
+        <form id="registo-voluntario-form">
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" placeholder="Seu nome" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="seu@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" placeholder="Crie uma senha (min. 6)" required minlength="6">
+            </div>
+
+            <button type="submit">Criar Conta</button>
+            
+            <p id="feedback-message" class="error-text text-center" style="margin-top: 15px;"></p>
+        </form>
+
+        <div class="links-auxiliares">
+            <p>Já tem conta? <a href="login-voluntario.html">Faça login aqui</a></p>
+            <p style="margin-top: 10px;"><a href="index.html">← Voltar ao Início</a></p>
         </div>
     </div>
 
-    <!-- Modal Login -->
-    <div id="modal-login" class="modal-custom" style="display:none;">
-        <div class="modal-content-custom">
-            <h2>Login do Projeto</h2>
-            <form id="form-login-projeto">
-                <input type="text" id="login-usuario" class="input-custom" placeholder="Usuário" required><br>
-                <input type="password" id="login-senha" class="input-custom" placeholder="Senha" required><br>
-                <button type="submit" class="btn-custom btn-primary-custom">Entrar</button>
-            </form>
-            <p id="login-msg" class="msg-custom"></p>
-            <button id="btn-cadastro" class="btn-custom btn-link-custom">Não tenho cadastro</button>
-        </div>
-    </div>
-
-    <!-- Modal Cadastro -->
-    <div id="modal-cadastro" class="modal-custom" style="display:none;">
-        <div class="modal-content-custom">
-            <h2>Cadastro de Projeto</h2>
-            <form id="form-cadastro-projeto">
-                <input type="text" id="cadastro-usuario" class="input-custom" placeholder="Usuário" required><br>
-                <input type="password" id="cadastro-senha" class="input-custom" placeholder="Senha" required><br>
-                <input type="email" id="cadastro-email" class="input-custom" placeholder="Email" required><br>
-                <button type="submit" class="btn-custom btn-primary-custom">Cadastrar</button>
-            </form>
-            <p id="cadastro-msg" class="msg-custom"></p>
-        </div>
-    </div>
-
-    <header class="cabecalho-principal">
-        <div class="container-fluido">
-            <h1><a href="index.html" style="color: inherit; text-decoration: none;">Conecta Social</a></h1>
-        </div>
-    </header>
-
-    <main>
-    <h1>Projetos da Comunidade</h1>
-    <p>Veja os incríveis projetos desenvolvidos por nossa comunidade.</p>
-
-    <div id="loading" class="loading-indicator">
-        <p>A carregar projetos...</p>
-        </div>
-
-    <div id="projetos-container">
-        </div>
-</main>
-
-    <footer class="rodape-principal">
-        <p>&copy; 2025 Conecta Social. <a href="admin.html">Painel de Administração</a></p>
-    </footer>
-
-    <script src="projeto-detalhe.js" defer></script>
+    <script type="module" src="registro.js"></script>
 </body>
 </html>
