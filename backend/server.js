@@ -1,5 +1,7 @@
+// backend/server.js (Versão com CORS Manual Infalível)
+
 const express = require('express');
-const cors = require('cors');
+const cors = require('cors'); // Mantemos para segurança básica, mas vamos forçar headers
 require('dotenv').config(); 
 
 // Importa as rotas
@@ -10,17 +12,23 @@ const voluntariosRoutes = require('./routes/voluntarios');
 
 const app = express();
 
-// ========================= SOLUÇÃO DO BLOQUEIO (CORS) =========================
-// Isso permite que o Frontend envie os dados para serem salvos no banco
-app.use(cors({
-    origin: '*', // Aceita conexões de qualquer lugar (Frontend)
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Permite CRIAR (POST) e EDITAR (PUT)
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-}));
-
-// Garante que o servidor responda "SIM" quando o navegador perguntar se pode enviar dados
-app.options('*', cors());
+// ========================= CORS MANUAL (RESOLVE ERRO 405) =========================
+// Este bloco força o servidor a aceitar conexões de qualquer lugar e responder ao OPTIONS
+app.use((req, res, next) => {
+    // Permite qualquer origem (Frontend)
+    res.header("Access-Control-Allow-Origin", "*");
+    // Permite os métodos que usamos
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    // Permite os cabeçalhos que enviamos (Content-Type e Authorization)
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    
+    // Se for a pergunta "Posso conectar?" (OPTIONS), responde SIM imediatamente
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+    
+    next();
+});
 // ===============================================================================
 
 app.use(express.json());
@@ -36,10 +44,8 @@ app.use('/api/feedbacks', feedbacksRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/voluntarios', voluntariosRoutes); 
 
-// Exporta para o Vercel
 module.exports = app;
 
-// Inicia localmente se não estiver no Vercel
 if (require.main === module) {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
