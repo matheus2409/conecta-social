@@ -1,5 +1,4 @@
-// backend/server.js (Corrigido para Vercel Serverless)
-
+// backend/server.js
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config(); 
@@ -8,12 +7,12 @@ require('dotenv').config();
 const projetosRoutes = require('./routes/projetos');
 const feedbacksRoutes = require('./routes/feedbacks');
 const authRoutes = require('./routes/auth');
-const voluntariosRoutes = require('./routes/voluntarios'); // Adicionei esta linha que faltava
+const voluntariosRoutes = require('./routes/voluntarios'); 
 
 const app = express();
 
 // ========================= CORS =========================
-// Permite requisições de qualquer origem (temporariamente para garantir que funciona)
+// Permite requisições de qualquer origem (necessário para evitar bloqueios no início)
 app.use(cors()); 
 // =========================================================
 
@@ -31,7 +30,7 @@ app.use('/api/feedbacks', feedbacksRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/voluntarios', voluntariosRoutes); 
 
-// Tratamento de erro global (opcional, mas recomendado)
+// Tratamento de erro global
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Algo deu errado no servidor!' });
@@ -40,7 +39,7 @@ app.use((err, req, res, next) => {
 // Exporta o app para a Vercel (Serverless)
 module.exports = app;
 
-// Apenas inicia o servidor se estiver rodando localmente
+// Apenas inicia o servidor se estiver rodando localmente (no seu PC)
 if (require.main === module) {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => console.log(`Servidor rodando localmente na porta ${PORT}`));

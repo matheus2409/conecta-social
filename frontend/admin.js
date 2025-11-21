@@ -1,33 +1,44 @@
-// frontend/admin.js (Atualizado)
+// frontend/admin.js (Atualizado e sem Esportes)
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Redireciona para o login se não houver token
     if (!localStorage.getItem('authToken')) {
         window.location.href = 'login.html';
-        return; // Para a execução do script se não estiver logado
+        return; 
     }
 
     const projetosListaContainer = document.getElementById('projetos-lista-admin');
     const logoutButton = document.getElementById('logout-button');
-    // Adicione aqui as referências para o seu formulário se precisar
-    // const form = document.getElementById('projeto-form');
+    const form = document.getElementById('projeto-form');
+    
+    // Referências aos inputs
+    const nomeInput = document.getElementById('nome');
+    const descricaoInput = document.getElementById('descricao');
+    const imagemUrlInput = document.getElementById('imagem_url');
+    const linkSiteInput = document.getElementById('link_site');
+    const linkRepoInput = document.getElementById('link_repositorio');
+    const contatoInput = document.getElementById('contato_coordenador');
+    const projetoIdInput = document.getElementById('projeto-id');
 
-    /**
-     * Carrega os projetos do backend e os exibe na página.
-     */
+    // Botões de ação
+    const submitButton = document.getElementById('form-submit-button');
+    const cancelButton = document.getElementById('cancel-edit-button');
+
     async function carregarProjetos() {
         try {
-            // Usa a nossa função centralizada do apiService.js!
             const projetos = await fetchFromAPI('/projetos');
-
-            projetosListaContainer.innerHTML = ''; // Limpa a lista antes de adicionar os novos
+            projetosListaContainer.innerHTML = ''; 
             projetos.forEach(projeto => {
                 const projetoDiv = document.createElement('div');
                 projetoDiv.className = 'list-group-item d-flex justify-content-between align-items-center';
+                projetoDiv.style.marginBottom = '10px';
+                projetoDiv.style.padding = '10px';
+                projetoDiv.style.background = '#2c2c2c';
+                projetoDiv.style.borderRadius = '5px';
+                
                 projetoDiv.innerHTML = `
-                    <span>${projeto.nome}</span>
+                    <span>${projeto.titulo || projeto.nome}</span>
                     <div>
-                        <button class="btn btn-sm btn-info edit-btn" data-id="${projeto.id}">Editar</button>
+                        <button class="btn btn-sm btn-info edit-btn" data-id="${projeto.id}" style="margin-right: 5px;">Editar</button>
                         <button class="btn btn-sm btn-danger delete-btn" data-id="${projeto.id}">Excluir</button>
                     </div>
                 `;
@@ -39,41 +50,96 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /**
-     * Delega os eventos de clique para os botões de editar e apagar.
-     */
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const projetoData = {
+            titulo: nomeInput.value, // Adaptando para o campo que o backend espera
+            descricao: descricaoInput.value,
+            imagem_url: imagemUrlInput.value,
+            link_site: linkSiteInput.value, // Se o backend suportar
+            link_repositorio: linkRepoInput.value, // Se o backend suportar
+            contato_coordenador: contatoInput.value, // Se o backend suportar
+            categoria: 'Geral' // Categoria fixa, já que removemos o select
+        };
+
+        const id = projetoIdInput.value;
+        const method = id ? 'PUT' : 'POST';
+        const url = id ? `/projetos/${id}` : '/projetos';
+
+        try {
+            submitButton.disabled = true;
+            submitButton.textContent = 'A salvar...';
+
+            await fetchFromAPI(url, {
+                method: method,
+                body: JSON.stringify(projetoData)
+            });
+
+            alert('Projeto salvo com sucesso!');
+            form.reset();
+            projetoIdInput.value = '';
+            submitButton.textContent = 'Adicionar Projeto';
+            cancelButton.style.display = 'none';
+            carregarProjetos();
+
+        } catch (error) {
+            alert(`Erro ao salvar: ${error.message}`);
+        } finally {
+            submitButton.disabled = false;
+            if (!id) submitButton.textContent = 'Adicionar Projeto';
+            else submitButton.textContent = 'Salvar Alterações';
+        }
+    });
+
     projetosListaContainer.addEventListener('click', async (e) => {
         const target = e.target;
         const id = target.dataset.id;
 
-        // Ação de Apagar
         if (target.classList.contains('delete-btn')) {
             if (confirm('Tem a certeza que deseja excluir este projeto?')) {
                 try {
-                    // Usa a nossa função centralizada também para apagar!
                     await fetchFromAPI(`/projetos/${id}`, { method: 'DELETE' });
                     alert('Projeto excluído com sucesso!');
-                    carregarProjetos(); // Recarrega a lista para refletir a mudança
+                    carregarProjetos();
                 } catch (error) {
-                    console.error('Erro ao excluir:', error);
-                    alert(`Não foi possível excluir o projeto. Erro: ${error.message}`);
+                    alert(`Não foi possível excluir: ${error.message}`);
                 }
             }
         }
 
-        // Ação de Editar (AGORA FUNCIONAL)
         if (target.classList.contains('edit-btn')) {
-            // Redireciona para a página de edição, passando o ID do projeto na URL
-            window.location.href = `editar-projeto.html?id=${id}`;
+            // Carrega os dados para o formulário para edição rápida
+            try {
+                const projeto = await fetchFromAPI(`/projetos/${id}`);
+                nomeInput.value = projeto.titulo || projeto.nome;
+                descricaoInput.value = projeto.descricao;
+                imagemUrlInput.value = projeto.imagem_url || '';
+                // Preencha os outros campos se o seu backend retorná-los
+                
+                projetoIdInput.value = projeto.id;
+                submitButton.textContent = 'Salvar Alterações';
+                cancelButton.style.display = 'inline-block';
+                
+                // Rola a página até o formulário
+                form.scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                alert('Erro ao carregar dados para edição.');
+            }
         }
     });
     
-    // Lógica para o botão de Logout
+    cancelButton.addEventListener('click', () => {
+        form.reset();
+        projetoIdInput.value = '';
+        submitButton.textContent = 'Adicionar Projeto';
+        cancelButton.style.display = 'none';
+    });
+
     logoutButton.addEventListener('click', () => {
         localStorage.removeItem('authToken');
         window.location.href = 'login.html';
     });
 
-    // Carregamento inicial dos projetos quando a página abre
     carregarProjetos();
 });
