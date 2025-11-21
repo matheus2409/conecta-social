@@ -1,4 +1,4 @@
-// frontend/registo.js
+// frontend/registro.js
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('registo-voluntario-form');
@@ -7,34 +7,31 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Limpa mensagens anteriores
-        feedbackMessage.textContent = 'A processar...';
-        feedbackMessage.style.color = '#fff'; // Cor neutra temporária
+        feedbackMessage.textContent = 'Processando...';
+        feedbackMessage.style.color = '#fff';
 
         const nome = document.getElementById('nome').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
         try {
-            // Envia os dados para a nova rota de registo
-            await fetchFromAPI('/voluntarios/registo', {
+            // Rota corrigida para PT-BR
+            await fetchFromAPI('/voluntarios/registro', {
                 method: 'POST',
                 body: JSON.stringify({ nome, email, password })
             });
 
-            // Sucesso
-            feedbackMessage.textContent = 'Conta criada com sucesso! A redirecionar...';
-            feedbackMessage.style.color = 'lightgreen'; // Verde para sucesso
+            feedbackMessage.textContent = 'Conta criada com sucesso! Redirecionando...';
+            feedbackMessage.style.color = 'lightgreen';
             
-            // Espera 2 segundos e vai para o login
             setTimeout(() => {
                 window.location.href = 'login-voluntario.html';
             }, 2000);
 
         } catch (error) {
-            console.error('Erro no registo:', error);
+            console.error('Erro no cadastro:', error);
             feedbackMessage.textContent = error.message || 'Erro ao criar conta. Tente novamente.';
-            feedbackMessage.style.color = '#ff4444'; // Vermelho para erro
+            feedbackMessage.style.color = '#ff4444';
         }
     });
 });

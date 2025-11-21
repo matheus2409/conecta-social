@@ -5,12 +5,11 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middleware/auth');
 
-// ===================== ROTA DE REGISTO (NOVA) =====================
-router.post('/registo', async (req, res) => {
+// ===================== ROTA DE REGISTRO (PT-BR) =====================
+router.post('/registro', async (req, res) => {
     try {
         const { nome, email, password } = req.body;
 
-        // 1. Validação básica
         if (!nome || !email || !password) {
             return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
         }
@@ -19,29 +18,26 @@ router.post('/registo', async (req, res) => {
             return res.status(400).json({ error: 'A senha deve ter pelo menos 6 caracteres.' });
         }
 
-        // 2. Verificar se o email já existe no banco
         const { data: usuarioExistente, error: checkError } = await supabase
             .from('voluntarios')
             .select('id')
             .eq('email', email)
-            .maybeSingle(); // Usa maybeSingle para não dar erro se não encontrar
+            .maybeSingle();
 
         if (usuarioExistente) {
-            return res.status(400).json({ error: 'Este email já está registado.' });
+            return res.status(400).json({ error: 'Este e-mail já está cadastrado.' });
         }
 
-        // 3. Criptografar a senha (Hash)
         const salt = await bcrypt.genSalt(10);
         const passwordHash = await bcrypt.hash(password, salt);
 
-        // 4. Inserir o novo voluntário no Supabase
         const { data, error } = await supabase
             .from('voluntarios')
             .insert([{ 
                 nome: nome, 
                 email: email, 
                 password_hash: passwordHash,
-                interesses: [] // Inicia com array vazio
+                interesses: [] 
             }])
             .select();
 
@@ -49,20 +45,20 @@ router.post('/registo', async (req, res) => {
             throw error;
         }
 
-        res.status(201).json({ message: 'Voluntário registado com sucesso!' });
+        res.status(201).json({ message: 'Voluntário cadastrado com sucesso!' });
 
     } catch (err) {
-        console.error('Erro no registo:', err.message);
+        console.error('Erro no registro:', err.message);
         res.status(500).json({ error: 'Erro interno ao criar conta.' });
     }
 });
 
-// ===================== ROTA DE LOGIN (JÁ EXISTENTE) =====================
+// ===================== ROTA DE LOGIN =====================
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            return res.status(400).json({ error: 'Email e senha são obrigatórios.' });
+            return res.status(400).json({ error: 'E-mail e senha são obrigatórios.' });
         }
 
         const { data: voluntario, error } = await supabase
@@ -94,19 +90,16 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// ===================== ROTA DE PERFIL - ATUALIZAR (JÁ EXISTENTE) =====================
+// ===================== ROTA DE PERFIL (Mantida) =====================
 router.put('/perfil', authMiddleware, async (req, res) => {
+    // ... (código igual, só mantenha se já estiver ok ou copie do anterior)
+    // Vou incluir aqui para garantir que o arquivo fique completo
     try {
         const voluntarioId = req.user.id;
         const { nome, bio, interesses } = req.body;
 
-        if (!nome) {
-            return res.status(400).json({ error: 'O nome é obrigatório.' });
-        }
-
-        if (interesses && !Array.isArray(interesses)) {
-            return res.status(400).json({ error: 'Os interesses devem ser uma lista (array).' });
-        }
+        if (!nome) return res.status(400).json({ error: 'O nome é obrigatório.' });
+        if (interesses && !Array.isArray(interesses)) return res.status(400).json({ error: 'Os interesses devem ser uma lista.' });
 
         const { data, error } = await supabase
             .from('voluntarios')
@@ -115,19 +108,16 @@ router.put('/perfil', authMiddleware, async (req, res) => {
             .select('id, nome, email, bio, interesses');
 
         if (error) throw error;
-
         res.status(200).json(data[0]);
     } catch (err) {
-        console.error('Erro ao atualizar o perfil:', err.message);
-        res.status(500).json({ error: 'Erro ao atualizar o perfil.' });
+        console.error('Erro ao atualizar perfil:', err.message);
+        res.status(500).json({ error: 'Erro ao atualizar perfil.' });
     }
 });
 
-// ===================== ROTA DE PERFIL - OBTER (JÁ EXISTENTE) =====================
 router.get('/perfil', authMiddleware, async (req, res) => {
     try {
         const voluntarioId = req.user.id;
-
         const { data, error } = await supabase
             .from('voluntarios')
             .select('id, nome, email, bio, interesses')
@@ -135,7 +125,6 @@ router.get('/perfil', authMiddleware, async (req, res) => {
             .single();
 
         if (error) throw error;
-        
         res.json(data);
     } catch (err) {
         res.status(500).json({ error: 'Erro ao obter dados do perfil.' });
