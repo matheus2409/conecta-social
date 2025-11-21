@@ -11,17 +11,24 @@ const voluntariosRoutes = require('./routes/voluntarios');
 
 const app = express();
 
-// ========================= CORS =========================
-// Permite requisições de qualquer origem (necessário para evitar bloqueios no início)
-app.use(cors()); 
-// =========================================================
+// ========================= CORS (CORREÇÃO DO ERRO 405) =========================
+// Configura o CORS para aceitar qualquer origem e credenciais
+app.use(cors({
+    origin: '*', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Habilita o "Pre-flight" para todas as rotas (Essencial para o Vercel não dar 405)
+app.options('*', cors());
+// ===============================================================================
 
 // Middleware para interpretar JSON
 app.use(express.json());
 
-// Rota de teste simples
+// Rota de teste simples para verificar se a API está no ar
 app.get('/api', (req, res) => {
-    res.json({ message: "API do Conecta Social funcionando!" });
+    res.json({ status: "ok", message: "API do Conecta Social funcionando!" });
 });
 
 // Rotas principais
@@ -32,14 +39,14 @@ app.use('/api/voluntarios', voluntariosRoutes);
 
 // Tratamento de erro global
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Algo deu errado no servidor!' });
+  console.error("Erro no servidor:", err.stack);
+  res.status(500).json({ error: 'Algo deu errado no servidor!', details: err.message });
 });
 
 // Exporta o app para a Vercel (Serverless)
 module.exports = app;
 
-// Apenas inicia o servidor se estiver rodando localmente (no seu PC)
+// Apenas inicia o servidor se estiver rodando localmente
 if (require.main === module) {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => console.log(`Servidor rodando localmente na porta ${PORT}`));
