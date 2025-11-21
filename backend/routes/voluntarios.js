@@ -41,9 +41,7 @@ router.post('/registro', async (req, res) => {
             }])
             .select();
 
-        if (error) {
-            throw error;
-        }
+        if (error) throw error;
 
         res.status(201).json({ message: 'Voluntário cadastrado com sucesso!' });
 
@@ -90,10 +88,24 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// ===================== ROTA DE PERFIL (Mantida) =====================
+// ===================== ROTA DE PERFIL =====================
+router.get('/perfil', authMiddleware, async (req, res) => {
+    try {
+        const voluntarioId = req.user.id;
+        const { data, error } = await supabase
+            .from('voluntarios')
+            .select('id, nome, email, bio, interesses')
+            .eq('id', voluntarioId)
+            .single();
+
+        if (error) throw error;
+        res.json(data);
+    } catch (err) {
+        res.status(500).json({ error: 'Erro ao obter dados do perfil.' });
+    }
+});
+
 router.put('/perfil', authMiddleware, async (req, res) => {
-    // ... (código igual, só mantenha se já estiver ok ou copie do anterior)
-    // Vou incluir aqui para garantir que o arquivo fique completo
     try {
         const voluntarioId = req.user.id;
         const { nome, bio, interesses } = req.body;
@@ -112,22 +124,6 @@ router.put('/perfil', authMiddleware, async (req, res) => {
     } catch (err) {
         console.error('Erro ao atualizar perfil:', err.message);
         res.status(500).json({ error: 'Erro ao atualizar perfil.' });
-    }
-});
-
-router.get('/perfil', authMiddleware, async (req, res) => {
-    try {
-        const voluntarioId = req.user.id;
-        const { data, error } = await supabase
-            .from('voluntarios')
-            .select('id, nome, email, bio, interesses')
-            .eq('id', voluntarioId)
-            .single();
-
-        if (error) throw error;
-        res.json(data);
-    } catch (err) {
-        res.status(500).json({ error: 'Erro ao obter dados do perfil.' });
     }
 });
 

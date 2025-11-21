@@ -4,20 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin - Conecta Social</title>
-    <link rel="icon" href="data:,">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="login-page">
-
     <div class="login-card">
         <div class="logo-area mb-4">
             <h1 style="margin:0; font-size:1.5rem; color:#fff;">Conecta Social</h1>
             <span style="font-size: 0.9rem; color: #888;">Acesso Administrativo</span>
         </div>
-        
         <br>
-
         <form id="login-form">
             <div class="form-group">
                 <label for="username">Usuário</label>
@@ -27,18 +23,13 @@
                 <label for="password">Senha</label>
                 <input type="password" id="password" placeholder="Digite a sua senha" required>
             </div>
-            
             <button type="submit">Entrar</button>
-            
             <p id="error-message" class="error-text text-center" style="margin-top: 15px; color: #ff4444;"></p>
         </form>
-
         <div class="links-auxiliares">
             <p><a href="index.html">← Voltar ao Início</a></p>
         </div>
     </div>
-
-    <script src="apiService.js"></script>
-    <script src="login.js" type="module"></script>
+    <script type="module" src="login.js"></script>
 </body>
 </html>

@@ -1,5 +1,4 @@
-// frontend/registro.js
-import { fetchFromAPI } from './apiService.js'; // <--- ADICIONE ESTA LINHA
+import { fetchFromAPI } from './apiService.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('registo-voluntario-form');
@@ -30,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Erro no cadastro:', error);
-            feedbackMessage.textContent = error.message || 'Erro ao criar conta. Tente novamente.';
+            feedbackMessage.textContent = error.message || 'Erro ao criar conta.';
             feedbackMessage.style.color = '#ff4444';
         }
     });

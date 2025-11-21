@@ -1,4 +1,4 @@
-// frontend/admin.js (Atualizado e sem Esportes)
+import { fetchFromAPI } from './apiService.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     if (!localStorage.getItem('authToken')) {
@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutButton = document.getElementById('logout-button');
     const form = document.getElementById('projeto-form');
     
-    // Referências aos inputs
     const nomeInput = document.getElementById('nome');
     const descricaoInput = document.getElementById('descricao');
     const imagemUrlInput = document.getElementById('imagem_url');
@@ -19,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const contatoInput = document.getElementById('contato_coordenador');
     const projetoIdInput = document.getElementById('projeto-id');
 
-    // Botões de ação
     const submitButton = document.getElementById('form-submit-button');
     const cancelButton = document.getElementById('cancel-edit-button');
 
@@ -54,13 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         
         const projetoData = {
-            titulo: nomeInput.value, // Adaptando para o campo que o backend espera
+            titulo: nomeInput.value,
             descricao: descricaoInput.value,
             imagem_url: imagemUrlInput.value,
-            link_site: linkSiteInput.value, // Se o backend suportar
-            link_repositorio: linkRepoInput.value, // Se o backend suportar
-            contato_coordenador: contatoInput.value, // Se o backend suportar
-            categoria: 'Geral' // Categoria fixa, já que removemos o select
+            link_site: linkSiteInput.value,
+            link_repositorio: linkRepoInput.value,
+            contato_coordenador: contatoInput.value,
+            categoria: 'Geral' // Categoria padrão fixa
         };
 
         const id = projetoIdInput.value;
@@ -69,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             submitButton.disabled = true;
-            submitButton.textContent = 'A salvar...';
+            submitButton.textContent = 'Salvando...';
 
             await fetchFromAPI(url, {
                 method: method,
@@ -97,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = target.dataset.id;
 
         if (target.classList.contains('delete-btn')) {
-            if (confirm('Tem a certeza que deseja excluir este projeto?')) {
+            if (confirm('Tem certeza que deseja excluir este projeto?')) {
                 try {
                     await fetchFromAPI(`/projetos/${id}`, { method: 'DELETE' });
                     alert('Projeto excluído com sucesso!');
@@ -109,19 +107,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (target.classList.contains('edit-btn')) {
-            // Carrega os dados para o formulário para edição rápida
             try {
                 const projeto = await fetchFromAPI(`/projetos/${id}`);
                 nomeInput.value = projeto.titulo || projeto.nome;
                 descricaoInput.value = projeto.descricao;
                 imagemUrlInput.value = projeto.imagem_url || '';
-                // Preencha os outros campos se o seu backend retorná-los
+                if(projeto.link_site) linkSiteInput.value = projeto.link_site;
+                if(projeto.link_repositorio) linkRepoInput.value = projeto.link_repositorio;
+                if(projeto.contato_coordenador) contatoInput.value = projeto.contato_coordenador;
                 
                 projetoIdInput.value = projeto.id;
                 submitButton.textContent = 'Salvar Alterações';
                 cancelButton.style.display = 'inline-block';
                 
-                // Rola a página até o formulário
                 form.scrollIntoView({ behavior: 'smooth' });
             } catch (error) {
                 alert('Erro ao carregar dados para edição.');

@@ -1,4 +1,4 @@
-// frontend/login-voluntario.js
+import { fetchFromAPI } from './apiService.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-voluntario-form');
@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        errorMessage.textContent = '';
+        errorMessage.textContent = 'Entrando...';
+        errorMessage.style.color = '#fff';
 
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
@@ -18,13 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (data.token) {
-                // Guarda o token com um nome diferente do token de admin
                 localStorage.setItem('volunteerAuthToken', data.token);
-                window.location.href = 'perfil.html'; // Redireciona para a página de perfil
+                window.location.href = 'perfil.html'; 
             } else {
                 throw new Error('Token não recebido do servidor.');
             }
         } catch (error) {
+            errorMessage.style.color = '#ff4444';
             errorMessage.textContent = error.message;
         }
     });

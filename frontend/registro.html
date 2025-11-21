@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - Conecta Social</title>
-    <link rel="icon" href="data:,">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="login-page">
-
     <div class="login-card">
         <h1 style="margin:0; font-size:1.5rem; color:#fff;">Conecta Social</h1>
         <h2 style="margin-top: 5px;">Junte-se a nós!</h2>
@@ -19,19 +17,15 @@
                 <label for="nome">Nome Completo</label>
                 <input type="text" id="nome" placeholder="Seu nome" required>
             </div>
-
             <div class="form-group">
                 <label for="email">E-mail</label>
                 <input type="email" id="email" placeholder="seu@email.com" required>
             </div>
-
             <div class="form-group">
                 <label for="password">Senha</label>
                 <input type="password" id="password" placeholder="Crie uma senha (min. 6)" required minlength="6">
             </div>
-
             <button type="submit">Criar Conta</button>
-            
             <p id="feedback-message" class="error-text text-center" style="margin-top: 15px;"></p>
         </form>
 
@@ -40,8 +34,6 @@
             <p style="margin-top: 10px;"><a href="index.html">← Voltar ao Início</a></p>
         </div>
     </div>
-
-    <script src="apiService.js"></script>
-    <script src="registro.js"></script>
+    <script type="module" src="registro.js"></script>
 </body>
 </html>
