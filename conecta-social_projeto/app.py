@@ -22,10 +22,6 @@ def volei():
 def rugby():
     return render_template('rugby.html', page='rugby')
 
-@app.route('/projetos')
-def projetos():
-    return render_template('projetos.html', page='projetos')
-
 @app.route('/futevolei')
 def futevolei():
     return render_template('futevolei.html', page='futevolei')
@@ -105,6 +101,14 @@ def kitesurf():
 @app.route("/mergulho")
 def mergulho():
     return render_template("mergulho.html", page="mergulho")
+
+@app.route("/cricket")
+def cricket():
+    return render_template("cricket.html", page="cricket")
+
+@app.route("/beisebol")
+def beisebol():
+    return render_template("beisebol.html", page="beisebol")
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -59,20 +59,35 @@ if (esporte === 'krav_maga') {
 if (esporte === 'kung_fu') {
 		window.open('https://www.google.com/maps/search/academias+de+kung+fu+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
 	}
-	if (!navigator.geolocation) {
-		alert('Geolocalização não suportada pelo navegador.');
+if (esporte === 'taekwondo') {
+		window.open('https://www.google.com/maps/search/academias+de+taekwondo+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+	}
+if (esporte === 'cricket') {
+		window.open('https://www.google.com/maps/search/cricket+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
 		return;
 	}
-	navigator.geolocation.getCurrentPosition(function(pos) {
-		const lat = pos.coords.latitude;
-		const lon = pos.coords.longitude;
-		let tipo = '';
-		if (esporte === 'basquete') {
-			tipo = 'quadra de basquete';
-		}
-		const url = `https://www.google.com/maps/search/${encodeURIComponent(tipo)}+perto+de+${lat},${lon}`;
-		window.open(url, '_blank');
-	}, function() {
-		alert('Não foi possível obter sua localização.');
-	});
+if (esporte === 'natacao') {
+		window.open('https://www.google.com/maps/search/piscinas+para+natacao+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+		return;
+	}
+if (esporte === 'polo_aquatico') {
+		window.open('https://www.google.com/maps/search/polo+aquatico+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+		return;
+	}
+if (esporte === 'baseball') { 
+		window.open('https://www.google.com/maps/search/baseball+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+		return;
+	}
+if (esporte === 'futebol_americano') {
+		window.open('https://www.google.com/maps/search/futebol+americano+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+		return;
+	}
+if (esporte === 'hockey') {
+		window.open('https://www.google.com/maps/search/hockey+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+		return;
+	}
+if (esporte === 'mergulho') {
+		window.open('https://www.google.com/maps/search/locais+para+mergulho+são+jose+do+rio+preto/@-20.7937139,-49.4952541,11z/data=!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D', '_blank');
+		return;
+	}
 }
