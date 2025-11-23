@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middleware/auth');
 
-// ===================== ROTA DE REGISTRO (Com R) =====================
+// ROTA CORRIGIDA: /registro (com R)
 router.post('/registro', async (req, res) => {
     try {
         const { nome, email, password } = req.body;
@@ -13,76 +13,58 @@ router.post('/registro', async (req, res) => {
         if (!nome || !email || !password) {
             return res.status(400).json({ error: 'Preencha todos os campos.' });
         }
-
         if (password.length < 6) {
-            return res.status(400).json({ error: 'A senha precisa de 6 caracteres.' });
+            return res.status(400).json({ error: 'Senha deve ter 6 caracteres.' });
         }
 
-        // Verifica se já existe
-        const { data: usuarioExistente } = await supabase
+        const { data: usuario } = await supabase
             .from('voluntarios')
             .select('id')
             .eq('email', email)
             .maybeSingle();
 
-        if (usuarioExistente) {
+        if (usuario) {
             return res.status(400).json({ error: 'Email já cadastrado.' });
         }
 
-        // Hash da senha
         const salt = await bcrypt.genSalt(10);
-        const passwordHash = await bcrypt.hash(password, salt);
+        const hash = await bcrypt.hash(password, salt);
 
-        // Salva no banco
         const { error } = await supabase
             .from('voluntarios')
-            .insert([{ 
-                nome: nome, 
-                email: email, 
-                password_hash: passwordHash,
-                interesses: [] 
-            }]);
+            .insert([{ nome, email, password_hash: hash, interesses: [] }]);
 
         if (error) throw error;
 
         res.status(201).json({ message: 'Sucesso!' });
 
     } catch (err) {
-        console.error('Erro registro:', err.message);
-        res.status(500).json({ error: 'Erro no servidor ao criar conta.' });
+        console.error(err);
+        res.status(500).json({ error: 'Erro ao cadastrar.' });
     }
 });
 
-// ===================== ROTA DE LOGIN =====================
+// ROTA DE LOGIN
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-        if (!email || !password) return res.status(400).json({ error: 'Faltam dados.' });
-
-        const { data: voluntario, error } = await supabase
+        const { data: user } = await supabase
             .from('voluntarios')
             .select('*')
             .eq('email', email)
             .maybeSingle();
 
-        if (error || !voluntario) return res.status(401).json({ error: 'Email não encontrado.' });
+        if (!user || !(await bcrypt.compare(password, user.password_hash))) {
+            return res.status(401).json({ error: 'Credenciais inválidas.' });
+        }
 
-        const senhaValida = await bcrypt.compare(password, voluntario.password_hash);
-        if (!senhaValida) return res.status(401).json({ error: 'Senha incorreta.' });
-
-        const token = jwt.sign(
-            { id: voluntario.id, email: voluntario.email, nome: voluntario.nome },
-            process.env.JWT_SECRET,
-            { expiresIn: '8h' }
-        );
-
+        const token = jwt.sign({ id: user.id, nome: user.nome }, process.env.JWT_SECRET, { expiresIn: '8h' });
         res.json({ token });
     } catch (err) {
         res.status(500).json({ error: 'Erro no servidor.' });
     }
 });
 
-// Rotas de Perfil (Necessárias para não quebrar o app)
 router.get('/perfil', authMiddleware, async (req, res) => {
     const { data } = await supabase.from('voluntarios').select('*').eq('id', req.user.id).single();
     res.json(data);
