@@ -29,22 +29,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 const projetoDiv = document.createElement('div');
                 projetoDiv.className = 'list-group-item d-flex justify-content-between align-items-center';
                 projetoDiv.style.marginBottom = '10px';
-                projetoDiv.style.padding = '10px';
+                projetoDiv.style.padding = '15px';
                 projetoDiv.style.background = '#2c2c2c';
-                projetoDiv.style.borderRadius = '5px';
+                projetoDiv.style.borderRadius = '8px';
+                projetoDiv.style.border = '1px solid #444';
                 
                 projetoDiv.innerHTML = `
-                    <span>${projeto.titulo || projeto.nome}</span>
+                    <span style="font-weight: bold;">${projeto.titulo || projeto.nome}</span>
                     <div>
-                        <button class="btn btn-sm btn-info edit-btn" data-id="${projeto.id}" style="margin-right: 5px;">Editar</button>
-                        <button class="btn btn-sm btn-danger delete-btn" data-id="${projeto.id}">Excluir</button>
+                        <button class="btn btn-sm btn-info edit-btn" data-id="${projeto.id}" style="margin-right: 8px; background-color: #17a2b8; border: none; color: white; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Editar</button>
+                        <button class="btn btn-sm btn-danger delete-btn" data-id="${projeto.id}" style="background-color: #dc3545; border: none; color: white; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Excluir</button>
                     </div>
                 `;
                 projetosListaContainer.appendChild(projetoDiv);
             });
         } catch (error) {
-            console.error('Erro ao carregar projetos:', error);
-            projetosListaContainer.innerHTML = `<p class="alert alert-warning">Não foi possível carregar os projetos. ${error.message}</p>`;
+            console.error('Erro:', error);
+            projetosListaContainer.innerHTML = `<p class="alert alert-warning">Erro ao carregar projetos.</p>`;
         }
     }
 
@@ -58,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             link_site: linkSiteInput.value,
             link_repositorio: linkRepoInput.value,
             contato_coordenador: contatoInput.value,
-            categoria: 'Geral' // Categoria padrão fixa
+            categoria: 'Geral'
         };
 
         const id = projetoIdInput.value;
@@ -95,13 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = target.dataset.id;
 
         if (target.classList.contains('delete-btn')) {
-            if (confirm('Tem certeza que deseja excluir este projeto?')) {
+            if (confirm('Excluir este projeto?')) {
                 try {
                     await fetchFromAPI(`/projetos/${id}`, { method: 'DELETE' });
-                    alert('Projeto excluído com sucesso!');
                     carregarProjetos();
                 } catch (error) {
-                    alert(`Não foi possível excluir: ${error.message}`);
+                    alert(`Erro ao excluir: ${error.message}`);
                 }
             }
         }
@@ -112,17 +112,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 nomeInput.value = projeto.titulo || projeto.nome;
                 descricaoInput.value = projeto.descricao;
                 imagemUrlInput.value = projeto.imagem_url || '';
-                if(projeto.link_site) linkSiteInput.value = projeto.link_site;
-                if(projeto.link_repositorio) linkRepoInput.value = projeto.link_repositorio;
-                if(projeto.contato_coordenador) contatoInput.value = projeto.contato_coordenador;
+                linkSiteInput.value = projeto.link_site || '';
+                linkRepoInput.value = projeto.link_repositorio || '';
+                contatoInput.value = projeto.contato_coordenador || '';
                 
                 projetoIdInput.value = projeto.id;
                 submitButton.textContent = 'Salvar Alterações';
                 cancelButton.style.display = 'inline-block';
-                
                 form.scrollIntoView({ behavior: 'smooth' });
             } catch (error) {
-                alert('Erro ao carregar dados para edição.');
+                alert('Erro ao carregar para edição.');
             }
         }
     });

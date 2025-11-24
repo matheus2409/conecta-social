@@ -22,9 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('authToken', data.token);
                 window.location.href = 'admin.html';
             } else {
-                throw new Error('Token não recebido do servidor.');
+                throw new Error('Token inválido.');
             }
-
         } catch (error) {
             errorMessage.style.color = '#ff4444';
             errorMessage.textContent = error.message;

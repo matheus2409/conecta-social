@@ -4,56 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Administrativo - Conecta Social</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="admin-style.css">
 </head>
 <body>
-    <header>
-        <h1>Painel Administrativo</h1>
-        <button id="logout-button">Sair</button>
+    <header class="cabecalho-admin">
+        <div class="container">
+            <h1>Painel Administrativo</h1>
+            <button id="logout-button" class="btn btn-danger btn-sm">Sair</button>
+        </div>
     </header>
 
-    <main>
-        <section id="gerenciar-projetos">
-            <h2>Gerenciar Projetos</h2>
+    <main class="container mt-4">
+        <section id="gerenciar-projetos" class="form-admin-container">
+            <h2 style="margin-bottom: 20px;">Gerenciar Projetos</h2>
+
             <form id="projeto-form">
                 <input type="hidden" id="projeto-id">
-                <div class="form-group">
-                    <label for="nome">Nome do Projeto:</label>
-                    <input type="text" id="nome" required>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="nome" class="form-label">Nome do Projeto:</label>
+                    <input type="text" id="nome" class="form-control" required>
                 </div>
-                <div class="form-group">
-                    <label for="descricao">Descrição:</label>
-                    <textarea id="descricao" rows="4" required></textarea>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="descricao" class="form-label">Descrição:</label>
+                    <textarea id="descricao" rows="4" class="form-control" required></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="imagem_url">URL da Imagem:</label>
-                    <input type="url" id="imagem_url">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="imagem_url" class="form-label">URL da Imagem:</label>
+                    <input type="url" id="imagem_url" class="form-control">
                 </div>
-                <div class="form-group">
-                    <label for="link_site">Link do Site:</label>
-                    <input type="url" id="link_site">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="link_site" class="form-label">Link do Site:</label>
+                    <input type="url" id="link_site" class="form-control">
                 </div>
-                <div class="form-group">
-                    <label for="link_repositorio">Link do Repositório:</label>
-                    <input type="url" id="link_repositorio">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="link_repositorio" class="form-label">Link do Repositório:</label>
+                    <input type="url" id="link_repositorio" class="form-control">
                 </div>
-                <div class="form-group">
-                    <label for="contato_coordenador">Contato do Coordenador:</label>
-                    <input type="text" id="contato_coordenador">
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="contato_coordenador" class="form-label">Contato do Coordenador:</label>
+                    <input type="text" id="contato_coordenador" class="form-control">
                 </div>
                 
-                <button type="submit" id="form-submit-button">Adicionar Projeto</button>
-                <button type="button" id="cancel-edit-button" style="display: none;">Cancelar Edição</button>
+                <button type="submit" id="form-submit-button" class="btn btn-primary">Adicionar Projeto</button>
+                <button type="button" id="cancel-edit-button" class="btn btn-secondary" style="display: none; margin-left: 10px;">Cancelar</button>
             </form>
 
-            <hr>
+            <hr style="margin: 40px 0; border-color: #444;">
+
             <h3>Projetos Existentes</h3>
-            <div id="projetos-lista-admin"></div>
+            <div id="projetos-lista-admin" style="margin-top: 20px;"></div>
         </section>
     </main>
-    <footer>
+    <footer style="text-align: center; padding: 20px; margin-top: 40px; color: #888;">
         <p>&copy; 2025 Conecta Social. Todos os direitos reservados.</p>
     </footer>
+
     <script type="module" src="admin.js"></script>
 </body>
 </html>

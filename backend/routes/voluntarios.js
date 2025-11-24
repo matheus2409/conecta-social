@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middleware/auth');
 
-// ROTA CORRIGIDA: /registro (com R)
+// Rota de Registro (CORRIGIDA para /registro)
 router.post('/registro', async (req, res) => {
     try {
         const { nome, email, password } = req.body;
@@ -14,9 +14,10 @@ router.post('/registro', async (req, res) => {
             return res.status(400).json({ error: 'Preencha todos os campos.' });
         }
         if (password.length < 6) {
-            return res.status(400).json({ error: 'Senha deve ter 6 caracteres.' });
+            return res.status(400).json({ error: 'A senha deve ter no mínimo 6 caracteres.' });
         }
 
+        // Verifica se já existe
         const { data: usuario } = await supabase
             .from('voluntarios')
             .select('id')
@@ -24,9 +25,10 @@ router.post('/registro', async (req, res) => {
             .maybeSingle();
 
         if (usuario) {
-            return res.status(400).json({ error: 'Email já cadastrado.' });
+            return res.status(400).json({ error: 'Este e-mail já está cadastrado.' });
         }
 
+        // Cria o hash e salva
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
 
@@ -36,15 +38,14 @@ router.post('/registro', async (req, res) => {
 
         if (error) throw error;
 
-        res.status(201).json({ message: 'Sucesso!' });
+        res.status(201).json({ message: 'Cadastro realizado com sucesso!' });
 
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Erro ao cadastrar.' });
+        res.status(500).json({ error: 'Erro ao criar conta.' });
     }
 });
 
-// ROTA DE LOGIN
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -55,18 +56,19 @@ router.post('/login', async (req, res) => {
             .maybeSingle();
 
         if (!user || !(await bcrypt.compare(password, user.password_hash))) {
-            return res.status(401).json({ error: 'Credenciais inválidas.' });
+            return res.status(401).json({ error: 'E-mail ou senha inválidos.' });
         }
 
-        const token = jwt.sign({ id: user.id, nome: user.nome }, process.env.JWT_SECRET, { expiresIn: '8h' });
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '8h' });
         res.json({ token });
     } catch (err) {
         res.status(500).json({ error: 'Erro no servidor.' });
     }
 });
 
+// Rotas de Perfil
 router.get('/perfil', authMiddleware, async (req, res) => {
-    const { data } = await supabase.from('voluntarios').select('*').eq('id', req.user.id).single();
+    const { data } = await supabase.from('voluntarios').select('id, nome, email, bio, interesses').eq('id', req.user.id).single();
     res.json(data);
 });
 

@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        feedbackMessage.textContent = 'Processando...';
+        feedbackMessage.textContent = 'Criando conta...';
         feedbackMessage.style.color = '#fff';
 
         const nome = document.getElementById('nome').value;
@@ -15,12 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
 
         try {
+            // Chama a rota correta /registro
             await fetchFromAPI('/voluntarios/registro', {
                 method: 'POST',
                 body: JSON.stringify({ nome, email, password })
             });
 
-            feedbackMessage.textContent = 'Conta criada com sucesso! Redirecionando...';
+            feedbackMessage.textContent = 'Conta criada! Redirecionando...';
             feedbackMessage.style.color = 'lightgreen';
             
             setTimeout(() => {
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2000);
 
         } catch (error) {
-            console.error('Erro no cadastro:', error);
+            console.error(error);
             feedbackMessage.textContent = error.message || 'Erro ao criar conta.';
             feedbackMessage.style.color = '#ff4444';
         }
