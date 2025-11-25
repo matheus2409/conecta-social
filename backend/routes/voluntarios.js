@@ -5,19 +5,20 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middleware/auth');
 
-// Rota de Registro (CORRIGIDA para /registro)
+// === ROTA DE CADASTRO (Salva no Banco) ===
 router.post('/registro', async (req, res) => {
     try {
         const { nome, email, password } = req.body;
 
+        // 1. Validação
         if (!nome || !email || !password) {
             return res.status(400).json({ error: 'Preencha todos os campos.' });
         }
         if (password.length < 6) {
-            return res.status(400).json({ error: 'A senha deve ter no mínimo 6 caracteres.' });
+            return res.status(400).json({ error: 'A senha deve ter 6 caracteres ou mais.' });
         }
 
-        // Verifica se já existe
+        // 2. Verifica se já existe
         const { data: usuario } = await supabase
             .from('voluntarios')
             .select('id')
@@ -25,50 +26,68 @@ router.post('/registro', async (req, res) => {
             .maybeSingle();
 
         if (usuario) {
-            return res.status(400).json({ error: 'Este e-mail já está cadastrado.' });
+            return res.status(400).json({ error: 'Este email já está cadastrado.' });
         }
 
-        // Cria o hash e salva
+        // 3. Criptografa a senha
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
 
+        // 4. Insere no Supabase
         const { error } = await supabase
             .from('voluntarios')
-            .insert([{ nome, email, password_hash: hash, interesses: [] }]);
+            .insert([{ 
+                nome: nome, 
+                email: email, 
+                password_hash: hash, // Guarda o hash, não a senha real
+                interesses: [] 
+            }]);
 
         if (error) throw error;
 
-        res.status(201).json({ message: 'Cadastro realizado com sucesso!' });
+        res.status(201).json({ message: 'Conta criada com sucesso!' });
 
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Erro ao criar conta.' });
+        console.error('Erro no registro:', err);
+        res.status(500).json({ error: 'Erro ao salvar no banco de dados.' });
     }
 });
 
+// === ROTA DE LOGIN (Lê do Banco) ===
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
+
+        // 1. Busca o usuário
         const { data: user } = await supabase
             .from('voluntarios')
             .select('*')
             .eq('email', email)
             .maybeSingle();
 
+        // 2. Verifica se existe e se a senha bate
         if (!user || !(await bcrypt.compare(password, user.password_hash))) {
-            return res.status(401).json({ error: 'E-mail ou senha inválidos.' });
+            return res.status(401).json({ error: 'Email ou senha incorretos.' });
         }
 
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '8h' });
+        // 3. Gera o token de acesso
+        const token = jwt.sign(
+            { id: user.id, nome: user.nome }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: '8h' }
+        );
+
         res.json({ token });
+
     } catch (err) {
-        res.status(500).json({ error: 'Erro no servidor.' });
+        console.error('Erro no login:', err);
+        res.status(500).json({ error: 'Erro interno no servidor.' });
     }
 });
 
-// Rotas de Perfil
+// Rotas de Perfil (Necessárias para a página seguinte)
 router.get('/perfil', authMiddleware, async (req, res) => {
-    const { data } = await supabase.from('voluntarios').select('id, nome, email, bio, interesses').eq('id', req.user.id).single();
+    const { data } = await supabase.from('voluntarios').select('*').eq('id', req.user.id).single();
     res.json(data);
 });
 
