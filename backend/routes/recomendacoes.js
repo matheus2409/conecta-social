@@ -1,32 +1,31 @@
+// backend/routes/recomendacoes.js (Versão AWS RDS)
 const express = require('express');
 const router = express.Router();
-const supabase = require('../db');
+const db = require('../db'); // Nova conexão
 const authMiddleware = require('../middleware/auth');
-const fetch = require('node-fetch'); // Precisarás de instalar: npm install node-fetch
+const fetch = require('node-fetch'); // Certifica-te que tens: npm install node-fetch@2
 
-// O endereço do nosso novo serviço de IA em Python
-const IA_SERVICE_URL = 'http://localhost:5000/recomendar';
+const IA_SERVICE_URL = 'http://localhost:5000/recomendar'; // URL do teu serviço Python
 
 router.get('/', authMiddleware, async (req, res) => {
     try {
         const voluntarioId = req.user.id;
 
-        // 1. Obter os interesses do voluntário
-        const { data: voluntario, error: voluntarioError } = await supabase
-            .from('voluntarios')
-            .select('interesses')
-            .eq('id', voluntarioId)
-            .single();
+        // 1. Obter interesses via SQL
+        const query = 'SELECT interesses FROM voluntarios WHERE id = $1';
+        const result = await db.query(query, [voluntarioId]);
 
-        if (voluntarioError || !voluntario.interesses) {
-            return res.json([]);
+        if (result.rows.length === 0 || !result.rows[0].interesses) {
+            return res.json([]); // Sem interesses, sem recomendações
         }
 
-        // 2. Chamar o serviço de IA em Python
+        const interessesUsuario = result.rows[0].interesses;
+
+        // 2. Chamar o serviço de IA (mantém-se igual)
         const response = await fetch(IA_SERVICE_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ interesses: voluntario.interesses }),
+            body: JSON.stringify({ interesses: interessesUsuario }),
         });
 
         if (!response.ok) {
@@ -34,13 +33,12 @@ router.get('/', authMiddleware, async (req, res) => {
         }
 
         const recomendacoes = await response.json();
-        
-        // 3. Devolver o resultado ao frontend
         res.json(recomendacoes);
 
     } catch (err) {
-        console.error('Erro ao comunicar com o serviço de IA:', err.message);
-        res.status(500).json({ error: 'Não foi possível gerar as recomendações.' });
+        console.error('Erro nas recomendações:', err.message);
+        // Em vez de quebrar, retornamos lista vazia se a IA falhar
+        res.json([]); 
     }
 });
 

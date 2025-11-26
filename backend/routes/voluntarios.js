@@ -1,17 +1,16 @@
-// backend/routes/voluntarios.js
+// backend/routes/voluntarios.js (Versão AWS RDS / PostgreSQL)
 const express = require('express');
 const router = express.Router();
-const supabase = require('../db'); // Importa a conexão do db.js
+const db = require('../db'); // Importa a conexão AWS configurada no db.js
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middleware/auth');
 
-// === ROTA DE REGISTO (Cria a conta) ===
+// === ROTA DE REGISTO ===
 router.post('/registro', async (req, res) => {
     try {
         const { nome, email, password } = req.body;
 
-        // Validação básica
         if (!nome || !email || !password) {
             return res.status(400).json({ error: 'Preencha todos os campos.' });
         }
@@ -19,32 +18,28 @@ router.post('/registro', async (req, res) => {
             return res.status(400).json({ error: 'A senha deve ter pelo menos 6 caracteres.' });
         }
 
-        // Verifica se o email já existe
-        const { data: userCheck } = await supabase
-            .from('voluntarios')
-            .select('id')
-            .eq('email', email)
-            .maybeSingle();
+        // 1. Verificar se email já existe (SQL)
+        const checkQuery = 'SELECT id FROM voluntarios WHERE email = $1';
+        const checkResult = await db.query(checkQuery, [email]);
 
-        if (userCheck) {
+        if (checkResult.rows.length > 0) {
             return res.status(400).json({ error: 'Este email já está registado.' });
         }
 
-        // Cria o hash da senha (segurança)
+        // 2. Criar hash da senha
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
 
-        // Insere no banco de dados
-        const { error } = await supabase
-            .from('voluntarios')
-            .insert([{ 
-                nome, 
-                email, 
-                password_hash: hash, 
-                interesses: [] // Começa com lista vazia
-            }]);
+        // 3. Inserir no banco (SQL)
+        // O PostgreSQL converte automaticamente arrays JS [] para arrays Postgres {}
+        const insertQuery = `
+            INSERT INTO voluntarios (nome, email, password_hash, interesses)
+            VALUES ($1, $2, $3, $4)
+            RETURNING id, nome, email;
+        `;
+        const values = [nome, email, hash, []]; // Interesses começa vazio
 
-        if (error) throw error;
+        await db.query(insertQuery, values);
 
         res.status(201).json({ message: 'Conta criada com sucesso!' });
 
@@ -54,24 +49,22 @@ router.post('/registro', async (req, res) => {
     }
 });
 
-// === ROTA DE LOGIN (Entrar) ===
+// === ROTA DE LOGIN ===
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         
-        // Busca o utilizador pelo email
-        const { data: user } = await supabase
-            .from('voluntarios')
-            .select('*')
-            .eq('email', email)
-            .maybeSingle();
+        // 1. Buscar utilizador (SQL)
+        const query = 'SELECT * FROM voluntarios WHERE email = $1';
+        const result = await db.query(query, [email]);
+        const user = result.rows[0];
 
-        // Verifica se o utilizador existe e se a senha bate
+        // 2. Verificar senha
         if (!user || !(await bcrypt.compare(password, user.password_hash))) {
             return res.status(401).json({ error: 'Email ou senha incorretos.' });
         }
 
-        // Gera o token de acesso (válido por 8 horas)
+        // 3. Gerar token
         const token = jwt.sign(
             { id: user.id, nome: user.nome }, 
             process.env.JWT_SECRET, 
@@ -85,45 +78,43 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// === ROTA DE PERFIL (Ver dados) ===
+// === ROTA DE PERFIL (Ler Dados) ===
 router.get('/perfil', authMiddleware, async (req, res) => {
     try {
-        // O ID vem do token (req.user.id) decodificado pelo authMiddleware
-        const { data, error } = await supabase
-            .from('voluntarios')
-            .select('id, nome, email, bio, interesses') // Seleciona apenas o necessário
-            .eq('id', req.user.id)
-            .single();
+        const idUsuario = req.user.id;
+        
+        const query = 'SELECT id, nome, email, bio, interesses FROM voluntarios WHERE id = $1';
+        const result = await db.query(query, [idUsuario]);
 
-        if (error) throw error;
-        res.json(data);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Perfil não encontrado.' });
+        }
+
+        res.json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao buscar perfil:', err);
         res.status(500).json({ error: 'Erro ao carregar perfil.' });
     }
 });
 
-// === ROTA DE ATUALIZAR PERFIL (Editar dados) ===
+// === ROTA DE ATUALIZAR PERFIL ===
 router.put('/perfil', authMiddleware, async (req, res) => {
     try {
         const { nome, bio, interesses } = req.body;
+        const idUsuario = req.user.id;
 
-        // Validação simples
-        if (!nome) {
-            return res.status(400).json({ error: 'O nome é obrigatório.' });
-        }
+        if (!nome) return res.status(400).json({ error: 'O nome é obrigatório.' });
 
-        // Atualiza os dados no Supabase
-        const { error } = await supabase
-            .from('voluntarios')
-            .update({ 
-                nome, 
-                bio, 
-                interesses // Espera-se um array de strings ["Arte", "Educação"]
-            })
-            .eq('id', req.user.id);
+        // Atualização SQL
+        const query = `
+            UPDATE voluntarios 
+            SET nome = $1, bio = $2, interesses = $3
+            WHERE id = $4
+        `;
+        // O driver 'pg' lida com a conversão do array de interesses automaticamente
+        const values = [nome, bio, interesses, idUsuario];
 
-        if (error) throw error;
+        await db.query(query, values);
 
         res.json({ success: true, message: 'Perfil atualizado com sucesso!' });
     } catch (err) {

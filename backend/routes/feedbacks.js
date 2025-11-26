@@ -1,39 +1,41 @@
-// backend/routes/feedbacks.js (Atualizado e Seguro)
-
+// backend/routes/feedbacks.js (Versão AWS RDS)
 const express = require('express');
 const router = express.Router();
-const supabase = require('../db'); // Corrigido para pegar do db.js
+const db = require('../db'); // Nova conexão
 const authMiddleware = require('../middleware/auth');
 
-// Rota PÚBLICA para criar um novo feedback
+// Criar Feedback (Público)
 router.post('/', async (req, res) => {
     const { nome_usuario, mensagem, id_do_projeto } = req.body;
 
-    if (!nome_usuario || !mensagem || !id_do_projeto) {
-        return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
+    if (!mensagem || !id_do_projeto) {
+        return res.status(400).json({ error: 'Mensagem e ID do projeto são obrigatórios.' });
     }
 
     try {
-        const { data, error } = await supabase
-            .from('feedbacks')
-            .insert([{ nome_usuario, mensagem, id_do_projeto }])
-            .select();
-
-        if (error) throw error;
-        res.status(201).json({ message: 'Feedback enviado com sucesso!', data: data[0] });
+        const query = `
+            INSERT INTO feedbacks (nome_usuario, mensagem, id_do_projeto)
+            VALUES ($1, $2, $3)
+            RETURNING *;
+        `;
+        const values = [nome_usuario || 'Anónimo', mensagem, id_do_projeto];
+        
+        const result = await db.query(query, values);
+        
+        res.status(201).json({ message: 'Feedback enviado!', data: result.rows[0] });
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao salvar o feedback: ' + error.message });
+        console.error('Erro ao salvar feedback:', error);
+        res.status(500).json({ error: 'Erro ao salvar o feedback.' });
     }
 });
 
-// Exemplo: Rota PRIVADA para ver ou apagar feedbacks (só para o admin)
+// Listar Feedbacks (Privado/Admin)
 router.get('/', authMiddleware, async (req, res) => {
     try {
-        const { data, error } = await supabase.from('feedbacks').select('*');
-        if (error) throw error;
-        res.status(200).json(data);
+        const result = await db.query('SELECT * FROM feedbacks ORDER BY id DESC');
+        res.status(200).json(result.rows);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar feedbacks: ' + error.message });
+        res.status(500).json({ error: 'Erro ao buscar feedbacks.' });
     }
 });
 
