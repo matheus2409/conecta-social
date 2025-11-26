@@ -13,15 +13,17 @@ const pool = new Pool({
     }
 });
 
-// Teste de conexão ao iniciar
+// Teste de conexão ao iniciar (opcional, mas bom para debug)
 pool.connect((err, client, release) => {
     if (err) {
         return console.error('❌ Erro ao conectar ao banco AWS:', err.stack);
     }
-    console.log('✅ Conectado com sucesso ao banco AWS RDS!');
+    // Se quiseres manter o terminal limpo, podes comentar a linha abaixo
+    // console.log('✅ Conectado com sucesso ao banco AWS RDS!');
     release();
 });
 
+// Exportamos o método "query" para ser usado nas rotas
 module.exports = {
     query: (text, params) => pool.query(text, params),
 };
