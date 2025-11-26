@@ -2,31 +2,39 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Perfil - Conecta Social</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="admin-style.css"> </head>
-<body>
-    <header><h1>Editar Perfil</h1></header>
-    <main class="container">
-        <form id="editar-perfil-form" class="form-admin-container">
-            <div class="mb-3">
-                <label for="nome" class="form-label">Nome</label>
-                <input type="text" id="nome" class="form-control" required>
+</head>
+<body class="login-page">
+    <div class="login-card" style="max-width: 500px;">
+        <h2 style="margin-bottom: 20px;">Editar Perfil</h2>
+        
+        <form id="editar-perfil-form">
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" required>
             </div>
-            <div class="mb-3">
-                <label for="bio" class="form-label">Biografia</label>
-                <textarea id="bio" class="form-control" rows="4" placeholder="Fale um pouco sobre si..."></textarea>
+
+            <div class="form-group">
+                <label for="bio">Biografia</label>
+                <textarea id="bio" rows="4" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #222; color: #fff; resize: vertical; font-family: inherit;"></textarea>
             </div>
-            <div class="mb-3">
-                <label for="interesses" class="form-label">Interesses (separados por vírgula)</label>
-                <input type="text" id="interesses" class="form-control" placeholder="Ex: Educação, Tecnologia, Animais">
+
+            <div class="form-group">
+                <label for="interesses">Interesses (Separe por vírgulas)</label>
+                <input type="text" id="interesses" placeholder="Ex: Tecnologia, Animais, Educação">
+                <small style="color: #888; display: block; margin-top: 5px; text-align: left;">Escreva os interesses separados por vírgula.</small>
             </div>
-            <button type="submit" class="btn btn-primary">Guardar Alterações</button>
-            <a href="perfil.html" class="btn btn-secondary">Cancelar</a>
+
+            <button type="submit" style="margin-top: 20px;">Salvar Alterações</button>
+            <a href="perfil.html" class="btn-base" style="background: transparent; border: 1px solid #555; margin-top: 10px; width: 100%; box-sizing: border-box; padding: 12px;">Cancelar</a>
         </form>
-        <div id="feedback-message" class="mt-3"></div>
-    </main>
-    <script src="apiService.js"></script>
-    <script src="editar-perfil.js"></script>
+        
+        <p id="feedback-message" class="error-text text-center" style="margin-top: 15px;"></p>
+    </div>
+
+    <script type="module" src="editar-perfil.js"></script>
 </body>
 </html>

@@ -1,73 +1,30 @@
-const express = require('express');
-const router = express.Router();
-const supabase = require('../db');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const authMiddleware = require('../middleware/auth');
+// backend/routes/voluntarios.js
 
-// Rota de Registro (Salva no Banco)
-router.post('/registro', async (req, res) => {
+// ... (código anterior de registro e login mantém-se igual)
+
+// Rota para ATUALIZAR o perfil
+router.put('/perfil', authMiddleware, async (req, res) => {
     try {
-        const { nome, email, password } = req.body;
+        const { nome, bio, interesses } = req.body;
+        const idUsuario = req.user.id; // O ID vem do token seguro
 
-        if (!nome || !email || !password) return res.status(400).json({ error: 'Preencha tudo.' });
-        if (password.length < 6) return res.status(400).json({ error: 'Senha muito curta.' });
-
-        // Verifica se email já existe
-        const { data: userCheck } = await supabase.from('voluntarios').select('id').eq('email', email).maybeSingle();
-        if (userCheck) return res.status(400).json({ error: 'Email já cadastrado.' });
-
-        // Hash da senha
-        const salt = await bcrypt.genSalt(10);
-        const hash = await bcrypt.hash(password, salt);
-
-        // Salva
+        // Atualiza apenas os campos permitidos
         const { error } = await supabase
             .from('voluntarios')
-            .insert([{ nome, email, password_hash: hash, interesses: [] }]);
+            .update({ 
+                nome: nome, 
+                bio: bio, 
+                interesses: interesses // O Supabase aceita arrays diretamente
+            })
+            .eq('id', idUsuario);
 
         if (error) throw error;
 
-        res.status(201).json({ message: 'Sucesso!' });
-
+        res.json({ success: true, message: "Perfil atualizado!" });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Erro ao criar conta.' });
+        console.error("Erro ao atualizar perfil:", err);
+        res.status(500).json({ error: 'Erro ao atualizar dados.' });
     }
-});
-
-// Rota de Login (Lê do Banco)
-router.post('/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        
-        const { data: user } = await supabase
-            .from('voluntarios')
-            .select('*')
-            .eq('email', email)
-            .maybeSingle();
-
-        if (!user || !(await bcrypt.compare(password, user.password_hash))) {
-            return res.status(401).json({ error: 'Credenciais inválidas.' });
-        }
-
-        const token = jwt.sign({ id: user.id, nome: user.nome }, process.env.JWT_SECRET, { expiresIn: '8h' });
-        res.json({ token });
-    } catch (err) {
-        res.status(500).json({ error: 'Erro no servidor.' });
-    }
-});
-
-// Rotas de Perfil
-router.get('/perfil', authMiddleware, async (req, res) => {
-    const { data } = await supabase.from('voluntarios').select('*').eq('id', req.user.id).single();
-    res.json(data);
-});
-
-router.put('/perfil', authMiddleware, async (req, res) => {
-    const { nome, bio, interesses } = req.body;
-    await supabase.from('voluntarios').update({ nome, bio, interesses }).eq('id', req.user.id);
-    res.json({ success: true });
 });
 
 module.exports = router;
