@@ -1,21 +1,35 @@
-// backend/criarTabelas.js
+// Salva em: backend/criarTabelas.js
 const { Client } = require('pg');
 require('dotenv').config();
 
-// Configuração da conexão (vai ler do teu arquivo .env)
+// --- DIAGNÓSTICO (Para ter certeza que leu o .env) ---
+console.log("------------------------------------------------");
+console.log("🔍 A verificar configurações...");
+if (!process.env.DB_HOST) {
+    console.error("❌ ERRO CRÍTICO: O arquivo .env não foi lido ou está vazio.");
+    console.error("   Certifica-te que o arquivo se chama '.env' e está na pasta 'backend'.");
+    process.exit(1);
+}
+console.log("✅ Host encontrado:", process.env.DB_HOST);
+console.log("✅ Usuário:", process.env.DB_USER);
+console.log("------------------------------------------------");
+
+// Configuração da conexão
 const client = new Client({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
-    port: 5432,
-    ssl: { rejectUnauthorized: false }
+    port: process.env.DB_PORT || 5432,
+    ssl: { rejectUnauthorized: false } // Obrigatório para AWS RDS
 });
 
-// O SQL que cria a estrutura
+// O SQL das tabelas (Limpo e corrigido)
 const sqlCriacao = `
+    -- Habilitar UUIDs
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+    -- 1. Tabela de Usuários (Voluntários)
     CREATE TABLE IF NOT EXISTS voluntarios (
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         nome TEXT NOT NULL,
@@ -26,6 +40,7 @@ const sqlCriacao = `
         criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
     );
 
+    -- 2. Tabela de Projetos
     CREATE TABLE IF NOT EXISTS projetos (
         id SERIAL PRIMARY KEY,
         titulo TEXT NOT NULL,
@@ -39,6 +54,7 @@ const sqlCriacao = `
         criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
     );
 
+    -- 3. Tabela de Feedbacks
     CREATE TABLE IF NOT EXISTS feedbacks (
         id SERIAL PRIMARY KEY,
         nome_usuario TEXT,
@@ -47,6 +63,7 @@ const sqlCriacao = `
         criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
     );
 
+    -- 4. Tabela de Fotos (Galeria)
     CREATE TABLE IF NOT EXISTS fotos_comunidade (
         id SERIAL PRIMARY KEY,
         url_imagem TEXT NOT NULL,
@@ -57,15 +74,15 @@ const sqlCriacao = `
 
 async function criarBanco() {
     try {
-        console.log("⏳ Conectando à AWS...");
+        console.log("⏳ A conectar à AWS RDS...");
         await client.connect();
-        console.log("✅ Conectado! Criando tabelas...");
+        console.log("✅ Conectado com sucesso! A criar tabelas...");
         
         await client.query(sqlCriacao);
         
-        console.log("🎉 SUCESSO! As tabelas foram criadas na AWS.");
+        console.log("🎉 SUCESSO! Todas as tabelas foram criadas na nuvem.");
     } catch (err) {
-        console.error("❌ Erro:", err);
+        console.error("❌ Erro ao criar tabelas:", err);
     } finally {
         await client.end();
     }
