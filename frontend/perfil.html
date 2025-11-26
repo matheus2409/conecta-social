@@ -5,38 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Perfil - Conecta Social</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    </head>
+    <link rel="stylesheet" href="style.css"> </head>
 <body class="futebol"> <header class="cabecalho-principal">
-        <div class="container-fluido" style="display: flex; justify-content: space-between; padding: 10px 20px;">
+        <div class="container-fluido" style="display: flex; justify-content: space-between; padding: 10px 20px; align-items: center;">
             <h1><a href="index.html" style="color: inherit; text-decoration: none;">Conecta Social</a></h1>
-            <button id="logout-btn" class="btn-base" style="background: #dc3545; font-size: 0.9rem; padding: 8px 16px;">Sair</button>
+            <button id="logout-btn" class="btn-base" style="background: #dc3545; font-size: 0.9rem; padding: 8px 16px; border: none; cursor: pointer;">Sair</button>
         </div>
     </header>
 
     <main class="container mt-4">
-        <div id="perfil-card" class="login-card" style="max-width: 600px; margin: 0 auto; text-align: left;">
+        <div id="perfil-card" class="login-card" style="max-width: 600px; margin: 0 auto; text-align: left; color: #fff;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://ui-avatars.com/api/?name=User&background=1DB954&color=fff&size=128" id="avatar-img" style="border-radius: 50%; border: 3px solid #fff;">
-                <h2 id="perfil-nome" style="margin-top: 10px;">Carregando...</h2>
-                <p id="perfil-email" style="color: #ccc;">...</p>
+                <img src="" id="avatar-img" alt="Avatar" style="border-radius: 50%; border: 3px solid #1DB954; width: 120px; height: 120px;">
+                <h2 id="perfil-nome" style="margin-top: 15px; color: #fff;">A carregar...</h2>
+                <p id="perfil-email" style="color: #bbb; font-size: 0.9em;">...</p>
             </div>
 
-            <hr style="border-color: rgba(255,255,255,0.1);">
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 0;">
 
-            <div class="mb-3">
-                <h4 style="color: var(--verde);">Sobre Mim</h4>
-                <p id="perfil-bio" style="line-height: 1.6;">Ainda não escreveu uma biografia.</p>
+            <div class="mb-4">
+                <h4 style="color: #1ed760; margin-bottom: 10px;">Sobre Mim</h4>
+                <p id="perfil-bio" style="line-height: 1.6; color: #ddd;">A carregar biografia...</p>
             </div>
 
             <div class="mb-4">
-                <h4 style="color: var(--verde);">Interesses</h4>
+                <h4 style="color: #1ed760; margin-bottom: 10px;">Interesses</h4>
                 <div id="lista-interesses" style="display: flex; gap: 10px; flex-wrap: wrap;">
                     </div>
             </div>
 
-            <div style="text-align: center;">
-                <a href="editar-perfil.html" class="btn-base" style="background: var(--azul); width: 100%; box-sizing: border-box;">Editar Perfil</a>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="editar-perfil.html" class="btn-base" style="background: #173ebe; width: 100%; box-sizing: border-box; display: block; padding: 12px;">Editar Perfil</a>
             </div>
         </div>
     </main>

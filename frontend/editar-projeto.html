@@ -3,43 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Projeto - Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Editar Perfil - Conecta Social</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <header>
-        <div class="logo">Painel de Edição</div>
-    </header>
-
-    <main class="container py-4">
-        <h1>Editar Projeto</h1>
-
-        <form id="edit-projeto-form">
-            <input type="hidden" id="projeto-id">
-
-            <div class="mb-3">
-                <label for="nome" class="form-label">Nome do Projeto</label>
-                <input type="text" class="form-control" id="nome" required>
-            </div>
-            <div class="mb-3">
-                <label for="descricao" class="form-label">Descrição</label>
-                <textarea class="form-control" id="descricao" rows="4" required></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="link" class="form-label">Link do Projeto (Opcional)</label>
-                <input type="url" class="form-control" id="link">
+<body class="login-page"> <div class="login-card" style="max-width: 500px; width: 100%;">
+        <h2 style="margin-bottom: 20px; color: #1ed760;">Editar Perfil</h2>
+        
+        <form id="editar-perfil-form">
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" required style="background: #333; color: #fff; border: 1px solid #555;">
             </div>
 
-            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-            <a href="admin.html" class="btn btn-secondary">Cancelar</a>
+            <div class="form-group">
+                <label for="bio">Biografia</label>
+                <textarea id="bio" rows="5" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #555; background: #333; color: #fff; resize: vertical; font-family: inherit; box-sizing: border-box;"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="interesses">Interesses</label>
+                <input type="text" id="interesses" placeholder="Ex: Educação, Tecnologia, Animais" style="background: #333; color: #fff; border: 1px solid #555;">
+                <small style="color: #888; display: block; margin-top: 5px; text-align: left; font-size: 0.85rem;">Separe os interesses por vírgulas.</small>
+            </div>
+
+            <button type="submit" style="margin-top: 20px; width: 100%;">Guardar Alterações</button>
+            
+            <a href="perfil.html" style="display: block; text-align: center; margin-top: 15px; color: #aaa; text-decoration: none;">Cancelar</a>
         </form>
         
-        <div id="feedback-message" class="mt-3"></div>
+        <p id="feedback-message" class="error-text text-center" style="margin-top: 15px; min-height: 24px;"></p>
+    </div>
 
-    </main>
-
-    <script src="apiService.js"></script>
-    <script src="editar-projeto.js"></script>
+    <script type="module" src="editar-perfil.js"></script>
 </body>
 </html>
