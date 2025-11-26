@@ -1,5 +1,13 @@
 {
   "version": 2,
+  "functions": {
+    "backend/server.js": {
+      "runtime": "nodejs20.x"
+    },
+    "api/*.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",
