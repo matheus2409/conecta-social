@@ -11,9 +11,9 @@
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.0",
     "@supabase/supabase-js": "^2.0.0",
-    "pg": "^8.13.1" 
+    "pg": "^8.13.1"
   },
   "engines": {
-    "node": "20.x" 
+    "node": "24.x"
   }
 }
