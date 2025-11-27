@@ -180,6 +180,9 @@ a:hover {
 .aba-btn-handebol { background: linear-gradient(90deg, #ff4107, #2e0707); }
 .aba-btn-projetos { background: linear-gradient(90deg, var(--roxo), var(--roxo)); }
 .aba-btn-ciclismo { background: linear-gradient(90deg, #ff7e06, #feb47b); }
+.aba-btn.futebol_americano { background: linear-gradient(90deg, #6b0000, #d7263d); color: #fff; }
+.aba-btn-localizacao.futebol_americano { background: linear-gradient(90deg, #d7263d, #6b0000); }
+
 
 /* === BOTÕES DE ESPORTE (INDEX) === */
 .index-sports-btns {
@@ -208,7 +211,7 @@ a:hover {
 .btn-sport.judo { background: linear-gradient(90deg, #ffffff, #8d98d6); }
 .btn-sport.jiu_jitsu { background: linear-gradient(90deg, #000, #001381); }
 .btn-sport.karate { background: linear-gradient(90deg, #fcfcfc, #001381); }
-.btn-sport.krav_maga { background: linear-gradient(90deg, #863b36, #c7cac4); }
+.btn-sport.krav_maga { background: linear-gradient(90deg, #0a4b0a, #132204); }
 .btn-sport.kung_fu { background: linear-gradient(90deg, #34284b, #8b0397); }
 .btn-sport.handebol { background: linear-gradient(90deg, #058ec4, #28a745); }
 .btn-sport.ciclismo { background: linear-gradient(90deg, #fc7857, #feb47b); }
@@ -218,6 +221,13 @@ a:hover {
 .btn-sport.mergulho { background: linear-gradient(90deg, #113599, #0b0e44); }
 .btn-sport.surfe { background: linear-gradient(90deg, #f8fd57, #84bbce, #3fbbf0); }
 .btn-sport.kitesurf { background: linear-gradient(90deg, #d0e963, #a8e063); }
+.btn-sport.cricket { background: linear-gradient(90deg, #28c76f, #7be495); color: #ffffff !important; }
+.btn-sport.beisebol { background: linear-gradient(90deg, #f5f3f0, #ffd9b3); color: #ffffff !important; }
+.btn-sport.futebol_americano { background: linear-gradient(90deg, #6b0000, #d7263d); color: #ffffff; }
+
+.btn-sport.cricket { color: #ffffff !important; text-shadow: 1.5px 1.5px 3px rgba(0,0,0,0.6) !important; }
+.btn-sport.beisebol { color: #ffffff !important; text-shadow: 1.5px 1.5px 3px rgba(0,0,0,0.6) !important; }
+
 
 /* === BOTÃO PROJETOS === */
 .btn-projetos {
@@ -289,7 +299,9 @@ body.mergulho { background: linear-gradient(120deg, #113599 20%, #0b0e44 80%); }
 body.surfe { background: linear-gradient(120deg, #f8fd57 10%, #84bbce 50%, #3fbbf0 90%); }
 body.kitesurf { background: linear-gradient(120deg, #d0e963 20%, #a8e063 80%); }
 body.ciclismo { background: linear-gradient(120deg, #fc7857 20%, #feb47b 80%); }
-body.projetos { background: linear-gradient(rgba(255,145,0,0.4), rgba(128,0,128,0.4)); }
+body.cricket { background: linear-gradient(120deg, #3b5004 20%, #85bda3 80%); }
+body.beisebol { background: linear-gradient(120deg, #83c0b6 20%, #ffd9b3 80%); }
+body.futebol_americano { background: linear-gradient(120deg, #6b0000 20%, #d7263d 80%); }
 
 /* === MAIN GENÉRICO PARA ESPORTES === */
 body.futebol main,
@@ -307,6 +319,7 @@ body.boxe main {
   margin-top: 32px;
   color: #ffffff;
 }
+
 
 /* === MODO ESCURO === */
 body.dark-mode {

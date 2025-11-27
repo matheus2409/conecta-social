@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+<div class="aba-btn-area aba-btn-topo"><a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a></div>
+<div class="aba-btn-area">
+    <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('beisebol')">📍 Locais para praticar Beisebol perto de mim</button>
+</div>
+<div id="resultado-localizacao-beisebol" class="resultado-localizacao"></div>
+
+<h1>⚾ Beisebol</h1>
+<img src="{{ url_for('static', filename='beisebol.webp') }}" alt="beisebol" class="img-esporte">
+<p class="img-legenda">imagem ilustrativa</p>
+<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
+  <h3>📜 Quando, onde e quem criou?</h3>
+  <p>O beisebol desenvolveu-se nos Estados Unidos no século XIX e se tornou um dos esportes mais populares no país, com ligas profissionais como a MLB.</p>
+
+  <h3>📏 Regras básicas e mais importantes</h3>
+  <ul>
+    <li>Dois times se revezam entre rebater e defender; cada time tenta marcar corridas ao percorrer as bases.</li>
+    <li>Um arremessador tenta eliminar o rebatedor por strikeout, e a defesa pode obter eliminações por catches e tags nas bases.</li>
+    <li>O jogo é dividido em innings; a estratégia envolve arremessos, posicionamento defensivo e decisões de rebatida/roubo de base.</li>
+  </ul>
+
+  <h3>💡 Curiosidades</h3>
+  <ul>
+    <li>A MLB (Major League Baseball) é a liga profissional mais famosa, com equipes centenárias como Yankees e Red Sox.</li>
+    <li>O primeiro jogo organizado nos EUA data do século XIX e o esporte teve grande expansão no começo do século XX.</li>
+    <li>Beisebol e softball têm regras semelhantes, mas o campo e o estilo de arremesso diferem.</li>
+  </ul>
+
+  <h3>💪 Benefícios</h3>
+  <ul>
+    <li>Melhora coordenação motora, força de membros superiores e resistência aeróbica.</li>
+    <li>Desenvolve trabalho em equipe, concentração e disciplina tática.</li>
+    <li>Atividade social e recreativa acessível para várias idades.</li>
+  </ul>
+
+  <h3>🌎 Popularidade</h3>
+  <p>Beisebol é muito popular nos Estados Unidos, Japão, Cuba, República Dominicana e em várias partes da América Latina; grandes ligas e campeonatos internacionais atraem muitos fãs e atletas profissionais.</p>
+
+  <h3>🎥 Como Jogar Beisebol</h3>
+  <div style="text-align:center; margin:24px 0;">
+    <iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/zlitsBHPLm4" title="Como Jogar Beisebol" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+{% endblock %}
