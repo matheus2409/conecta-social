@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Projeto - Conecta Social</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+    <div class="login-card" style="max-width: 600px;">
+        <h2 style="color: #1ed760; margin-bottom: 20px;">Novo Projeto</h2>
+        
+        <form id="criar-projeto-form">
+            <div class="mb-3 text-start">
+                <label class="form-label text-white">Título do Projeto</label>
+                <input type="text" id="titulo" class="form-control" required>
+            </div>
+            <div class="mb-3 text-start">
+                <label class="form-label text-white">Categoria (Ex: Futebol, Vôlei)</label>
+                <input type="text" id="categoria" class="form-control" required>
+            </div>
+            <div class="mb-3 text-start">
+                <label class="form-label text-white">Descrição</label>
+                <textarea id="descricao" class="form-control" rows="4" required></textarea>
+            </div>
+            <div class="mb-3 text-start">
+                <label class="form-label text-white">URL da Imagem (Opcional)</label>
+                <input type="url" id="imagem_url" class="form-control">
+            </div>
+            
+            <button type="submit" class="btn btn-success w-100 mt-3">Publicar Projeto</button>
+            <a href="perfil.html" class="btn btn-outline-secondary w-100 mt-2">Cancelar</a>
+        </form>
+    </div>
+
+    <script type="module">
+        import { fetchFromAPI } from './apiService.js';
+
+        document.getElementById('criar-projeto-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const dados = {
+                titulo: document.getElementById('titulo').value,
+                categoria: document.getElementById('categoria').value,
+                descricao: document.getElementById('descricao').value,
+                imagem_url: document.getElementById('imagem_url').value,
+                // Os outros campos (link_site, etc) podes adicionar se quiseres
+            };
+
+            try {
+                await fetchFromAPI('/projetos', {
+                    method: 'POST',
+                    body: JSON.stringify(dados)
+                });
+                alert('Projeto criado com sucesso!');
+                window.location.href = 'perfil.html';
+            } catch (err) {
+                alert('Erro: ' + err.message);
+            }
+        });
+    </script>
+</body>
+</html>

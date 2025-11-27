@@ -1,72 +1,77 @@
 import { fetchFromAPI } from './apiService.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Proteção de rota: Verifica se existe token
+    // 1. Proteção de Rota
     const token = localStorage.getItem('volunteerAuthToken');
     if (!token) {
         window.location.href = 'login-voluntario.html';
         return;
     }
 
-    // 2. Referências aos elementos da página
+    // 2. Elementos
     const nomeEl = document.getElementById('perfil-nome');
     const emailEl = document.getElementById('perfil-email');
-    const bioEl = document.getElementById('perfil-bio');
-    const interessesEl = document.getElementById('lista-interesses');
     const avatarEl = document.getElementById('avatar-img');
+    const listaProjetosEl = document.getElementById('lista-meus-projetos');
     const logoutBtn = document.getElementById('logout-btn');
 
-    // 3. Configurar botão de Sair
+    // 3. Logout
     logoutBtn.addEventListener('click', () => {
         localStorage.removeItem('volunteerAuthToken');
         window.location.href = 'index.html';
     });
 
-    // 4. Carregar dados da API
+    // 4. Carregar Dados do Voluntário
     try {
-        // Usa a função auxiliar que já tens em apiService.js
         const perfil = await fetchFromAPI('/voluntarios/perfil');
-
-        // Preencher texto simples
         nomeEl.textContent = perfil.nome;
         emailEl.textContent = perfil.email;
-        
-        // Gerar avatar com iniciais usando serviço externo gratuito
-        const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(perfil.nome)}&background=1DB954&color=fff&size=128&bold=true`;
-        avatarEl.src = avatarUrl;
-
-        // Lógica para biografia vazia
-        if (perfil.bio) {
-            bioEl.textContent = perfil.bio;
-        } else {
-            bioEl.innerHTML = '<em style="color: #888;">Ainda não adicionou uma biografia. Clique em "Editar Perfil" para se apresentar!</em>';
-        }
-
-        // Renderizar lista de interesses como "tags"
-        interessesEl.innerHTML = '';
-        if (perfil.interesses && perfil.interesses.length > 0) {
-            perfil.interesses.forEach(interesse => {
-                const tag = document.createElement('span');
-                tag.textContent = interesse;
-                // Estilo "pill" (pílula) para as tags
-                tag.style.cssText = `
-                    background-color: rgba(29, 185, 84, 0.15); 
-                    color: #1ed760; 
-                    padding: 6px 14px; 
-                    border-radius: 20px; 
-                    font-size: 0.9rem; 
-                    border: 1px solid rgba(29, 185, 84, 0.3);
-                `;
-                interessesEl.appendChild(tag);
-            });
-        } else {
-            interessesEl.innerHTML = '<span style="color: #888;">Nenhum interesse definido.</span>';
-        }
-
+        avatarEl.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(perfil.nome)}&background=1DB954&color=fff`;
     } catch (error) {
-        console.error("Erro ao carregar perfil:", error);
-        alert('Sessão expirada ou erro de conexão. Por favor, faça login novamente.');
-        localStorage.removeItem('volunteerAuthToken');
-        window.location.href = 'login-voluntario.html';
+        console.error("Erro perfil:", error);
+    }
+
+    // 5. Carregar "Meus Projetos"
+    try {
+        const projetos = await fetchFromAPI('/projetos/meus'); // Chama a nova rota
+
+        listaProjetosEl.innerHTML = '';
+        if (projetos.length === 0) {
+            listaProjetosEl.innerHTML = '<p class="text-muted">Ainda não criaste nenhum projeto.</p>';
+        } else {
+            projetos.forEach(projeto => {
+                const item = document.createElement('div');
+                item.className = 'projeto-item';
+                item.innerHTML = `
+                    <div>
+                        <strong style="color: white; font-size: 1.1rem;">${projeto.titulo}</strong>
+                        <br>
+                        <span class="badge bg-secondary">${projeto.categoria}</span>
+                    </div>
+                    <div>
+                        <a href="projeto-detalhe.html?id=${projeto.id}" class="btn btn-sm btn-info" title="Ver">👁️</a>
+                        <button class="btn btn-sm btn-danger btn-deletar" data-id="${projeto.id}" title="Apagar">🗑️</button>
+                    </div>
+                `;
+                listaProjetosEl.appendChild(item);
+            });
+
+            // Adicionar eventos de delete
+            document.querySelectorAll('.btn-deletar').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    if(confirm('Tem a certeza? Esta ação não pode ser desfeita.')) {
+                        try {
+                            const id = e.target.dataset.id;
+                            await fetchFromAPI(`/projetos/${id}`, { method: 'DELETE' });
+                            e.target.closest('.projeto-item').remove();
+                        } catch (err) {
+                            alert('Erro ao apagar: ' + err.message);
+                        }
+                    }
+                });
+            });
+        }
+    } catch (error) {
+        listaProjetosEl.innerHTML = '<p class="text-danger">Erro ao carregar projetos.</p>';
     }
 });
