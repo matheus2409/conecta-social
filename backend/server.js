@@ -1,4 +1,4 @@
-// matheus2409/conecta-social/conecta-social-427011f85ece9fd8898837790468afb3ba53e037/backend/server.js
+// matheus2409/conecta-social/backend/server.js (CORREÇÃO DE CAMINHO ABSOLUTO)
 
 const express = require('express');
 const cors = require('cors');
@@ -10,6 +10,7 @@ const projetosRoutes = require('./routes/projetos');
 const feedbacksRoutes = require('./routes/feedbacks');
 const authRoutes = require('./routes/auth');
 const voluntariosRoutes = require('./routes/voluntarios');
+// const recomendacoesRoutes = require('./routes/recomendacoes'); // DEIXADO DE FORA DA COMPILAÇÃO, COMO COMBINADO
 
 const app = express();
 
@@ -40,33 +41,32 @@ app.get('/api', (req, res) => {
 
 
 // =========================================================================
-// 4. CONFIGURAÇÃO PARA SERVIR O FRONTEND E ASSETS (CORREÇÃO DE CAMINHOS)
+// 4. CONFIGURAÇÃO PARA SERVIR O FRONTEND E ASSETS 
 // =========================================================================
 
-// CORREÇÃO ESSENCIAL: Mapeia a pasta 'frontend/static' para a raiz '/' para os assets.
-// Isso resolve problemas de caminhos como /style.css, /judo.jpg quebram.
-app.use(express.static(path.join(__dirname, '..', 'frontend/static'))); 
+// CORREÇÃO: Mapeia a pasta 'frontend/static' para a raiz '/' para os assets (CSS, Imagens)
+app.use(express.static(path.join(process.cwd(), 'frontend/static'))); 
 
-// Express agora serve arquivos estáticos (HTML, CSS, JS do frontend)
-app.use(express.static(path.join(__dirname, '..', 'frontend')));
+// Express agora serve arquivos estáticos (HTML, CSS, JS do frontend principal)
+app.use(express.static(path.join(process.cwd(), 'frontend')));
 
 // Rota principal (/) para devolver o index.html
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
+    res.sendFile(path.join(process.cwd(), 'frontend', 'index.html'));
 });
 
 // =========================================================================
-// NOVO: Rotas para servir o Portal de Esportes (Substituindo Flask)
+// NOVO: Rotas para servir o Portal de Esportes (Com correção de caminho)
 // =========================================================================
 
-// Função helper para servir o HTML (adaptado do Flask)
+// Função helper para servir o HTML (AGORA USA process.cwd() para ABSOLUTO)
 function renderSport(res, sport) {
-    // Nota: O 'sport' é o nome do ficheiro (ex: 'futebol', 'index')
-    const filePath = path.join(__dirname, '..', 'frontend', 'portal_esportes', `${sport}.html`);
-    res.sendFile(filePath);
+    // ESTA É A LINHA CRÍTICA CORRIGIDA para máxima estabilidade no Vercel
+    const absolutePath = path.join(process.cwd(), 'frontend', 'portal_esportes', `${sport}.html`);
+    res.sendFile(absolutePath);
 }
 
-// Rota para a página inicial do portal de esportes (index.html dentro de portal_esportes)
+// Rota para a página inicial do portal de esportes
 app.get('/esportes', (req, res) => renderSport(res, 'index'));
 
 // Rotas para as páginas específicas dos esportes
@@ -74,7 +74,7 @@ app.get('/futebol', (req, res) => renderSport(res, 'futebol'));
 app.get('/futsal', (req, res) => renderSport(res, 'futsal'));
 app.get('/handebol', (req, res) => renderSport(res, 'handebol'));
 app.get('/corrida', (req, res) => renderSport(res, 'corrida'));
-app.get('/futevolei', (req, res) => renderSport(res, 'futevolei')); // Adicionado
+app.get('/futevolei', (req, res) => renderSport(res, 'futevolei')); 
 app.get('/volei', (req, res) => renderSport(res, 'volei'));
 app.get('/volei_de_areia', (req, res) => renderSport(res, 'volei_de_areia'));
 app.get('/basquete', (req, res) => renderSport(res, 'basquete'));
