@@ -5,7 +5,8 @@ const db = require('../db'); // Nova conexão
 const authMiddleware = require('../middleware/auth');
 const fetch = require('node-fetch'); // Certifica-te que tens: npm install node-fetch@2
 
-const IA_SERVICE_URL = 'http://localhost:5000/recomendar'; // URL do teu serviço Python
+// CORREÇÃO: Aponta para a URL pública do serviço Python (Portal de Esportes)
+const IA_SERVICE_URL = 'https://conecta-social-projects.vercel.app/recomendar'; 
 
 router.get('/', authMiddleware, async (req, res) => {
     try {
