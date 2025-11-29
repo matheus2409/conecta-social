@@ -1,4 +1,4 @@
-// matheus2409/conecta-social/backend/server.js (FINAL, REVISADO)
+// matheus2409/conecta-social/backend/server.js (VERSÃO FINAL SIMPLIFICADA)
 
 const express = require('express');
 const cors = require('cors');
@@ -10,6 +10,8 @@ const projetosRoutes = require('./routes/projetos');
 const feedbacksRoutes = require('./routes/feedbacks');
 const authRoutes = require('./routes/auth');
 const voluntariosRoutes = require('./routes/voluntarios');
+// As rotas de recomendação não funcionam no Vercel/Express sem o servidor Python
+// const recomendacoesRoutes = require('./routes/recomendacoes'); 
 
 const app = express();
 
@@ -40,38 +42,40 @@ app.get('/api', (req, res) => {
 
 
 // =========================================================================
-// 4. CONFIGURAÇÃO PARA SERVIR O FRONTEND E ASSETS
+// 4. CONFIGURAÇÃO PARA SERVIR O FRONTEND E ASSETS 
 // =========================================================================
 
-// Define o diretório raiz do frontend para paths mais claros
+// Define o diretório raiz do frontend (a partir do qual os ficheiros serão servidos)
 const frontendRoot = path.join(process.cwd(), 'frontend');
-const portalPath = path.join(frontendRoot, 'portal_esportes');
 
-// Mapeia a pasta 'frontend/static' para a raiz '/' para os assets (CSS, Imagens)
+// CORREÇÃO: Mapeia a pasta 'frontend/static' para a raiz '/' para os assets (CSS, Imagens)
 app.use(express.static(path.join(frontendRoot, 'static'))); 
 
 // Mapeia a raiz do frontend para o conteúdo principal
 app.use(express.static(frontendRoot));
 
-// Rota principal (/)
+// Rota principal (/) - Conecta Social
 app.get('/', (req, res) => {
     res.sendFile(path.join(frontendRoot, 'index.html'));
 });
 
 // =========================================================================
-// NOVO: Rotas para servir o Portal de Esportes
+// NOVO: Rotas para servir o Portal de Esportes (Caminho Nivelado)
 // =========================================================================
 
-// Função helper para servir o HTML (usa o path calculado)
+// Rota para a página inicial do portal de esportes (CRÍTICA: Aponte para o ficheiro RENOMEADO)
+app.get('/esportes', (req, res) => {
+    res.sendFile(path.join(frontendRoot, 'portal-index.html'));
+});
+
+// FUNÇÃO HELPER (USA O CAMINHO SIMPLIFICADO)
 function renderSport(res, sport) {
-    const filePath = path.join(portalPath, `${sport}.html`);
+    // Procura o ficheiro diretamente em frontend/
+    const filePath = path.join(frontendRoot, `${sport}.html`);
     res.sendFile(filePath);
 }
 
-// Rota para a página inicial do portal de esportes (CRÍTICA)
-app.get('/esportes', (req, res) => renderSport(res, 'index'));
-
-// Rotas para as páginas específicas dos esportes
+// Rotas para as páginas específicas dos esportes (TODAS AGORA PROCURAM NA PASTA FRONTEND/)
 app.get('/futebol', (req, res) => renderSport(res, 'futebol'));
 app.get('/futsal', (req, res) => renderSport(res, 'futsal'));
 app.get('/handebol', (req, res) => renderSport(res, 'handebol'));
