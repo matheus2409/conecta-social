@@ -1,3 +1,4 @@
+// Edição em matheus2409/conecta-social/conecta-social-427011f85ece9fd8898837790468afb3ba53e037/backend/server.js
 // matheus2409/conecta-social/conecta-social-73e8fbeb5c13835133a8e6275f8aa1a8ca2e8ddf/backend/server.js
 
 const express = require('express');
@@ -97,7 +98,12 @@ app.get('/krav_maga', (req, res) => renderSport(res, 'krav_maga'));
 app.get('/kung_fu', (req, res) => renderSport(res, 'kung_fu'));
 // =========================================================================
 
-// 5. Middleware de Erro Global
+// 5. CATCH-ALL/SPA FALLBACK: Se nenhuma rota anterior funcionar, enviar o index.html
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
+});
+
+// 6. Middleware de Erro Global
 app.use((err, req, res, next) => {
     console.error("❌ Erro no Servidor:", err.stack);
     res.status(500).json({ 
