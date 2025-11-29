@@ -10,8 +10,6 @@ const projetosRoutes = require('./routes/projetos');
 const feedbacksRoutes = require('./routes/feedbacks');
 const authRoutes = require('./routes/auth');
 const voluntariosRoutes = require('./routes/voluntarios');
-// As rotas de recomendação não funcionam no Vercel/Express sem o servidor Python
-// const recomendacoesRoutes = require('./routes/recomendacoes'); 
 
 const app = express();
 
@@ -48,7 +46,7 @@ app.get('/api', (req, res) => {
 // Define o diretório raiz do frontend (a partir do qual os ficheiros serão servidos)
 const frontendRoot = path.join(process.cwd(), 'frontend');
 
-// CORREÇÃO: Mapeia a pasta 'frontend/static' para a raiz '/' para os assets (CSS, Imagens)
+// Mapeia a pasta 'frontend/static' para a raiz '/' para os assets (CSS, Imagens)
 app.use(express.static(path.join(frontendRoot, 'static'))); 
 
 // Mapeia a raiz do frontend para o conteúdo principal
@@ -63,7 +61,7 @@ app.get('/', (req, res) => {
 // NOVO: Rotas para servir o Portal de Esportes (Caminho Nivelado)
 // =========================================================================
 
-// Rota para a página inicial do portal de esportes (CRÍTICA: Aponte para o ficheiro RENOMEADO)
+// Rota para a página inicial do portal de esportes (CRÍTICA: AGORA SERVE portal-index.html)
 app.get('/esportes', (req, res) => {
     res.sendFile(path.join(frontendRoot, 'portal-index.html'));
 });
