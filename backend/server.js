@@ -41,10 +41,10 @@ app.get('/api', (req, res) => {
 
 
 // =========================================================================
-// 4. CONFIGURAÇÃO PARA SERVIR O FRONTEND E ASSETS 
+// 4. CONFIGURAÇÃO PARA SERVIR O FRONTEND E ASSETS (CORREÇÃO DE CAMINHOS)
 // =========================================================================
 
-// CORREÇÃO: Mapeia a pasta 'frontend/static' para a raiz '/' para os assets (CSS, Imagens)
+// CORREÇÃO: Mapeia a pasta 'frontend/static' para a raiz '/' (para CSS e Imagens)
 app.use(express.static(path.join(process.cwd(), 'frontend/static'))); 
 
 // Express agora serve arquivos estáticos (HTML, CSS, JS do frontend principal)
@@ -61,9 +61,9 @@ app.get('/', (req, res) => {
 
 // Função helper para servir o HTML (AGORA USA process.cwd() para ABSOLUTO)
 function renderSport(res, sport) {
-    // ESTA É A LINHA CRÍTICA CORRIGIDA para máxima estabilidade no Vercel
-    const absolutePath = path.join(process.cwd(), 'frontend', 'portal_esportes', `${sport}.html`);
-    res.sendFile(absolutePath);
+    // ESTA LINHA CRÍTICA USA O CAMINHO ABSOLUTO:
+    const filePath = path.join(process.cwd(), 'frontend', 'portal_esportes', `${sport}.html`);
+    res.sendFile(filePath);
 }
 
 // Rota para a página inicial do portal de esportes
