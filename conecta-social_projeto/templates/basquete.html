@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+<div class="aba-btn-area aba-btn-topo"><a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a></div>
+<div class="aba-btn-area">
+    <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('basquete')">📍 Locais para jogar Basquete perto de mim</button>
+</div>
+<div id="resultado-localizacao-basquete" class="resultado-localizacao"></div>
+
+<h1>🏀 Basquete</h1>
+<img src="{{ url_for('static', filename='basquete.webp') }}" alt="basquete" class="img-esporte">
+<p class="img-legenda">imagem ilustrativa</p>
+<div style="text-align:left; max-width:700px; margin: 24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
+	<h3>📜Quando, onde e quem criou?</h3>
+	<p>O basquete foi criado em <strong>1891</strong> pelo professor canadense <strong>James Naismith</strong>, na cidade de Springfield, nos Estados Unidos. Naismith buscava uma atividade física que pudesse ser praticada em locais fechados durante o inverno rigoroso, e assim desenvolveu o jogo com uma bola e dois cestos de pêssegos.</p>
+
+	<h3>⚔️Regras básicas e mais importantes</h3>
+	<ul>
+		<li>O jogo é disputado entre duas equipes de cinco jogadores cada.</li>
+		<li>O objetivo é arremessar a bola dentro da cesta do adversário e marcar pontos.</li>
+		<li>O jogo é dividido em quatro períodos de 10 ou 12 minutos, dependendo da liga.</li>
+		<li>Um arremesso dentro do garrafão vale 2 pontos, fora da linha de 3 vale 3 pontos e o lance livre vale 1 ponto.</li>
+		<li>Não é permitido correr segurando a bola — é preciso quicá-la constantemente (drible).</li>
+		<li>Faltas pessoais são marcadas quando há contato físico ilegal entre jogadores.</li>
+		<li>Após cinco faltas pessoais, o jogador é excluído da partida.</li>
+	</ul>
+
+	<h3>💡 Curiosidades</h3>
+	<ul>
+		<li>As primeiras cestas de basquete eram cestos de pêssego pregados em uma parede.</li>
+		<li>O primeiro jogo oficial terminou com o placar de 1 a 0.</li>
+		<li>A NBA (National Basketball Association) é a liga mais famosa do mundo, com jogadores lendários como Michael Jordan, LeBron James e Kobe Bryant.</li>
+		<li>O basquete feminino também tem crescido muito, com ligas profissionais e campeonatos mundiais.</li>
+		<li>O esporte foi incluído nos Jogos Olímpicos em 1936, em Berlim.</li>
+	</ul>
+
+	<h3>🏋️‍♂️ Benefícios</h3>
+	<ul>
+		<li>Melhora a coordenação motora e o equilíbrio.</li>
+		<li>Aumenta a resistência física e cardiovascular.</li>
+		<li>Desenvolve o raciocínio rápido e a agilidade.</li>
+		<li>Fortalece músculos, especialmente pernas e tronco.</li>
+		<li>Promove o trabalho em equipe e a cooperação.</li>
+		<li>Ajuda a aliviar o estresse e melhorar a saúde mental.</li>
+		<li>Estimula a disciplina, foco e responsabilidade.</li>
+	</ul>
+
+	<h3>📈 Popularidade</h3>
+	<p>O basquete é um dos esportes mais populares do mundo, especialmente nos Estados Unidos, Brasil, Espanha e Filipinas. A NBA é referência global, e eventos como o <strong>All-Star Game</strong> e as <strong>Finais da NBA</strong> são assistidos por milhões de fãs. O basquete também é amplamente praticado em escolas e comunidades, sendo um dos esportes mais acessíveis e inspiradores.</p>
+
+	<h3>🎥 Como Jogar Basquete</h3>
+	<div style="text-align:center; margin:24px 0;">
+		<iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/gPm3_qJZlnA" title="Como Jogar Basquete" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</div>
+</div>
+{% endblock %}

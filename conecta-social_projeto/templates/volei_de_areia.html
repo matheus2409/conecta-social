@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+</div>
+
+<div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('volei_de_areia')">
+    📍 Locais para jogar Vôlei de Praia perto de mim
+  </button>
+</div>
+
+<div id="resultado-localizacao-volei_de_areia" class="resultado-localizacao"></div>
+
+<h1>🏖️ Vôlei de Praia</h1>
+<img src="{{ url_for('static', filename='volei_de_areia.jpg') }}" alt="vôlei de praia" class="img-esporte">
+<p class="img-legenda">imagem ilustrativa</p>
+
+<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342; line-height:1.6;">
+
+  <h3>📜 Origem e História</h3>
+  <p>O <strong>Vôlei de Praia</strong> surgiu no início do século XX, principalmente nas praias da Califórnia e do Brasil.  
+  É uma variação do vôlei tradicional, jogado em duplas ou trios sobre areia, com regras adaptadas para a dinâmica do ambiente.  
+  Tornou-se esporte olímpico em 1996, nos Jogos de Atlanta.</p>
+
+  <h3>⚔️ Regras Básicas</h3>
+  <ul>
+    <li>Duplas (2x2) ou trios (dependendo da competição) jogam em quadras de areia.</li>
+    <li>Cada set vai até 21 pontos, com diferença mínima de 2 pontos; partidas normalmente em melhor de 3 sets.</li>
+    <li>Cada equipe pode tocar a bola no máximo 3 vezes antes de enviá-la ao lado adversário.</li>
+    <li>É proibido segurar ou carregar a bola.</li>
+    <li>Saques, bloqueios e ataques são fundamentais e exigem precisão e força.</li>
+    <li>Cartão amarelo = advertência | Cartão vermelho = exclusão temporária ou expulsão.</li>
+  </ul>
+
+  <h3>💪 Benefícios</h3>
+  <ul>
+    <li>Melhora resistência física, agilidade e velocidade.</li>
+    <li>Fortalece pernas, tronco e braços devido ao esforço na areia.</li>
+    <li>Desenvolve percepção espacial, reflexos e tomada de decisão rápida.</li>
+    <li>Estimula trabalho em equipe, cooperação e comunicação.</li>
+    <li>Reduz estresse e promove bem-estar mental.</li>
+    <li>Aprimora coordenação motora e técnica nos saques e ataques.</li>
+  </ul>
+
+  <h3>💡 Curiosidades</h3>
+  <ul>
+	<li>Muito popular nas praias do Brasil, Estados Unidos e Europa.</li>
+	<li>É esporte olímpico desde 1996, com duplas masculinas e femininas competindo em alto nível.</li>
+	<li>Especialmente popular em praias de clima quente e ventilado.</li>
+	<li>O Brasil é referência mundial no vôlei de praia, com inúmeras medalhas olímpicas e mundiais.</li>
+	<li>É um dos esportes mais praticados recreativamente nas praias brasileiras.</li>
+
+	<h3>🌎 Popularidade</h3>
+	<p>O vôlei de praia é uma sensação global, particularmente nas praias de clima quente. No Brasil, é uma parte essencial da cultura de praia, com praias lotadas de jogadores em qualquer fim de semana. O esporte olímpico atrai milhões de fãs e praticantes em todo o mundo.</p>
+
+	<li>Os atletas precisam de força, velocidade e técnica para jogar na areia, tornando o esporte intenso e dinâmico.</li>
+	<li>Competições famosas incluem o Circuito Mundial de Vôlei de Praia da FIVB.</li>
+	<li>O Brasil é referência mundial, com vários campeões olímpicos e mundiais.</li>
+  </ul>
+
+  <h3>🌎 Popularidade</h3>
+  <p>O vôlei de praia é um esporte global, muito praticado em praias, clubes e academias ao redor do mundo.  
+  É famoso por ser visualmente atraente e emocionante, com partidas rápidas, disputadas e estratégicas.</p>
+
+	<h3>🎥 Como Jogar Vôlei de Praia</h3>
+	<div style="text-align:center; margin:24px 0;">
+		<iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/gXcaz5kRl3o" title="Como Jogar Vôlei de Praia" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</div>
+</div>
+{% endblock %}

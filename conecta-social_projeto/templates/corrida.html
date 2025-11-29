@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+</div>
+<div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('corrida')">📍 Locais para praticar Corrida perto de mim</button>
+</div>
+<div id="resultado-localizacao-corrida" class="resultado-localizacao"></div>
+
+<h1>🏃‍♂️ Corrida</h1>
+<img src="{{ url_for('static', filename='corrida.jpeg') }}" alt="corrida" class="img-esporte">
+<p class="img-legenda">imagem ilustrativa</p>
+
+<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
+
+  <h3>📜 Quando, onde e quem criou?</h3>
+  <p>
+    A <strong>Corrida</strong> é uma das práticas esportivas mais antigas do mundo e faz parte da história da humanidade desde os tempos pré-históricos, quando correr era essencial para caçar ou fugir de predadores.  
+    Como esporte organizado, a corrida teve início na <strong>Grécia Antiga</strong>, nos Jogos Olímpicos de 776 a.C., com a prova de “stadion”, equivalente a uma corrida de 200 metros.  
+    Desde então, ela se tornou uma das modalidades mais importantes do atletismo moderno.
+  </p>
+
+  <h3>📏 Regras básicas e tipos de corrida</h3>
+  <ul>
+    <li>Os competidores largam simultaneamente e vencem aqueles que cruzarem a linha de chegada primeiro.</li>
+    <li>As corridas podem acontecer em pista (atletismo), rua, trilha ou montanha.</li>
+    <li>O uso de doping e atalhos é estritamente proibido.</li>
+    <li>Há diferentes tipos de provas:
+      <ul>
+        <li>🏃‍♂️ <strong>Velocidade</strong>: 100m, 200m e 400m;</li>
+        <li>🏃‍♀️ <strong>Meio-fundo</strong>: 800m e 1500m;</li>
+        <li>🏃‍♂️ <strong>Fundo</strong>: 5.000m, 10.000m e maratonas (42km);</li>
+        <li>🌳 <strong>Cross Country</strong>: corridas em terrenos naturais;</li>
+        <li>🏙️ <strong>Corrida de Rua</strong>: provas urbanas populares em todo o mundo.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>💪 Benefícios</h3>
+  <ul>
+    <li>Melhora o sistema cardiovascular e respiratório.</li>
+    <li>Auxilia no controle de peso e fortalecimento muscular.</li>
+    <li>Reduz o estresse e melhora o humor graças à liberação de endorfina.</li>
+    <li>Desenvolve foco, disciplina e superação pessoal.</li>
+    <li>Fortalece ossos e articulações, além de prevenir doenças.</li>
+  </ul>
+
+  <h3>🔥 Curiosidades</h3>
+  <ul>
+    <li>A maratona moderna foi inspirada no soldado grego <strong>Filípides</strong>, que correu de Maratona até Atenas para anunciar a vitória grega.</li>
+    <li>O recorde mundial da maratona masculina é de <strong>2h00m35s</strong>, conquistado por <strong>Eliud Kipchoge</strong> em 2023.</li>
+    <li>No Brasil, a tradicional <strong>Corrida de São Silvestre</strong> acontece desde 1925, em São Paulo.</li>
+    <li>Há corridas temáticas como “Color Run”, “Night Run” e “Zombie Run”.</li>
+  </ul>
+
+  <h3>🌍 Popularidade</h3>
+  <p>
+    A Corrida é uma das atividades físicas mais populares do mundo.  
+    Além de ser uma modalidade olímpica, é praticada por milhões de pessoas como lazer, hobby ou forma de manter a saúde em dia.  
+    Com o crescimento das corridas de rua e eventos esportivos, ela se tornou uma grande comunidade global de atletas e entusiastas.
+  </p>
+
+  <h3>🎥 Como Correr Corretamente</h3>
+  <div style="text-align:center; margin:24px 0;">
+    <iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/rRK6yk6vO5A" title="Como Correr Corretamente" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+{% endblock %}

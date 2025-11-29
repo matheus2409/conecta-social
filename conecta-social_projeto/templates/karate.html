@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-karate">🏠 Voltar para o Início</a>
+</div>
+
+<div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('karate')">
+    📍 Locais para praticar Karatê perto de mim
+  </button>
+</div>
+
+<div id="resultado-localizacao-karate" class="resultado-localizacao"></div>
+
+<h1>🥋 Karatê</h1>
+<img src="{{ url_for('static', filename='karate.webp') }}" alt="Karatê" class="img-esporte">
+<p class="img-legenda">imagem ilustrativa</p>
+
+<div style="text-align:left; max-width:750px; margin: 24px auto; background:rgba(255,255,255,0.9); padding:24px; border-radius:16px; color:#0a2342; line-height:1.6;">
+
+  <h3>📜 Origem e História</h3>
+  <p>O <strong>Karatê</strong> é uma arte marcial japonesa originada em <strong>Okinawa</strong>, influenciada por técnicas chinesas de luta e pelos métodos de defesa tradicionais da ilha. O termo “karatê” significa literalmente <em>“mãos vazias”</em>, representando o uso do corpo como principal ferramenta de defesa.</p>
+  <p>No início do século XX, mestres como <strong>Gichin Funakoshi</strong> sistematizaram o karatê e o introduziram no Japão, transformando-o em uma prática que une <strong>autodefesa, filosofia e disciplina</strong>. Desde então, o karatê se espalhou pelo mundo e se tornou um dos esportes mais praticados do planeta.</p>
+
+  <h3>🧘‍♂️ Filosofia e Princípios</h3>
+  <p>O karatê vai muito além da luta física — ele é um <strong>caminho de aperfeiçoamento pessoal</strong>. A filosofia da arte se baseia no respeito, autocontrole e na busca pela harmonia entre corpo e mente.</p>
+  <p>Entre seus princípios fundamentais estão:</p>
+  <ul>
+    <li><strong>Respeito (Rei):</strong> é essencial em todas as relações dentro e fora do dojo.</li>
+    <li><strong>Autodisciplina:</strong> o karatê ensina controle, paciência e determinação.</li>
+    <li><strong>Não agressão:</strong> o verdadeiro karateca evita o confronto sempre que possível.</li>
+    <li><strong>Melhoria constante (Kaizen):</strong> o objetivo é evoluir continuamente.</li>
+  </ul>
+
+  <h3>⚔️ Regras e Estrutura do Karatê</h3>
+  <ul>
+    <li>As lutas (kumite) são controladas e pontuadas por golpes limpos e precisos, sem intenção de ferir o oponente.</li>
+    <li>O karatê também é composto por <strong>katas</strong> — sequências coreografadas de movimentos que simulam combates.</li>
+    <li>Os praticantes usam um <strong>quimono branco</strong> e são identificados pela <strong>cor da faixa</strong>, que representa o nível de aprendizado.</li>
+    <li>As competições seguem regras da <strong>WKF (World Karate Federation)</strong> e estão presentes em torneios mundiais e até nos Jogos Olímpicos.</li>
+  </ul>
+
+  <h3>🥇 Sistema de Graduação (Faixas)</h3>
+  <p>O progresso no karatê é representado pelas cores das faixas (obi). Cada cor simboliza uma etapa de evolução física e espiritual:</p>
+  <ul>
+    <li> <strong>Branca:</strong> início do aprendizado, pureza e vontade de aprender.</li>
+    <li> <strong>Amarela:</strong> primeiros fundamentos e consciência corporal.</li>
+    <li> <strong>Laranja:</strong> amadurecimento técnico e disciplina.</li>
+    <li> <strong>Verde:</strong> equilíbrio entre corpo e mente.</li>
+    <li> <strong>Azul:</strong> aprofundamento na técnica e concentração.</li>
+    <li> <strong>Roxa:</strong> domínio da forma e da respiração.</li>
+    <li> <strong>Preta:</strong> maestria, humildade e novo início no caminho do karatê.</li>
+  </ul>
+
+  <h3>🏋️‍♀️ Benefícios do Karatê</h3>
+  <ul>
+    <li>Melhora a <strong>coordenação motora</strong> e o equilíbrio.</li>
+    <li>Aumenta a <strong>flexibilidade e força física</strong>.</li>
+    <li>Promove <strong>autoconfiança</strong> e <strong>disciplina mental</strong>.</li>
+    <li>Desenvolve <strong>respeito, paciência e autocontrole</strong>.</li>
+    <li>É uma excelente forma de <strong>condicionamento físico e alívio do estresse</strong>.</li>
+    <li>Ensina <strong>autodefesa eficaz</strong> com base em precisão e estratégia.</li>
+  </ul>
+
+  <h3>🌍 Estilos de Karatê</h3>
+  <p>Existem diversos estilos tradicionais, cada um com ênfases específicas:</p>
+  <ul>
+    <li><strong>Shotokan:</strong> o mais difundido no mundo, com golpes longos e posturas firmes.</li>
+    <li><strong>Goju-Ryu:</strong> combina força e suavidade, com ênfase na respiração e fluidez.</li>
+    <li><strong>Shito-Ryu:</strong> mistura técnicas de ataque e defesa com movimentos elegantes.</li>
+    <li><strong>Wado-Ryu:</strong> prioriza a esquiva e o movimento do corpo sobre o confronto direto.</li>
+  </ul>
+
+  <h3>🇧🇷 Karatê no Brasil</h3>
+  <p>O karatê chegou ao Brasil na década de 1950, trazido por imigrantes japoneses e rapidamente se espalhou pelo país. Hoje, o Brasil é referência internacional, com atletas de destaque em competições mundiais.</p>
+  <p>Entre os principais nomes brasileiros estão:</p>
+  <ul>
+    <li><strong>Douglas Brose</strong> – multicampeão mundial e referência no kumite.</li>
+    <li><strong>Valéria Kumizaki</strong> – destaque feminino em campeonatos internacionais.</li>
+    <li><strong>Rafael Aguiar</strong> – um dos nomes fortes do karatê contemporâneo.</li>
+  </ul>
+
+  <h3>💡 Curiosidades</h3>
+  <ul>
+    <li>O termo “karatê-dô” significa <em>“o caminho das mãos vazias”</em>.</li>
+    <li>O cumprimento (rei) é um sinal de respeito e humildade, obrigatório antes e depois das lutas.</li>
+    <li>O karatê foi incluído nos <strong>Jogos Olímpicos de Tóquio 2020</strong> como esporte oficial.</li>
+    <li>Os katas são considerados a <strong>alma do karatê</strong>, pois guardam os princípios da arte.</li>
+    <li>Muitos praticantes seguem o código: <em>“Karate ni sente nashi”</em> — “No karatê, não existe ataque primeiro”.</li>
+  </ul>
+
+  <h3>🔥 Conclusão</h3>
+  <p>O <strong>Karatê</strong> é mais do que uma arte marcial: é um estilo de vida que ensina respeito, humildade e perseverança. Ele forma não apenas lutadores, mas também cidadãos equilibrados, capazes de agir com sabedoria, força e compaixão.</p>
+
+  <h3>🎥 Como Começar Karatê</h3>
+  <div style="text-align:center; margin:24px 0;">
+    <iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/7YhIqaLp25E" title="Como Começar Karatê" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+{% endblock %}

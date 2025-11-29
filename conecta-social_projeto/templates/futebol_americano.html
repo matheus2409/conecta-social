@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+</div>
+  <div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao futebol_americano" onclick="buscarLocaisProximos('futebol_americano')">📍 Locais para praticar Futebol Americano perto de mim</button>
+</div>
+<div id="resultado-localizacao-futebol_americano" class="resultado-localizacao"></div>
+
+<h1>🏈 Futebol Americano</h1>
+<img src="{{ url_for('static', filename='futebol_americano.jpg') }}" alt="futebol americano" class="img-esporte">
+<p class="img-legenda">imagem ilustrativa</p>
+
+<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
+  
+  <h3>📜 Quando, onde e quem criou?</h3>
+  <p>
+    O <strong>Futebol Americano</strong> surgiu nos Estados Unidos no final do século XIX, como uma variação do rugby inglês.  
+    Walter Camp, conhecido como o “Pai do Futebol Americano”, foi quem ajudou a definir suas principais regras, como o sistema de downs e o passe para frente.
+  </p>
+
+  <h3>📏 Regras básicas e mais importantes</h3>
+  <ul>
+    <li>O campo tem 100 jardas (aproximadamente 91 metros) e duas end zones nas extremidades.</li>
+    <li>As equipes têm 4 tentativas (downs) para avançar 10 jardas.</li>
+    <li>O <strong>touchdown</strong> vale 6 pontos e ocorre quando o jogador entra na end zone com a bola.</li>
+    <li>Após o touchdown, é possível marcar pontos extras com chute (1 ponto) ou jogada (2 pontos).</li>
+    <li>O jogo é dividido em 4 tempos de 15 minutos.</li>
+    <li>Cada time tem 11 jogadores em campo e substituições ilimitadas.</li>
+  </ul>
+
+  <h3>💪 Benefícios</h3>
+  <ul>
+    <li>Melhora o condicionamento físico e a força muscular.</li>
+    <li>Desenvolve raciocínio rápido e pensamento estratégico.</li>
+    <li>Estimula o trabalho em equipe e a liderança.</li>
+    <li>Aumenta a disciplina, o foco e a resistência.</li>
+    <li>Promove a socialização e o espírito esportivo.</li>
+  </ul>
+
+  <h3>🔥 Curiosidades</h3>
+  <ul>
+    <li>O <strong>Super Bowl</strong> é o evento esportivo mais assistido dos Estados Unidos e um dos maiores do mundo.</li>
+    <li>O formato atual do capacete com grade foi criado na década de 1940 para aumentar a segurança.</li>
+    <li>O primeiro jogo universitário aconteceu em 1869 entre Rutgers e Princeton.</li>
+    <li>No Brasil, o esporte é organizado pela <strong>CBFA</strong> (Confederação Brasileira de Futebol Americano).</li>
+  </ul>
+
+  <h3>🌎 Popularidade</h3>
+  <p>
+    O Futebol Americano é o esporte mais popular dos Estados Unidos, mas vem crescendo no Brasil e em outros países.  
+    Já existem dezenas de times brasileiros e competições nacionais, como a <strong>BFA (Brasil Futebol Americano)</strong>.  
+    Além disso, transmissões da <strong>NFL</strong> atraem cada vez mais fãs brasileiros apaixonados pelo esporte.
+  </p>
+
+  <h3>🎥 Como Jogar Futebol Americano</h3>
+  <div style="text-align:center; margin:24px 0;">
+    <iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/beIMpCgNvGg" title="Como Jogar Futebol Americano" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+{% endblock %}

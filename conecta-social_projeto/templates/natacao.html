@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+<div class="aba-btn-area aba-btn-topo">
+  <a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+</div>
+<div class="aba-btn-area">
+  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('natacao')">📍 Locais para praticar Natação perto de mim</button>
+</div>
+<div id="resultado-localizacao-natacao" class="resultado-localizacao"></div>
+
+<h1>🏊‍♂️ Natação</h1>
+<img src="{{ url_for('static', filename='natacao.jpeg') }}" alt="natação" class="img-esporte">
+<p class="img-legenda">imagem ilustrativa</p>
+
+<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
+
+  <h3>📜 Quando, onde e quem criou?</h3>
+  <p>
+    A <strong>Natação</strong> é uma das práticas esportivas mais antigas da humanidade.  
+    Desde a pré-história, o homem já nadava como forma de sobrevivência, caça e transporte.  
+    A modalidade esportiva moderna começou no século XIX, na <strong>Inglaterra</strong>, e se popularizou com a criação da 
+    <strong>Federação Internacional de Natação (FINA)</strong> em 1908.  
+    A natação faz parte dos <strong>Jogos Olímpicos</strong> desde a primeira edição moderna, em 1896, em Atenas.
+  </p>
+
+  <h3>📏 Regras básicas e estilos</h3>
+  <ul>
+    <li>As provas podem ser realizadas em piscinas de 25m (curta) ou 50m (olímpica).</li>
+    <li>O nadador deve permanecer dentro da raia durante toda a prova.</li>
+    <li>São quatro estilos principais:
+      <ul>
+        <li><strong>Livre</strong> – qualquer nado, geralmente o crawl;</li>
+        <li><strong>Borboleta</strong> – exige força e coordenação nos braços e pernas;</li>
+        <li><strong>Costas</strong> – o nadador permanece de costas na superfície;</li>
+        <li><strong>Peito</strong> – movimentos simultâneos de braços e pernas, com o corpo na horizontal.</li>
+      </ul>
+    </li>
+    <li>O uso de viradas e toques na parede é obrigatório em cada volta.</li>
+  </ul>
+
+  <h3>💪 Benefícios</h3>
+  <ul>
+    <li>Melhora a capacidade pulmonar e a resistência cardiovascular.</li>
+    <li>Fortalece todos os grupos musculares do corpo.</li>
+    <li>É uma atividade de baixo impacto, ideal para todas as idades.</li>
+    <li>Ajuda na postura, flexibilidade e coordenação motora.</li>
+    <li>Reduz o estresse e melhora o bem-estar mental.</li>
+  </ul>
+
+  <h3>🌊 Curiosidades</h3>
+  <ul>
+    <li>O primeiro nadador olímpico brasileiro foi <strong>Aristides Silva</strong>, em 1920.</li>
+    <li><strong>Michael Phelps</strong> é o maior medalhista olímpico da história, com 28 medalhas!</li>
+    <li>Os trajes de natação modernos são feitos com materiais tecnológicos que reduzem o atrito na água.</li>
+    <li>A natação sincronizada e o polo aquático são variações populares da modalidade.</li>
+  </ul>
+
+  <h3>🌍 Popularidade</h3>
+  <p>
+    A Natação é um dos esportes mais populares do mundo e uma das modalidades mais esperadas nas Olimpíadas.  
+    No Brasil, atletas como <strong>César Cielo</strong>, <strong>Thiago Pereira</strong> e <strong>Etiene Medeiros</strong> ajudaram a 
+    consolidar o país entre as potências da natação mundial.  
+    Além do aspecto competitivo, a natação é amplamente praticada por lazer, saúde e reabilitação física.
+  </p>
+
+  <h3>🎥 Como Nadar Corretamente</h3>
+  <div style="text-align:center; margin:24px 0;">
+    <iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/gMqOh5-O2aI" title="Como Nadar Corretamente" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+{% endblock %}
