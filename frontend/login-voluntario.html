@@ -5,29 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Voluntário - Conecta Social</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="login-page">
     <div class="login-card">
-        <h1 style="margin:0; font-size:1.5rem; color:#fff;">Conecta Social</h1>
-        <h2 style="margin-top: 5px;">Área do Voluntário</h2>
-        <form id="login-voluntario-form">
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" placeholder="seu@email.com" required>
+        <h1 style="margin:0; font-size:1.5rem; color: var(--primary-color);">Conecta Social</h1>
+        <h2 style="margin-top: 5px; font-size: 1.2rem; color: #ccc;">Área do Voluntário</h2>
+        
+        <form id="login-voluntario-form" style="margin-top: 30px;">
+            <div class="mb-3 text-start">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" id="email" class="form-control" placeholder="seu@email.com" required>
             </div>
-            <div class="form-group">
-                <label for="password">Senha</label>
-                <input type="password" id="password" placeholder="Sua senha secreta" required>
+            <div class="mb-3 text-start">
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" id="password" class="form-control" placeholder="Sua senha secreta" required>
             </div>
-            <button type="submit">Aceder</button>
-            <p id="error-message" class="error-text" style="margin-top: 15px; color: #ff4444;"></p>
+            
+            <button type="submit" class="btn btn-success w-100 mt-2">ENTRAR</button>
+            
+            <p id="error-message" class="error-text mt-3" style="color: var(--danger-color); font-weight: bold;"></p>
         </form>
-        <div class="links-auxiliares">
-            <p>Ainda não tem conta? <a href="registro.html">Cadastre-se aqui</a></p>
-            <p style="margin-top: 10px;"><a href="index.html">← Voltar ao Início</a></p>
+
+        <div class="links-auxiliares mt-4">
+            <p>Ainda não tem conta? <a href="registro.html" style="color: var(--primary-color); font-weight: bold;">Cadastre-se aqui</a></p>
+            <p style="margin-top: 10px;"><a href="index.html" class="text-muted">← Voltar ao Início</a></p>
         </div>
     </div>
+    
     <script type="module" src="login-voluntario.js"></script>
 </body>
 </html>

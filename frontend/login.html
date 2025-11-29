@@ -5,31 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin - Conecta Social</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="login-page">
     <div class="login-card">
         <div class="logo-area mb-4">
-            <h1 style="margin:0; font-size:1.5rem; color:#fff;">Conecta Social</h1>
+            <h1 style="margin:0; font-size:1.5rem; color: var(--primary-color);">Conecta Social</h1>
             <span style="font-size: 0.9rem; color: #888;">Acesso Administrativo</span>
         </div>
-        <br>
+        
         <form id="login-form">
-            <div class="form-group">
-                <label for="username">Usuário</label>
-                <input type="text" id="username" placeholder="Usuário admin" required>
+            <div class="mb-3 text-start">
+                <label for="username" class="form-label">Usuário</label>
+                <input type="text" id="username" class="form-control" placeholder="Usuário admin" required>
             </div>
-            <div class="form-group">
-                <label for="password">Senha</label>
-                <input type="password" id="password" placeholder="Senha admin" required>
+            <div class="mb-3 text-start">
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" id="password" class="form-control" placeholder="Senha admin" required>
             </div>
-            <button type="submit">Entrar</button>
-            <p id="error-message" class="error-text text-center" style="margin-top: 15px; color: #ff4444;"></p>
+            
+            <button type="submit" class="btn btn-primary w-100 mt-2">ENTRAR ADMIN</button>
+            
+            <p id="error-message" class="error-text text-center mt-3" style="color: var(--danger-color);"></p>
         </form>
-        <div class="links-auxiliares">
-            <p><a href="index.html">← Voltar ao Início</a></p>
+        <div class="links-auxiliares mt-4">
+            <p><a href="index.html" class="text-muted">← Voltar ao Início</a></p>
         </div>
     </div>
+    
     <script type="module" src="login.js"></script>
 </body>
 </html>
