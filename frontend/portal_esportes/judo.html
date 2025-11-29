@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>🏆 Judô | Conecta Social 🗣️</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="judo">
+
+  <aside class="sidebar">
+    <div class="sidebar-title">
+      <h1>🏆<br>conecta-social<br>🗣️</h1>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/esportes" ><span>🏠</span> Início</a>
+      <a href="/futebol"><span>⚽</span> Futebol</a>
+      <a href="/futsal"><span>⚽</span> Futsal</a>
+      <a href="/handebol"><span>🤾</span> Handebol</a>
+      <a href="/corrida"><span>🏃‍♂️</span> Corrida</a>
+      <a href="/futevolei"><span>⚽🏐</span> Futevôlei</a>
+      <a href="/volei"><span>🏐</span> Vôlei</a>
+      <a href="/volei_de_areia"><span>🏐🌴</span> Vôlei de Areia</a>
+      <a href="/basquete"><span>🏀</span> Basquete</a>
+      <a href="/rugby"><span>🏉</span> Rugby</a>
+      <a href="/futebol_americano"><span>🏈</span> Futebol Americano</a>
+      <a href="/cricket"><span>🏏</span> Cricket</a>
+      <a href="/beisebol"><span>⚾</span> Beisebol</a>
+      <a href="/ciclismo"><span>🚴‍♂️</span> Ciclismo</a>
+      <a href="/natacao"><span>🏊‍♂️</span> Natação</a>
+      <a href="/mergulho"><span>🤿</span> Mergulho</a>
+      <a href="/surfe"><span>🏄‍♂️</span> Surfe</a>
+      <a href="/kitesurf"><span>🪁🌊</span> Kitesurf</a>
+      <a href="/polo_aquatico"><span>🤽‍♂️</span> Polo Aquático</a>
+      <a href="/tenis_de_mesa"><span>🏓</span> Tênis de Mesa</a>
+      <a href="/boxe"><span>🥊</span>Boxe</a>
+      <a href="/muay_thai"><span>🥊</span>Muay thai</a>
+      <a href="/judo"><span>🥋</span>Judo</a>
+      <a href="/jiu_jitsu"><span>🥋</span>Jiu-jítsu</a>
+      <a href="/karate"><span>🥋</span>Karatê</a>
+      <a href="/krav_maga"><span>👊</span>Krav maga</a>
+      <a href="/kung_fu"><span>☯️</span>Kung fu</a>
+      
+      <a href="https://conecta-social-projects.vercel.app" target="_blank" style="margin-top: 20px; border-top: 1px solid #444;">
+        🤝 Projetos Sociais
+      </a>
+    </nav>
+  </aside>
+
+  <main style="margin-left: 210px;">
+    <button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+
+    <div class="aba-btn-area aba-btn-topo">
+      <a href="/esportes" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+    </div>
+
+    <div class="aba-btn-area">
+      <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('judo')">
+        📍 Locais para praticar Judô perto de mim
+      </button>
+    </div>
+
+    <div id="resultado-localizacao-judo" class="resultado-localizacao"></div>
+
+    <h1>🥋 Judô</h1>
+    <img src="/judo.jpg" alt="judo" class="img-esporte">
+    <p class="img-legenda">imagem ilustrativa</p>
+
+    <div style="text-align:left; max-width:750px; margin: 24px auto; background:rgba(255,255,255,0.9); padding:24px; border-radius:16px; color:#0a2342; line-height:1.6;">
+
+      <h3>📜 Origem e História</h3>
+      <p>O <strong>Judô</strong> é uma arte marcial japonesa criada por <strong>Jigoro Kano</strong> em <strong>1882</strong>. Ele se baseou em antigas técnicas do <em>jiu-jitsu</em> dos samurais, mas removeu os aspectos perigosos para transformá-lo em uma prática voltada para o <strong>aperfeiçoamento físico, mental e moral</strong>.</p>
+      <p>Kano fundou o <strong>Kodokan</strong> (escola do caminho do aprendizado), em Tóquio, com o objetivo de desenvolver o Judô como um meio de educação integral, promovendo valores como <em>respeito, disciplina, autocontrole e cooperação</em>.</p>
+
+      <h3>🧘‍♂️ Filosofia e Significado</h3>
+      <p>A palavra <strong>“Judô”</strong> significa <em>“Caminho Suave”</em> (do japonês 柔道). Seu princípio fundamental é o uso da força do adversário a seu favor, buscando o máximo de eficiência com o mínimo de esforço.</p>
+      <p>Os dois pilares filosóficos do Judô são:</p>
+      <ul>
+        <li><strong>Seiryoku Zen’yō (精力善用):</strong> Melhor uso da energia física e mental.</li>
+        <li><strong>Jita Kyōei (自他共栄):</strong> Prosperidade e bem-estar mútuos.</li>
+      </ul>
+
+      <h3>⚖️ Regras Básicas</h3>
+      <ul>
+        <li>Os combates ocorrem em um <strong>tatame</strong> (área acolchoada).</li>
+        <li>O objetivo é projetar o adversário de costas no chão (<strong>ippon</strong>), o que encerra a luta.</li>
+        <li>Também é possível vencer por <strong>imobilização, estrangulamento</strong> ou <strong>chave de braço</strong>.</li>
+        <li>O combate dura até 4 minutos em competições oficiais.</li>
+        <li>São proibidos golpes com socos, chutes ou torções perigosas.</li>
+        <li>O árbitro e os juízes controlam o tempo e pontuam com <strong>waza-ari</strong> e <strong>ippon</strong>.</li>
+      </ul>
+
+      <h3>🥇 Sistema de Graduação</h3>
+      <p>Os praticantes são chamados de <strong>judocas</strong> e usam o <em>judogi</em> (uniforme branco). A evolução é representada pelas cores das faixas (<em>obi</em>):</p>
+      <ul>
+        <li>Branca → iniciante</li>
+        <li>Amarela → aprendizado básico</li>
+        <li>Verde → intermediário</li>
+        <li>Roxa → avançado</li>
+        <li>Marrom → pré-preta</li>
+        <li>Preta → mestre (com graus de 1º a 10º dan)</li>
+      </ul>
+
+      <h3>🏋️‍♀️ Benefícios do Judô</h3>
+      <ul>
+        <li>Melhora o <strong>condicionamento físico</strong> e a <strong>resistência muscular</strong>.</li>
+        <li>Desenvolve <strong>coordenação, equilíbrio e flexibilidade</strong>.</li>
+        <li>Ensina <strong>autocontrole emocional</strong> e <strong>respeito</strong>.</li>
+        <li>Promove <strong>espírito de equipe</strong> e <strong>resiliência</strong>.</li>
+        <li>Auxilia no <strong>emagrecimento</strong> e melhora a <strong>postura corporal</strong>.</li>
+        <li>Estimula o <strong>raciocínio rápido</strong> e a <strong>disciplina mental</strong>.</li>
+      </ul>
+
+      <h3>🌍 Judô no Mundo</h3>
+      <p>O Judô se tornou o primeiro esporte de origem japonesa a se tornar <strong>olímpico</strong>, estreando nos <strong>Jogos Olímpicos de Tóquio em 1964</strong>. Hoje é praticado em mais de <strong>200 países</strong>, com milhões de atletas e federações oficiais.</p>
+
+      <h3>🇧🇷 Judô no Brasil</h3>
+      <p>O Judô chegou ao Brasil em <strong>1922</strong> com imigrantes japoneses. Um dos principais responsáveis por sua difusão foi o mestre <strong>Masahiko Kimura</strong> e, mais tarde, <strong>Georges Mehdi</strong>. O Brasil é hoje uma das maiores potências mundiais do esporte, com diversos <strong>campeões olímpicos e mundiais</strong>.</p>
+      <p>Entre os nomes mais conhecidos estão <strong>Aurélio Miguel</strong>, <strong>Rafaela Silva</strong>, <strong>Sarah Menezes</strong> e <strong>Mayra Aguiar</strong>.</p>
+
+      <h3>💡 Curiosidades</h3>
+      <ul>
+        <li>O Judô é praticado descalço, para aumentar o controle e o respeito pelo tatame.</li>
+        <li>Antes e depois da luta, os judocas fazem uma reverência (<em>rei</em>) como sinal de respeito.</li>
+        <li>O criador do Judô, <strong>Jigoro Kano</strong>, foi o primeiro japonês a integrar o Comitê Olímpico Internacional.</li>
+        <li>O uniforme branco simboliza <strong>pureza e igualdade</strong>.</li>
+        <li>O lema do Judô é: <em>“Máximo de eficiência, mínimo de esforço; benefício e prosperidade mútuos.”</em></li>
+      </ul>
+
+      <h3>🔥 Conclusão</h3>
+      <p>O Judô é muito mais que uma luta: é um <strong>caminho de autoconhecimento e respeito</strong>. Ele forma cidadãos disciplinados, equilibrados e resilientes, transmitindo valores que ultrapassam o tatame. A prática constante leva à evolução não só do corpo, mas também do espírito.</p>
+
+      <h3>🎥 Como Começar Judô</h3>
+      <div style="text-align:center; margin:24px 0;">
+        <iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/6LWfTDfOm7I" title="Como Começar Judô" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Feito pela 🏆 conecta-social 🗣️</p>
+  </footer>
+  <script src="/localizacao.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.getElementById('toggle-dark-mode');
+      if (!toggleBtn) return;
+      // Inicializa modo salvo
+      const savedMode = localStorage.getItem('darkMode');
+      if (savedMode === 'dark') {
+        setDarkMode(true);
+      } else {
+        setDarkMode(false);
+      }
+      toggleBtn.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('global-dark');
+        setDarkMode(isDark);
+        localStorage.setItem('darkMode', isDark ? 'dark' : 'light');
+      });
+      function setDarkMode(enable) {
+        if (enable) {
+          document.body.style.background = '#000';
+          document.body.style.backgroundImage = 'none';
+          document.body.style.color = '#fff';
+          document.body.classList.add('global-dark');
+          toggleBtn.textContent = '☀️ Modo Claro';
+          document.querySelectorAll('main, .sidebar, .sidebar-nav a, .aba-btn, .btn-sport').forEach(el => {
+            el.style.background = '#000';
+            el.style.color = '#fff';
+          });
+          document.querySelectorAll('.aba-btn-topo .aba-btn, .aba-btn-localizacao').forEach(el => {
+            el.style.background = '#444';
+            el.style.color = '#fff';
+          });
+        } else {
+          document.body.style.background = '';
+          document.body.style.backgroundImage = '';
+          document.body.style.color = '';
+          document.body.classList.remove('global-dark');
+          toggleBtn.textContent = '🌙 Modo Escuro';
+          document.querySelectorAll('main, .sidebar, .sidebar-nav a, .aba-btn, .btn-sport').forEach(el => {
+            el.style.background = '';
+            el.style.color = '';
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>

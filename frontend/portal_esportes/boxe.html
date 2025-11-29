@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>🏆 Boxe | Conecta Social 🗣️</title>
+  <link rel="stylesheet" href="/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="boxe">
+
+  <aside class="sidebar">
+    <div class="sidebar-title">
+      <h1>🏆<br>conecta-social<br>🗣️</h1>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/esportes" ><span>🏠</span> Início</a>
+      <a href="/futebol"><span>⚽</span> Futebol</a>
+      <a href="/futsal"><span>⚽</span> Futsal</a>
+      <a href="/handebol"><span>🤾</span> Handebol</a>
+      <a href="/corrida"><span>🏃‍♂️</span> Corrida</a>
+      <a href="/futevolei"><span>⚽🏐</span> Futevôlei</a>
+      <a href="/volei"><span>🏐</span> Vôlei</a>
+      <a href="/volei_de_areia"><span>🏐🌴</span> Vôlei de Areia</a>
+      <a href="/basquete"><span>🏀</span> Basquete</a>
+      <a href="/rugby"><span>🏉</span> Rugby</a>
+      <a href="/futebol_americano"><span>🏈</span> Futebol Americano</a>
+      <a href="/cricket"><span>🏏</span> Cricket</a>
+      <a href="/beisebol"><span>⚾</span> Beisebol</a>
+      <a href="/ciclismo"><span>🚴‍♂️</span> Ciclismo</a>
+      <a href="/natacao"><span>🏊‍♂️</span> Natação</a>
+      <a href="/mergulho"><span>🤿</span> Mergulho</a>
+      <a href="/surfe"><span>🏄‍♂️</span> Surfe</a>
+      <a href="/kitesurf"><span>🪁🌊</span> Kitesurf</a>
+      <a href="/polo_aquatico"><span>🤽‍♂️</span> Polo Aquático</a>
+      <a href="/tenis_de_mesa"><span>🏓</span> Tênis de Mesa</a>
+      <a href="/boxe"><span>🥊</span>Boxe</a>
+      <a href="/muay_thai"><span>🥊</span>Muay thai</a>
+      <a href="/judo"><span>🥋</span>Judo</a>
+      <a href="/jiu_jitsu"><span>🥋</span>Jiu-jítsu</a>
+      <a href="/karate"><span>🥋</span>Karatê</a>
+      <a href="/krav_maga"><span>👊</span>Krav maga</a>
+      <a href="/kung_fu"><span>☯️</span>Kung fu</a>
+      
+      <a href="https://conecta-social-projects.vercel.app" target="_blank" style="margin-top: 20px; border-top: 1px solid #444;">
+        🤝 Projetos Sociais
+      </a>
+    </nav>
+  </aside>
+
+  <main style="margin-left: 210px;">
+    <button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+
+    <div class="aba-btn-area aba-btn-topo">
+      <a href="/esportes" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+    </div>
+
+    <div class="aba-btn-area">
+      <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('boxe')">
+        📍 Locais para praticar Boxe perto de mim
+      </button>
+    </div>
+
+    <div id="resultado-localizacao-boxe" class="resultado-localizacao"></div>
+
+    <h1>🥊 Boxe</h1>
+    <img src="/boxe.png" alt="Boxe" class="img-esporte">
+    <p class="img-legenda">imagem ilustrativa</p>
+
+    <div style="text-align:left; max-width:750px; margin: 24px auto; background:rgba(255,255,255,0.9); padding:24px; border-radius:16px; color:#0a2342; line-height:1.6;">
+
+      <h3>📜 Origem e História</h3>
+      <p>O <strong>Boxe</strong> é uma das artes marciais e esportes de combate mais antigos do mundo. Suas origens remontam ao <strong>Egito Antigo</strong> e à <strong>Grécia Antiga</strong>, onde já existiam competições de luta com os punhos. O boxe moderno, no entanto, foi desenvolvido na <strong>Inglaterra</strong> durante o século XVIII, quando surgiram as primeiras regras formais para garantir a segurança dos lutadores.</p>
+      <p>As <strong>Regras de Queensberry</strong>, criadas em 1867, introduziram o uso obrigatório de luvas, rounds cronometrados e a proibição de golpes baixos — transformando o boxe em um esporte técnico, estratégico e amplamente respeitado.</p>
+
+      <h3>🥋 Filosofia e Princípios</h3>
+      <p>O boxe é conhecido como a <em>“nobre arte”</em> por valorizar a técnica, o autocontrole e o respeito entre os adversários. Sua filosofia se baseia em três pilares fundamentais:</p>
+      <ul>
+        <li><strong>Disciplina:</strong> o treinamento exige esforço constante e respeito às regras.</li>
+        <li><strong>Controle:</strong> o lutador aprende a dominar suas emoções e reações.</li>
+        <li><strong>Superação:</strong> o foco é vencer os próprios limites, não apenas o oponente.</li>
+      </ul>
+      <p>Mais do que um esporte de combate, o boxe é uma <strong>escola de caráter</strong> e autoconfiança.</p>
+
+      <h3>⚖️ Regras Básicas</h3>
+      <ul>
+        <li>O combate ocorre em um <strong>ringue</strong> com dimensões padronizadas.</li>
+        <li>Cada luta é dividida em <strong>rounds</strong> (geralmente 3 para amadores e 12 para profissionais), com duração de 3 minutos cada.</li>
+        <li>Os lutadores só podem usar <strong>os punhos fechados</strong> para golpear o oponente acima da linha da cintura.</li>
+        <li>São proibidos golpes abaixo da cintura, empurrões, cabeçadas e segurar o adversário.</li>
+        <li>A vitória pode ocorrer por <strong>nocaute (KO)</strong>, <strong>nocaute técnico (TKO)</strong> ou <strong>decisão dos juízes</strong>.</li>
+        <li>Os árbitros controlam o combate e garantem a segurança dos boxeadores.</li>
+      </ul>
+
+      <h3>🏋️‍♀️ Benefícios do Boxe</h3>
+      <ul>
+        <li>Melhora o <strong>condicionamento físico</strong> e a <strong>resistência cardiovascular</strong>.</li>
+        <li>Desenvolve <strong>reflexos rápidos</strong> e <strong>coordenação motora</strong>.</li>
+        <li>Aumenta a <strong>força, agilidade e equilíbrio corporal</strong>.</li>
+        <li>Fortalece a <strong>mente e o autocontrole emocional</strong>.</li>
+        <li>Ajuda na <strong>perda de peso</strong> e no <strong>alívio do estresse</strong>.</li>
+        <li>Promove <strong>autoconfiança, foco e disciplina</strong>.</li>
+      </ul>
+
+      <h3>🥇 Categorias e Competições</h3>
+      <p>O boxe é dividido por <strong>categorias de peso</strong>, que vão desde o peso mosca até o peso pesado. Existem modalidades <strong>amadoras</strong> (presentes nos Jogos Olímpicos desde 1904) e <strong>profissionais</strong>, com títulos mundiais em diferentes organizações, como:</p>
+      <ul>
+        <li>WBA (World Boxing Association)</li>
+        <li>WBC (World Boxing Council)</li>
+        <li>IBF (International Boxing Federation)</li>
+        <li>WBO (World Boxing Organization)</li>
+      </ul>
+
+      <h3>🌍 Boxe no Mundo</h3>
+      <p>O boxe é um dos esportes mais populares globalmente, com uma história repleta de ídolos e lutas lendárias. Grandes nomes marcaram eras, como:</p>
+      <ul>
+        <li><strong>Muhammad Ali</strong> – símbolo de técnica, coragem e ativismo.</li>
+        <li><strong>Mike Tyson</strong> – conhecido por sua força explosiva e agressividade.</li>
+        <li><strong>Floyd Mayweather</strong> – destaque pela defesa impecável e precisão.</li>
+        <li><strong>Manny Pacquiao</strong> – o único lutador a conquistar títulos em oito categorias de peso.</li>
+      </ul>
+
+      <h3>🇧🇷 Boxe no Brasil</h3>
+      <p>O boxe chegou ao Brasil no início do século XX e conquistou espaço tanto no cenário amador quanto profissional. O país já revelou grandes campeões, como:</p>
+      <ul>
+        <li><strong>Eder Jofre</strong> – considerado o maior boxeador brasileiro de todos os tempos.</li>
+        <li><strong>Acelino “Popó” Freitas</strong> – tetracampeão mundial e ídolo nacional.</li>
+        <li><strong>Hebert Conceição</strong> – campeão olímpico em Tóquio 2020.</li>
+        <li><strong>Robson Conceição</strong> – primeiro brasileiro campeão olímpico de boxe (Rio 2016).</li>
+      </ul>
+
+      <h3>💡 Curiosidades</h3>
+      <ul>
+        <li>O boxe é chamado de <em>“nobre arte”</em> por exigir técnica e inteligência, não apenas força.</li>
+        <li>Os lutadores passam por categorias de peso para garantir lutas equilibradas.</li>
+        <li>Durante uma luta profissional, um atleta pode queimar mais de <strong>800 calorias</strong> por hora.</li>
+        <li>O treinamento de boxe é usado até por quem não compete, como forma de <strong>condicionamento físico e mental</strong>.</li>
+        <li>O esporte foi proibido por um tempo na Inglaterra por ser considerado violento — até ser regulamentado com as regras modernas.</li>
+      </ul>
+
+      <h3>🔥 Conclusão</h3>
+      <p>O Boxe é muito mais do que uma luta: é uma <strong>disciplina de autoconhecimento, respeito e superação</strong>. Ele ensina que a força verdadeira vem da técnica, do controle e da determinação. Seja no ringue ou na vida, o boxe inspira a lutar com coragem, equilíbrio e inteligência.</p>
+
+      <h3>🎥 Como Fazer Boxe</h3>
+      <div style="text-align:center; margin:24px 0;">
+        <iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/mJVkhattjyE" title="Como Fazer Boxe" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Feito pela 🏆 conecta-social 🗣️</p>
+  </footer>
+  <script src="/localizacao.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.getElementById('toggle-dark-mode');
+      if (!toggleBtn) return;
+      // Inicializa modo salvo
+      const savedMode = localStorage.getItem('darkMode');
+      if (savedMode === 'dark') {
+        setDarkMode(true);
+      } else {
+        setDarkMode(false);
+      }
+      toggleBtn.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('global-dark');
+        setDarkMode(isDark);
+        localStorage.setItem('darkMode', isDark ? 'dark' : 'light');
+      });
+      function setDarkMode(enable) {
+        if (enable) {
+          document.body.style.background = '#000';
+          document.body.style.backgroundImage = 'none';
+          document.body.style.color = '#fff';
+          document.body.classList.add('global-dark');
+          toggleBtn.textContent = '☀️ Modo Claro';
+          document.querySelectorAll('main, .sidebar, .sidebar-nav a, .aba-btn, .btn-sport').forEach(el => {
+            el.style.background = '#000';
+            el.style.color = '#fff';
+          });
+          document.querySelectorAll('.aba-btn-topo .aba-btn, .aba-btn-localizacao').forEach(el => {
+            el.style.background = '#444';
+            el.style.color = '#fff';
+          });
+        } else {
+          document.body.style.background = '';
+          document.body.style.backgroundImage = '';
+          document.body.style.color = '';
+          document.body.classList.remove('global-dark');
+          toggleBtn.textContent = '🌙 Modo Escuro';
+          document.querySelectorAll('main, .sidebar, .sidebar-nav a, .aba-btn, .btn-sport').forEach(el => {
+            el.style.background = '';
+            el.style.color = '';
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>

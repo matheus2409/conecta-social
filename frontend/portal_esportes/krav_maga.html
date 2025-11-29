@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>🏆 Krav Maga | Conecta Social 🗣️</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="krav_maga">
+
+  <aside class="sidebar">
+    <div class="sidebar-title">
+      <h1>🏆<br>conecta-social<br>🗣️</h1>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/esportes" ><span>🏠</span> Início</a>
+      <a href="/futebol"><span>⚽</span> Futebol</a>
+      <a href="/futsal"><span>⚽</span> Futsal</a>
+      <a href="/handebol"><span>🤾</span> Handebol</a>
+      <a href="/corrida"><span>🏃‍♂️</span> Corrida</a>
+      <a href="/futevolei"><span>⚽🏐</span> Futevôlei</a>
+      <a href="/volei"><span>🏐</span> Vôlei</a>
+      <a href="/volei_de_areia"><span>🏐🌴</span> Vôlei de Areia</a>
+      <a href="/basquete"><span>🏀</span> Basquete</a>
+      <a href="/rugby"><span>🏉</span> Rugby</a>
+      <a href="/futebol_americano"><span>🏈</span> Futebol Americano</a>
+      <a href="/cricket"><span>🏏</span> Cricket</a>
+      <a href="/beisebol"><span>⚾</span> Beisebol</a>
+      <a href="/ciclismo"><span>🚴‍♂️</span> Ciclismo</a>
+      <a href="/natacao"><span>🏊‍♂️</span> Natação</a>
+      <a href="/mergulho"><span>🤿</span> Mergulho</a>
+      <a href="/surfe"><span>🏄‍♂️</span> Surfe</a>
+      <a href="/kitesurf"><span>🪁🌊</span> Kitesurf</a>
+      <a href="/polo_aquatico"><span>🤽‍♂️</span> Polo Aquático</a>
+      <a href="/tenis_de_mesa"><span>🏓</span> Tênis de Mesa</a>
+      <a href="/boxe"><span>🥊</span>Boxe</a>
+      <a href="/muay_thai"><span>🥊</span>Muay thai</a>
+      <a href="/judo"><span>🥋</span>Judo</a>
+      <a href="/jiu_jitsu"><span>🥋</span>Jiu-jítsu</a>
+      <a href="/karate"><span>🥋</span>Karatê</a>
+      <a href="/krav_maga"><span>👊</span>Krav maga</a>
+      <a href="/kung_fu"><span>☯️</span>Kung fu</a>
+      
+      <a href="https://conecta-social-projects.vercel.app" target="_blank" style="margin-top: 20px; border-top: 1px solid #444;">
+        🤝 Projetos Sociais
+      </a>
+    </nav>
+  </aside>
+
+  <main style="margin-left: 210px;">
+    <button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+
+    <div class="aba-btn-area aba-btn-topo">
+      <a href="/esportes" class="aba-btn aba-btn-kravmaga">🏠 Voltar para o Início</a>
+    </div>
+
+    <div class="aba-btn-area">
+      <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('krav_maga')">
+        📍 Locais para praticar Krav Maga perto de mim
+      </button>
+    </div>
+
+    <div id="resultado-localizacao-krav_maga" class="resultado-localizacao"></div>
+
+    <h1>👊 Krav Maga</h1>
+    <img src="/krav_maga.jpg" alt="Krav Maga" class="img-esporte">
+    <p class="img-legenda">imagem ilustrativa</p>
+
+    <div style="text-align:left; max-width:750px; margin:24px auto; background:rgba(255,255,255,0.9); padding:24px; border-radius:16px; color:#0a2342; line-height:1.6;">
+
+      <h3>📜 Origem e História</h3>
+      <p>O <strong>Krav Maga</strong> é uma técnica de defesa pessoal criada em <strong>Israel</strong> por <strong>Imi Lichtenfeld</strong> na década de 1940. Desenvolvido inicialmente para o exército israelense (IDF – Forças de Defesa de Israel), o sistema foi projetado para ser <strong>prático, rápido e eficiente</strong> em situações reais de combate e sobrevivência.</p>
+      <p>Diferente das artes marciais tradicionais, o Krav Maga não é um esporte, mas um <strong>sistema de defesa pessoal</strong> baseado em movimentos naturais e reações instintivas, voltado para a <strong>neutralização imediata de ameaças</strong>.</p>
+
+      <h3>⚔️ Princípios Fundamentais</h3>
+      <ul>
+        <li><strong>Autodefesa realista:</strong> usa técnicas que funcionam em situações do dia a dia, como agressões, tentativas de roubo ou ataques armados.</li>
+        <li><strong>Eficiência e rapidez:</strong> o objetivo é encerrar o conflito o mais rápido possível.</li>
+        <li><strong>Movimentos simples e diretos:</strong> sem floreios — apenas o necessário para se proteger.</li>
+        <li><strong>Neutralizar e escapar:</strong> o praticante busca se defender e sair da situação, não lutar por competição.</li>
+        <li><strong>Uso do corpo todo:</strong> golpes com mãos, cotovelos, joelhos, pés e até cabeça.</li>
+      </ul>
+
+      <h3>🥋 Diferenças em Relação a Outras Artes Marciais</h3>
+      <ul>
+        <li>Não é um esporte — não há competições, regras ou pontuação.</li>
+        <li>É um <strong>sistema de defesa prática</strong>, não uma arte de combate ritualizada.</li>
+        <li>Inclui defesa contra <strong>ataques com armas</strong> (facas, bastões, pistolas).</li>
+        <li>Treina reações sob <strong>estresse e pressão</strong>, simulando situações reais.</li>
+        <li>Foco total na <strong>sobrevivência</strong> e <strong>proteção pessoal</strong>.</li>
+      </ul>
+
+      <h3>🏋️‍♂️ Benefícios do Krav Maga</h3>
+      <ul>
+        <li>Desenvolve <strong>autoconfiança e segurança pessoal</strong>.</li>
+        <li>Melhora o <strong>condicionamento físico e resistência</strong>.</li>
+        <li>Aumenta a <strong>agilidade mental</strong> e a capacidade de reagir sob pressão.</li>
+        <li>Fortalece <strong>músculos e reflexos</strong>.</li>
+        <li>Ajuda a controlar o <strong>medo e o estresse</strong> em situações de risco.</li>
+        <li>Estimula a <strong>consciência situacional</strong> — aprender a observar e antecipar perigos.</li>
+        <li>Promove disciplina e equilíbrio emocional.</li>
+      </ul>
+
+      <h3>🧠 Filosofia do Krav Maga</h3>
+      <p>Mais do que técnicas físicas, o Krav Maga ensina uma <strong>mentalidade de sobrevivência</strong>.  
+      Seu lema é simples: <em>"Para que um ataque não aconteça, é melhor evitá-lo. Se não for possível, reaja com força total e finalize rápido."</em></p>
+      <p>O sistema incentiva o praticante a <strong>avaliar riscos</strong> e a <strong>agir com determinação</strong>, sempre com foco na segurança pessoal e na defesa da vida.</p>
+
+      <h3>🥇 Graduações</h3>
+      <p>As graduações no Krav Maga são representadas por faixas (como em outras artes marciais), mas o foco é o aprendizado prático, não apenas a progressão hierárquica. As faixas normalmente seguem esta ordem:</p>
+      <ul>
+        <li><strong>Branca:</strong> iniciante.</li>
+        <li><strong>Amarela:</strong> fundamentos básicos.</li>
+        <li><strong>Laranja:</strong> técnicas intermediárias.</li>
+        <li><strong>Verde:</strong> domínio de defesas e ataques combinados.</li>
+        <li><strong>Azul:</strong> estratégias avançadas e controle emocional.</li>
+        <li><strong>Preta:</strong> alto nível técnico, mental e tático.</li>
+      </ul>
+
+      <h3>🌍 Krav Maga no Mundo e no Brasil</h3>
+      <p>O Krav Maga é hoje um dos sistemas de defesa pessoal mais ensinados globalmente, presente em <strong>forças policiais, unidades militares e civis</strong> de dezenas de países.</p>
+      <p>No Brasil, foi introduzido nos anos 1990 pelo <strong>Mestre Kobi Lichtenstein</strong>, aluno direto de Imi Lichtenfeld. Desde então, se popularizou em academias e instituições de segurança pública.</p>
+
+      <h3>💡 Curiosidades</h3>
+      <ul>
+        <li>O nome “Krav Maga” significa literalmente <em>“combate de contato”</em> em hebraico.</li>
+        <li>Não há competições ou torneios oficiais — o foco é 100% em defesa pessoal.</li>
+        <li>O treinamento inclui técnicas contra múltiplos agressores e ataques armados.</li>
+        <li>É usado por forças de elite como o <strong>Mossad</strong> e o <strong>FBI</strong>.</li>
+        <li>É uma das práticas mais procuradas por mulheres por causa da <strong>eficácia em situações reais</strong>.</li>
+      </ul>
+
+      <h3>🔥 Conclusão</h3>
+      <p>O <strong>Krav Maga</strong> é mais do que uma arte marcial — é uma ferramenta de sobrevivência moderna.  
+      Com foco na defesa pessoal e na autoconfiança, ele ensina o praticante a se proteger de forma inteligente e eficiente, respeitando sempre a vida e evitando a violência sempre que possível.</p>
+
+      <h3>🎥 Como Começar Krav Maga</h3>
+      <div style="text-align:center; margin:24px 0;">
+        <iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/gM3PYk_5TNM" title="Como Começar Krav Maga" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Feito pela 🏆 conecta-social 🗣️</p>
+  </footer>
+  <script src="/localizacao.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.getElementById('toggle-dark-mode');
+      if (!toggleBtn) return;
+      // Inicializa modo salvo
+      const savedMode = localStorage.getItem('darkMode');
+      if (savedMode === 'dark') {
+        setDarkMode(true);
+      } else {
+        setDarkMode(false);
+      }
+      toggleBtn.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('global-dark');
+        setDarkMode(isDark);
+        localStorage.setItem('darkMode', isDark ? 'dark' : 'light');
+      });
+      function setDarkMode(enable) {
+        if (enable) {
+          document.body.style.background = '#000';
+          document.body.style.backgroundImage = 'none';
+          document.body.style.color = '#fff';
+          document.body.classList.add('global-dark');
+          toggleBtn.textContent = '☀️ Modo Claro';
+          document.querySelectorAll('main, .sidebar, .sidebar-nav a, .aba-btn, .btn-sport').forEach(el => {
+            el.style.background = '#000';
+            el.style.color = '#fff';
+          });
+          document.querySelectorAll('.aba-btn-topo .aba-btn, .aba-btn-localizacao').forEach(el => {
+            el.style.background = '#444';
+            el.style.color = '#fff';
+          });
+        } else {
+          document.body.style.background = '';
+          document.body.style.backgroundImage = '';
+          document.body.style.color = '';
+          document.body.classList.remove('global-dark');
+          toggleBtn.textContent = '🌙 Modo Escuro';
+          document.querySelectorAll('main, .sidebar, .sidebar-nav a, .aba-btn, .btn-sport').forEach(el => {
+            el.style.background = '';
+            el.style.color = '';
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>

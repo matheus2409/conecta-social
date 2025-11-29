@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>🏆 Jiu-Jitsu | Conecta Social 🗣️</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="jiu_jitsu">
+
+  <aside class="sidebar">
+    <div class="sidebar-title">
+      <h1>🏆<br>conecta-social<br>🗣️</h1>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/esportes" ><span>🏠</span> Início</a>
+      <a href="/futebol"><span>⚽</span> Futebol</a>
+      <a href="/futsal"><span>⚽</span> Futsal</a>
+      <a href="/handebol"><span>🤾</span> Handebol</a>
+      <a href="/corrida"><span>🏃‍♂️</span> Corrida</a>
+      <a href="/futevolei"><span>⚽🏐</span> Futevôlei</a>
+      <a href="/volei"><span>🏐</span> Vôlei</a>
+      <a href="/volei_de_areia"><span>🏐🌴</span> Vôlei de Areia</a>
+      <a href="/basquete"><span>🏀</span> Basquete</a>
+      <a href="/rugby"><span>🏉</span> Rugby</a>
+      <a href="/futebol_americano"><span>🏈</span> Futebol Americano</a>
+      <a href="/cricket"><span>🏏</span> Cricket</a>
+      <a href="/beisebol"><span>⚾</span> Beisebol</a>
+      <a href="/ciclismo"><span>🚴‍♂️</span> Ciclismo</a>
+      <a href="/natacao"><span>🏊‍♂️</span> Natação</a>
+      <a href="/mergulho"><span>🤿</span> Mergulho</a>
+      <a href="/surfe"><span>🏄‍♂️</span> Surfe</a>
+      <a href="/kitesurf"><span>🪁🌊</span> Kitesurf</a>
+      <a href="/polo_aquatico"><span>🤽‍♂️</span> Polo Aquático</a>
+      <a href="/tenis_de_mesa"><span>🏓</span> Tênis de Mesa</a>
+      <a href="/boxe"><span>🥊</span>Boxe</a>
+      <a href="/muay_thai"><span>🥊</span>Muay thai</a>
+      <a href="/judo"><span>🥋</span>Judo</a>
+      <a href="/jiu_jitsu"><span>🥋</span>Jiu-jítsu</a>
+      <a href="/karate"><span>🥋</span>Karatê</a>
+      <a href="/krav_maga"><span>👊</span>Krav maga</a>
+      <a href="/kung_fu"><span>☯️</span>Kung fu</a>
+      
+      <a href="https://conecta-social-projects.vercel.app" target="_blank" style="margin-top: 20px; border-top: 1px solid #444;">
+        🤝 Projetos Sociais
+      </a>
+    </nav>
+  </aside>
+
+  <main style="margin-left: 210px;">
+    <button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+
+    <div class="aba-btn-area aba-btn-topo">
+      <a href="/esportes" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+    </div>
+
+    <div class="aba-btn-area">
+      <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('jiu_jitsu')">
+        📍 Locais para praticar Jiu-Jitsu perto de mim
+      </button>
+    </div>
+
+    <div id="resultado-localizacao-jiu_jitsu" class="resultado-localizacao"></div>
+
+    <h1>🥋 Jiu-Jitsu</h1>
+    <img src="/jiujitsu.jpg" alt="Jiu-Jitsu" class="img-esporte">
+    <p class="img-legenda">imagem ilustrativa</p>
+
+    <div style="text-align:left; max-width:750px; margin: 24px auto; background:rgba(255,255,255,0.9); padding:24px; border-radius:16px; color:#0a2342; line-height:1.6;">
+
+      <h3>📜 Origem e História</h3>
+      <p>O <strong>Jiu-Jitsu</strong> é uma arte marcial de origem japonesa que significa <em>“arte suave”</em>. Desenvolvido pelos samurais como forma de combate corpo a corpo, o Jiu-Jitsu focava em técnicas de alavancas, estrangulamentos e imobilizações, permitindo que um lutador mais leve vencesse um adversário mais forte utilizando a técnica e a inteligência.</p>
+      <p>No início do século XX, o mestre japonês <strong>Mitsuyo Maeda</strong> (conhecido como Conde Koma) trouxe o Jiu-Jitsu ao Brasil, onde ensinou à família <strong>Gracie</strong>. A partir daí, nasceu o <strong>Jiu-Jitsu Brasileiro (BJJ - Brazilian Jiu-Jitsu)</strong>, que se popularizou no mundo todo por sua eficiência e filosofia.</p>
+
+      <h3>🧠 Filosofia e Princípios</h3>
+      <p>O Jiu-Jitsu ensina o <strong>autodomínio físico e emocional</strong>, promovendo o respeito, a paciência e a inteligência estratégica. A ideia central é usar a força do oponente contra ele mesmo, aplicando o mínimo esforço com o máximo de eficiência.</p>
+      <p>Um dos lemas mais conhecidos do Jiu-Jitsu é:</p>
+      <blockquote><em>“A suavidade supera a força, e a técnica vence a brutalidade.”</em></blockquote>
+      <p>Além de ser uma arte marcial, o Jiu-Jitsu é também um <strong>estilo de vida</strong>, que estimula a humildade, a disciplina e o respeito pelos companheiros e professores.</p>
+
+      <h3>⚖️ Regras Básicas</h3>
+      <ul>
+        <li>Os combates acontecem em um <strong>tatame</strong> acolchoado.</li>
+        <li>O objetivo é <strong>finalizar</strong> o oponente (através de chaves de braço, estrangulamentos ou imobilizações).</li>
+        <li>Também é possível vencer por <strong>pontuação</strong>, obtida por posições dominantes como montada, raspagem ou passagem de guarda.</li>
+        <li>Golpes com socos, chutes e cabeçadas são <strong>proibidos</strong>.</li>
+        <li>O combate termina ao final do tempo ou quando o adversário <strong>“bate”</strong> (desiste) para evitar uma lesão.</li>
+        <li>Os árbitros avaliam controle, técnica e domínio de posições.</li>
+      </ul>
+
+      <h3>🥋 Graduação</h3>
+      <p>As faixas indicam o nível de experiência e tempo de prática do lutador. O sistema varia conforme a idade, mas geralmente segue esta ordem:</p>
+      <ul>
+        <li>Branca → iniciante</li>
+        <li>Azul → fundamentos e técnica básica</li>
+        <li>Roxa → intermediário</li>
+        <li>Marrom → avançado</li>
+        <li>Preta → mestre (dividida em graus ou “dans”)</li>
+        <li>Coral e Vermelha → grandes mestres (altas graduações)</li>
+      </ul>
+      <p>O progresso no Jiu-Jitsu depende não só de vitórias em competição, mas também de <strong>conduta, respeito e dedicação</strong>.</p>
+
+      <h3>🏋️‍♂️ Benefícios</h3>
+      <ul>
+        <li>Melhora o <strong>condicionamento físico</strong> e a <strong>resistência muscular</strong>.</li>
+        <li>Fortalece o <strong>corpo e a mente</strong>, promovendo equilíbrio emocional.</li>
+        <li>Aumenta a <strong>autoconfiança</strong> e o <strong>autocontrole</strong>.</li>
+        <li>Desenvolve <strong>estratégia, raciocínio e agilidade</strong>.</li>
+        <li>Promove o <strong>respeito mútuo</strong> e o <strong>espírito de equipe</strong>.</li>
+        <li>Ajuda na <strong>perda de peso</strong> e melhora a <strong>postura corporal</strong>.</li>
+      </ul>
+
+      <h3>🌍 Jiu-Jitsu no Mundo</h3>
+      <p>O <strong>Brazilian Jiu-Jitsu (BJJ)</strong> é uma das artes marciais mais praticadas do planeta e tem enorme influência no <strong>MMA (Mixed Martial Arts)</strong>. Lutadores brasileiros, como <strong>Royce Gracie</strong> e <strong>Rickson Gracie</strong>, provaram a eficiência do Jiu-Jitsu em combates reais, tornando-o mundialmente famoso a partir da década de 1990.</p>
+      <p>Hoje, o Jiu-Jitsu é praticado em mais de <strong>150 países</strong>, com federações oficiais e campeonatos internacionais, como o <strong>World Jiu-Jitsu Championship</strong> (Mundial da IBJJF).</p>
+
+      <h3>🇧🇷 Jiu-Jitsu no Brasil</h3>
+      <p>O Brasil é considerado o <strong>berço do Jiu-Jitsu moderno</strong>. Famílias como <strong>Gracie</strong>, <strong>Machado</strong> e <strong>Fadda</strong> foram responsáveis por difundir o esporte e aprimorar as técnicas que deram origem ao BJJ.</p>
+      <p>O país continua sendo uma <strong>potência mundial</strong>, com atletas reconhecidos internacionalmente como <strong>Marcus “Buchecha” Almeida</strong>, <strong>Roger Gracie</strong>, <strong>Gabrielle Garcia</strong> e <strong>Rodolfo Vieira</strong>.</p>
+
+      <h3>💡 Curiosidades</h3>
+      <ul>
+        <li>O Jiu-Jitsu foi a base técnica usada para criar o <strong>MMA moderno</strong>.</li>
+        <li>“Bater” com a mão ou o pé no tatame é o sinal universal de rendição e respeito.</li>
+        <li>O Jiu-Jitsu é considerado um “xadrez humano”, pois cada movimento tem resposta e contra-resposta.</li>
+        <li>O treino é feito em dupla e prioriza a segurança e o aprendizado mútuo.</li>
+        <li>O uniforme tradicional é o <strong>kimono</strong>, mas também existem treinos <strong>sem kimono</strong> (no-gi), comuns em competições modernas.</li>
+      </ul>
+
+      <h3>🔥 Conclusão</h3>
+      <p>O Jiu-Jitsu é mais do que uma arte marcial — é um <strong>caminho de autoconhecimento, humildade e evolução pessoal</strong>. Ele ensina que a verdadeira força vem do controle e da técnica, não da agressividade. Praticar Jiu-Jitsu é aprender a cair, levantar e vencer não apenas no tatame, mas também na vida.</p>
+
+      <h3>🎥 Como Começar Jiu-Jitsu</h3>
+      <div style="text-align:center; margin:24px 0;">
+        <iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/3sv8YS6V1n4" title="Como Começar Jiu-Jitsu" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Feito pela 🏆 conecta-social 🗣️</p>
+  </footer>
+  <script src="/localizacao.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.getElementById('toggle-dark-mode');
+      if (!toggleBtn) return;
+      // Inicializa modo salvo
+      const savedMode = localStorage.getItem('darkMode');
+      if (savedMode === 'dark') {
+        setDarkMode(true);
+      } else {
+        setDarkMode(false);
+      }
+      toggleBtn.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('global-dark');
+        setDarkMode(isDark);
+        localStorage.setItem('darkMode', isDark ? 'dark' : 'light');
+      });
+      function setDarkMode(enable) {
+        if (enable) {
+          document.body.style.background = '#000';
+          document.body.style.backgroundImage = 'none';
+          document.body.style.color = '#fff';
+          document.body.classList.add('global-dark');
+          toggleBtn.textContent = '☀️ Modo Claro';
+          document.querySelectorAll('main, .sidebar, .sidebar-nav a, .aba-btn, .btn-sport').forEach(el => {
+            el.style.background = '#000';
+            el.style.color = '#fff';
+          });
+          document.querySelectorAll('.aba-btn-topo .aba-btn, .aba-btn-localizacao').forEach(el => {
+            el.style.background = '#444';
+            el.style.color = '#fff';
+          });
+        } else {
+          document.body.style.background = '';
+          document.body.style.backgroundImage = '';
+          document.body.style.color = '';
+          document.body.classList.remove('global-dark');
+          toggleBtn.textContent = '🌙 Modo Escuro';
+          document.querySelectorAll('main, .sidebar, .sidebar-nav a, .aba-btn, .btn-sport').forEach(el => {
+            el.style.background = '';
+            el.style.color = '';
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>

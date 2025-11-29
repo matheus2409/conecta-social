@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>🏆 Polo Aquático | Conecta Social 🗣️</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="polo_aquatico">
+
+  <aside class="sidebar">
+    <div class="sidebar-title">
+      <h1>🏆<br>conecta-social<br>🗣️</h1>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/esportes" ><span>🏠</span> Início</a>
+      <a href="/futebol"><span>⚽</span> Futebol</a>
+      <a href="/futsal"><span>⚽</span> Futsal</a>
+      <a href="/handebol"><span>🤾</span> Handebol</a>
+      <a href="/corrida"><span>🏃‍♂️</span> Corrida</a>
+      <a href="/futevolei"><span>⚽🏐</span> Futevôlei</a>
+      <a href="/volei"><span>🏐</span> Vôlei</a>
+      <a href="/volei_de_areia"><span>🏐🌴</span> Vôlei de Areia</a>
+      <a href="/basquete"><span>🏀</span> Basquete</a>
+      <a href="/rugby"><span>🏉</span> Rugby</a>
+      <a href="/futebol_americano"><span>🏈</span> Futebol Americano</a>
+      <a href="/cricket"><span>🏏</span> Cricket</a>
+      <a href="/beisebol"><span>⚾</span> Beisebol</a>
+      <a href="/ciclismo"><span>🚴‍♂️</span> Ciclismo</a>
+      <a href="/natacao"><span>🏊‍♂️</span> Natação</a>
+      <a href="/mergulho"><span>🤿</span> Mergulho</a>
+      <a href="/surfe"><span>🏄‍♂️</span> Surfe</a>
+      <a href="/kitesurf"><span>🪁🌊</span> Kitesurf</a>
+      <a href="/polo_aquatico"><span>🤽‍♂️</span> Polo Aquático</a>
+      <a href="/tenis_de_mesa"><span>🏓</span> Tênis de Mesa</a>
+      <a href="/boxe"><span>🥊</span>Boxe</a>
+      <a href="/muay_thai"><span>🥊</span>Muay thai</a>
+      <a href="/judo"><span>🥋</span>Judo</a>
+      <a href="/jiu_jitsu"><span>🥋</span>Jiu-jítsu</a>
+      <a href="/karate"><span>🥋</span>Karatê</a>
+      <a href="/krav_maga"><span>👊</span>Krav maga</a>
+      <a href="/kung_fu"><span>☯️</span>Kung fu</a>
+      
+      <a href="https://conecta-social-projects.vercel.app" target="_blank" style="margin-top: 20px; border-top: 1px solid #444;">
+        🤝 Projetos Sociais
+      </a>
+    </nav>
+  </aside>
+
+  <main style="margin-left: 210px;">
+    <button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+
+    <div class="aba-btn-area aba-btn-topo">
+      <a href="/esportes" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+    </div>
+
+    <div class="aba-btn-area">
+      <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('polo aquático')">📍 Locais para praticar Polo Aquático perto de mim</button>
+    </div>
+
+    <div id="resultado-localizacao-polo" class="resultado-localizacao"></div>
+
+    <h1>🤽‍♂️ Polo Aquático</h1>
+    <img src="/polo_aquatico.jpeg" alt="polo aquático" class="img-esporte">
+    <p class="img-legenda">imagem ilustrativa</p>
+
+    <div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342;">
+
+      <h3>📜 Quando, onde e quem criou?</h3>
+      <p>
+        O <strong>Polo Aquático</strong> surgiu no final do século XIX, na <strong>Inglaterra 🇬🇧</strong>, inspirado em jogos de bola realizados sobre cavalos — daí o nome “polo”.  
+        No entanto, os cavalos foram substituídos por jogadores nadando em uma piscina.  
+        A primeira competição oficial aconteceu em 1870, e o esporte se tornou olímpico já em 1900.
+      </p>
+
+      <h3>📏 Regras básicas e fundamentos</h3>
+      <ul>
+        <li>O jogo é disputado entre duas equipes de 7 jogadores (6 de linha + 1 goleiro).</li>
+        <li>O objetivo é marcar gols arremessando a bola na baliza adversária.</li>
+        <li>Os jogadores não podem tocar o fundo da piscina e devem se manter flutuando o tempo todo.</li>
+        <li>Cada partida tem 4 tempos de 8 minutos.</li>
+        <li>Não é permitido segurar a bola com as duas mãos, exceto o goleiro.</li>
+        <li>O contato físico é permitido, mas o excesso pode gerar faltas ou exclusões.</li>
+      </ul>
+
+      <h3>💪 Benefícios</h3>
+      <ul>
+        <li>Melhora a resistência física e cardiovascular.</li>
+        <li>Fortalece músculos de todo o corpo — especialmente pernas, braços e abdômen.</li>
+        <li>Desenvolve trabalho em equipe, agilidade e tomada de decisão.</li>
+        <li>Ajuda no controle da respiração e no equilíbrio dentro d’água.</li>
+        <li>É um excelente exercício de alto gasto calórico.</li>
+      </ul>
+
+      <h3>🌟 Curiosidades</h3>
+      <ul>
+        <li>É um dos esportes olímpicos mais antigos ainda em disputa.</li>
+        <li>O Polo Aquático feminino só estreou nas Olimpíadas em 2000, em Sydney.</li>
+        <li>As partidas podem ser muito intensas — jogadores chegam a nadar até 3 km em um único jogo.</li>
+        <li>A Hungria é o país com mais títulos olímpicos na modalidade.</li>
+        <li>No Brasil, o esporte vem crescendo, com destaque para clubes como Pinheiros e Fluminense.</li>
+      </ul>
+
+      <h3>🌎 Popularidade</h3>
+      <p>
+        O Polo Aquático é especialmente popular na <strong>Europa e nos Estados Unidos</strong>, sendo considerado um dos esportes aquáticos mais desafiadores e estratégicos.  
+        Exige força, coordenação e muita resistência, combinando elementos da natação, handebol e xadrez — tudo dentro d’água.  
+        No Brasil, vem ganhando visibilidade com novos campeonatos e seleções em evolução.
+      </p>
+
+      <h3>🎥 Como Jogar Polo Aquático</h3>
+      <div style="text-align:center; margin:24px 0;">
+        <iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/cpraysFlKG8" title="Como Jogar Polo Aquático" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Feito pela 🏆 conecta-social 🗣️</p>
+  </footer>
+  <script src="/localizacao.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.getElementById('toggle-dark-mode');
+      if (!toggleBtn) return;
+      // Inicializa modo salvo
+      const savedMode = localStorage.getItem('darkMode');
+      if (savedMode === 'dark') {
+        setDarkMode(true);
+      } else {
+        setDarkMode(false);
+      }
+      toggleBtn.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('global-dark');
+        setDarkMode(isDark);
+        localStorage.setItem('darkMode', isDark ? 'dark' : 'light');
+      });
+      function setDarkMode(enable) {
+        if (enable) {
+          document.body.style.background = '#000';
+          document.body.style.backgroundImage = 'none';
+          document.body.style.color = '#fff';
+          document.body.classList.add('global-dark');
+          toggleBtn.textContent = '☀️ Modo Claro';
+          document.querySelectorAll('main, .sidebar, .sidebar-nav a, .aba-btn, .btn-sport').forEach(el => {
+            el.style.background = '#000';
+            el.style.color = '#fff';
+          });
+          document.querySelectorAll('.aba-btn-topo .aba-btn, .aba-btn-localizacao').forEach(el => {
+            el.style.background = '#444';
+            el.style.color = '#fff';
+          });
+        } else {
+          document.body.style.background = '';
+          document.body.style.backgroundImage = '';
+          document.body.style.color = '';
+          document.body.classList.remove('global-dark');
+          toggleBtn.textContent = '🌙 Modo Escuro';
+          document.querySelectorAll('main, .sidebar, .sidebar-nav a, .aba-btn, .btn-sport').forEach(el => {
+            el.style.background = '';
+            el.style.color = '';
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>
