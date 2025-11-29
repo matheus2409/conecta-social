@@ -1,12 +1,32 @@
-// backend/routes/feedbacks.js (Versão AWS RDS)
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Nova conexão
+const db = require('../db');
 const authMiddleware = require('../middleware/auth');
 
-// Criar Feedback (Público)
-router.post('/', async (req, res) => {
-    const { nome_usuario, mensagem, id_do_projeto } = req.body;
+// === 1. LISTAR COMENTÁRIOS DE UM PROJETO ===
+router.get('/projeto/:id_projeto', async (req, res) => {
+    try {
+        const { id_projeto } = req.params;
+        // Busca comentários do mais recente para o mais antigo
+        const query = `
+            SELECT * FROM feedbacks 
+            WHERE id_do_projeto = $1 
+            ORDER BY criado_em DESC
+        `;
+        const result = await db.query(query, [id_projeto]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Erro ao buscar comentários:', error);
+        res.status(500).json({ error: 'Erro ao carregar comentários.' });
+    }
+});
+
+// === 2. CRIAR COMENTÁRIO (Com Imagem) ===
+router.post('/', authMiddleware, async (req, res) => {
+    const { mensagem, id_do_projeto, imagem_url } = req.body;
+    
+    // Nome vem do token de autenticação
+    const nome_usuario = req.user.nome; 
 
     if (!mensagem || !id_do_projeto) {
         return res.status(400).json({ error: 'Mensagem e ID do projeto são obrigatórios.' });
@@ -14,28 +34,19 @@ router.post('/', async (req, res) => {
 
     try {
         const query = `
-            INSERT INTO feedbacks (nome_usuario, mensagem, id_do_projeto)
-            VALUES ($1, $2, $3)
+            INSERT INTO feedbacks (nome_usuario, mensagem, id_do_projeto, imagem_url)
+            VALUES ($1, $2, $3, $4)
             RETURNING *;
         `;
-        const values = [nome_usuario || 'Anónimo', mensagem, id_do_projeto];
+        // Se não houver imagem, grava null
+        const values = [nome_usuario, mensagem, id_do_projeto, imagem_url || null];
         
         const result = await db.query(query, values);
         
-        res.status(201).json({ message: 'Feedback enviado!', data: result.rows[0] });
+        res.status(201).json(result.rows[0]);
     } catch (error) {
-        console.error('Erro ao salvar feedback:', error);
-        res.status(500).json({ error: 'Erro ao salvar o feedback.' });
-    }
-});
-
-// Listar Feedbacks (Privado/Admin)
-router.get('/', authMiddleware, async (req, res) => {
-    try {
-        const result = await db.query('SELECT * FROM feedbacks ORDER BY id DESC');
-        res.status(200).json(result.rows);
-    } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar feedbacks.' });
+        console.error('Erro ao salvar comentário:', error);
+        res.status(500).json({ error: 'Erro ao enviar comentário.' });
     }
 });
 

@@ -51,6 +51,23 @@
             color: #fff !important;
         }
 
+        /* Estilo para o input de arquivo */
+        input[type="file"]::file-selector-button {
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+            padding: 8px 15px;
+            margin-right: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        input[type="file"]::file-selector-button:hover {
+            background-color: #1DB954;
+            color: black;
+            border-color: #1DB954;
+        }
+
         ::placeholder { color: #888 !important; opacity: 1; }
 
         label { margin-bottom: 5px; font-weight: 600; color: #bbb; font-size: 0.9rem; }
@@ -151,9 +168,19 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="imagem_url" class="form-label">URL da Imagem (Capa)</label>
-                    <input type="url" id="imagem_url" class="form-control" placeholder="https://...">
+                    <label class="form-label mb-2" style="color: #1DB954;">Imagem de Capa (Escolha uma opção)</label>
+                    
+                    <div class="mb-2">
+                        <label for="input-imagem-capa" class="text-muted small">📂 Carregar do dispositivo</label>
+                        <input type="file" id="input-imagem-capa" class="form-control" accept="image/*">
+                    </div>
+
+                    <div>
+                        <label for="imagem_url" class="text-muted small">🔗 Ou colar link (URL)</label>
+                        <input type="url" id="imagem_url" class="form-control" placeholder="https://...">
+                    </div>
                 </div>
+                
                 <div class="col-md-6">
                     <label for="link_site" class="form-label">Site ou Rede Social</label>
                     <input type="url" id="link_site" class="form-control" placeholder="https://instagram.com/...">
@@ -188,11 +215,20 @@
     <script type="module">
         import { fetchFromAPI } from './apiService.js';
 
-        console.log("✅ Script carregado!");
+        console.log("✅ Script de criação carregado!");
+
+        function converterImagemParaBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+                reader.readAsDataURL(file);
+            });
+        }
 
         document.getElementById('criar-projeto-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            console.log("🚀 Enviando...");
+            console.log("🚀 A processar envio...");
             
             const submitBtn = e.target.querySelector('button[type="submit"]');
             const feedbackEl = document.getElementById('mensagem-feedback');
@@ -201,7 +237,7 @@
             
             const originalText = submitBtn.textContent;
             submitBtn.disabled = true;
-            submitBtn.textContent = "A publicar...";
+            submitBtn.textContent = "A carregar...";
             feedbackEl.innerHTML = ''; 
 
             try {
@@ -212,6 +248,28 @@
                 if (categoriaFinal === 'Outros') {
                     categoriaFinal = inputOutros.value.trim();
                 }
+
+                // === LÓGICA DA IMAGEM ===
+                const fileInput = document.getElementById('input-imagem-capa');
+                const urlInput = document.getElementById('imagem_url');
+                
+                let imagemFinal = null;
+
+                // 1. Tenta pegar do upload (ficheiro)
+                if (fileInput.files.length > 0) {
+                    submitBtn.textContent = "A converter imagem...";
+                    try {
+                        imagemFinal = await converterImagemParaBase64(fileInput.files[0]);
+                    } catch (errImg) {
+                        throw new Error("Erro ao processar o upload da imagem.");
+                    }
+                } 
+                // 2. Se não tiver ficheiro, tenta pegar da URL
+                else if (urlInput.value.trim() !== "") {
+                    imagemFinal = urlInput.value.trim();
+                }
+
+                submitBtn.textContent = "A publicar...";
 
                 // Recolher dados
                 const dados = {
@@ -224,7 +282,7 @@
                     longitude: document.getElementById('longitude').value || null,
                     nome_contato: document.getElementById('nome_contato').value,
                     contato_coordenador: document.getElementById('contato_coordenador').value,
-                    imagem_url: document.getElementById('imagem_url').value,
+                    imagem_url: imagemFinal, // Pode ser Base64, URL ou null
                     link_site: document.getElementById('link_site').value
                 };
 
@@ -237,11 +295,9 @@
                 // === SUCESSO ===
                 console.log("✅ Projeto criado!");
 
-                // 1. Esconder o formulário e botões antigos
                 if(camposForm) camposForm.style.display = 'none';
                 if(botoesArea) botoesArea.style.display = 'none';
 
-                // 2. Mostrar mensagem bonita e botão de voltar
                 feedbackEl.innerHTML = `
                     <div class="text-center animate-fade-in p-5">
                         <div style="font-size: 4rem;">🎉</div>
