@@ -1,67 +1,166 @@
-{% extends 'base.html' %}
-{% block content %}
-<button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>🏆 Futevôlei | Conecta Social 🗣️</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="futevolei">
 
-<div class="aba-btn-area aba-btn-topo">
-  <a href="/" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
-</div>
+  <aside class="sidebar">
+    <div class="sidebar-title">
+      <h1>🏆<br>conecta-social<br>🗣️</h1>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/esportes" ><span>🏠</span> Início</a>
+      <a href="/futebol"><span>⚽</span> Futebol</a>
+      <a href="/futsal"><span>⚽</span> Futsal</a>
+      <a href="/handebol"><span>🤾</span> Handebol</a>
+      <a href="/corrida"><span>🏃‍♂️</span> Corrida</a>
+      <a href="/futevolei"><span>⚽🏐</span> Futevôlei</a>
+      <a href="/volei"><span>🏐</span> Vôlei</a>
+      <a href="/volei_de_areia"><span>🏐🌴</span> Vôlei de Areia</a>
+      <a href="/basquete"><span>🏀</span> Basquete</a>
+      <a href="/rugby"><span>🏉</span> Rugby</a>
+      <a href="/futebol_americano"><span>🏈</span> Futebol Americano</a>
+      <a href="/cricket"><span>🏏</span> Cricket</a>
+      <a href="/beisebol"><span>⚾</span> Beisebol</a>
+      <a href="/ciclismo"><span>🚴‍♂️</span> Ciclismo</a>
+      <a href="/natacao"><span>🏊‍♂️</span> Natação</a>
+      <a href="/mergulho"><span>🤿</span> Mergulho</a>
+      <a href="/surfe"><span>🏄‍♂️</span> Surfe</a>
+      <a href="/kitesurf"><span>🪁🌊</span> Kitesurf</a>
+      <a href="/polo_aquatico"><span>🤽‍♂️</span> Polo Aquático</a>
+      <a href="/tenis_de_mesa"><span>🏓</span> Tênis de Mesa</a>
+      <a href="/boxe"><span>🥊</span>Boxe</a>
+      <a href="/muay_thai"><span>🥊</span>Muay thai</a>
+      <a href="/judo"><span>🥋</span>Judo</a>
+      <a href="/jiu_jitsu"><span>🥋</span>Jiu-jítsu</a>
+      <a href="/karate"><span>🥋</span>Karatê</a>
+      <a href="/krav_maga"><span>👊</span>Krav maga</a>
+      <a href="/kung_fu"><span>☯️</span>Kung fu</a>
+      
+      <a href="https://conecta-social-projects.vercel.app" target="_blank" style="margin-top: 20px; border-top: 1px solid #444;">
+        🤝 Projetos Sociais
+      </a>
+    </nav>
+  </aside>
 
-<div class="aba-btn-area">
-  <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('futevolei')">
-    📍 Locais para jogar Futevôlei perto de mim
-  </button>
-</div>
+  <main style="margin-left: 210px;">
+    <button id="toggle-dark-mode" class="aba-btn">🌙 Modo Escuro</button>
 
-<div id="resultado-localizacao-futevolei" class="resultado-localizacao"></div>
+    <div class="aba-btn-area aba-btn-topo">
+      <a href="/esportes" class="aba-btn aba-btn-box">🏠 Voltar para o Início</a>
+    </div>
 
-<h1>🏖️ Futevôlei</h1>
-<img src="{{ url_for('static', filename='futevolei.jpg') }}" alt="Futevôlei" class="img-esporte">
-<p class="img-legenda">imagem ilustrativa</p>
+    <div class="aba-btn-area">
+      <button class="aba-btn aba-btn-localizacao" onclick="buscarLocaisProximos('futevolei')">
+        📍 Locais para jogar Futevôlei perto de mim
+      </button>
+    </div>
 
-<div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342; line-height:1.6;">
+    <div id="resultado-localizacao-futevolei" class="resultado-localizacao"></div>
 
-  <h3>📜 Origem e História</h3>
-  <p>O <strong>Futevôlei</strong> surgiu nas praias do <strong>Brasil</strong> 🇧🇷 na década de 1960, como uma variação do futebol e do vôlei.  
-  Combina habilidades do futebol ⚽ — como chute, controle de bola e embaixadinhas — com regras do vôlei 🏐, sendo jogado em duplas ou trios, sobre areia.</p>
-  <p>O esporte rapidamente se popularizou nas praias do Rio de Janeiro 🌞, tornando-se um símbolo do lazer brasileiro e do espírito criativo de suas praias.</p>
+    <h1>🏖️ Futevôlei</h1>
+    <img src="/futevolei.jpg" alt="Futevôlei" class="img-esporte">
+    <p class="img-legenda">imagem ilustrativa</p>
 
-  <h3>⚔️ Regras Básicas</h3>
-  <ul>
-    <li>Duplas ou trios competem em uma quadra de areia, com rede no centro.</li>
-    <li>Só é permitido tocar a bola com os pés, cabeça, peito e ombros — mãos não podem ser usadas.</li>
-    <li>Cada equipe pode tocar a bola no máximo 3 vezes antes de passar para o lado adversário.</li>
-    <li>Os sets geralmente vão até 18 ou 21 pontos, com diferença mínima de 2 pontos.</li>
-    <li>Não é permitido segurar ou carregar a bola.</li>
-    <li>O contato com a rede é proibido.</li>
-  </ul>
+    <div style="text-align:left; max-width:700px; margin:24px auto; background:rgba(255,255,255,0.85); padding:20px; border-radius:12px; color:#0a2342; line-height:1.6;">
 
-  <h3>💪 Benefícios</h3>
-  <ul>
-    <li>Melhora o condicionamento físico, resistência e agilidade.</li>
-    <li>Fortalece pernas, abdômen e tronco.</li>
-    <li>Desenvolve equilíbrio e coordenação motora.</li>
-    <li>Estimula raciocínio rápido e reflexos.</li>
-    <li>Praticado ao ar livre, aumenta a exposição ao sol e vitamina D.</li>
-    <li>Promove trabalho em equipe e espírito esportivo.</li>
-    <li>Ajuda a reduzir estresse e aumentar bem-estar mental.</li>
-  </ul>
+      <h3>📜 Origem e História</h3>
+      <p>O <strong>Futevôlei</strong> surgiu nas praias do <strong>Brasil</strong> 🇧🇷 na década de 1960, como uma variação do futebol e do vôlei.  
+      Combina habilidades do futebol ⚽ — como chute, controle de bola e embaixadinhas — com regras do vôlei 🏐, sendo jogado em duplas ou trios, sobre areia.</p>
+      <p>O esporte rapidamente se popularizou nas praias do Rio de Janeiro 🌞, tornando-se um símbolo do lazer brasileiro e do espírito criativo de suas praias.</p>
 
-  <h3>💡 Curiosidades</h3>
-  <ul>
-    <li>O futevôlei é especialmente popular nas praias do Rio de Janeiro, como Copacabana e Ipanema.</li>
-    <li>Existem campeonatos profissionais, como o Circuito Brasileiro de Futevôlei.</li>
-    <li>Jogadores famosos incluem Márcio e Mari, referência mundial no esporte.</li>
-    <li>O futevôlei também é praticado em outros países, principalmente em praias da Europa e EUA.</li>
-    <li>O esporte exige grande habilidade com dribles e embaixadinhas, tornando-o muito técnico e visualmente atraente.</li>
-  </ul>
+      <h3>⚔️ Regras Básicas</h3>
+      <ul>
+        <li>Duplas ou trios competem em uma quadra de areia, com rede no centro.</li>
+        <li>Só é permitido tocar a bola com os pés, cabeça, peito e ombros — mãos não podem ser usadas.</li>
+        <li>Cada equipe pode tocar a bola no máximo 3 vezes antes de passar para o lado adversário.</li>
+        <li>Os sets geralmente vão até 18 ou 21 pontos, com diferença mínima de 2 pontos.</li>
+        <li>Não é permitido segurar ou carregar a bola.</li>
+        <li>O contato com a rede é proibido.</li>
+      </ul>
 
-  <h3>🌎 Popularidade</h3>
-  <p>O futevôlei é um dos esportes de praia mais populares do Brasil e vem ganhando reconhecimento internacional.  
-  Além das praias, campeonatos oficiais e redes de academias especializadas têm ajudado a espalhar a prática do esporte pelo mundo.</p>
+      <h3>💪 Benefícios</h3>
+      <ul>
+        <li>Melhora o condicionamento físico, resistência e agilidade.</li>
+        <li>Fortalece pernas, abdômen e tronco.</li>
+        <li>Desenvolve equilíbrio e coordenação motora.</li>
+        <li>Estimula raciocínio rápido e reflexos.</li>
+        <li>Praticado ao ar livre, aumenta a exposição ao sol e vitamina D.</li>
+        <li>Promove trabalho em equipe e espírito esportivo.</li>
+        <li>Ajuda a reduzir estresse e aumentar bem-estar mental.</li>
+      </ul>
 
-  <h3>🎥 Como Jogar Futevôlei</h3>
-  <div style="text-align:center; margin:24px 0;">
-    <iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/zvs43duNy1E" title="Como Jogar Futevôlei" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </div>
-</div>
-{% endblock %}
+      <h3>💡 Curiosidades</h3>
+      <ul>
+        <li>O futevôlei é especialmente popular nas praias do Rio de Janeiro, como Copacabana e Ipanema.</li>
+        <li>Existem campeonatos profissionais, como o Circuito Brasileiro de Futevôlei.</li>
+        <li>Jogadores famosos incluem Márcio e Mari, referência mundial no esporte.</li>
+        <li>O futevôlei também é praticado em outros países, principalmente em praias da Europa e EUA.</li>
+        <li>O esporte exige grande habilidade com dribles e embaixadinhas, tornando-o muito técnico e visualmente atraente.</li>
+      </ul>
+
+      <h3>🌎 Popularidade</h3>
+      <p>O futevôlei é um dos esportes de praia mais populares do Brasil e vem ganhando reconhecimento internacional.  
+      Além das praias, campeonatos oficiais e redes de academias especializadas têm ajudado a espalhar a prática do esporte pelo mundo.</p>
+
+      <h3>🎥 Como Jogar Futevôlei</h3>
+      <div style="text-align:center; margin:24px 0;">
+        <iframe width="100%" style="max-width:600px; height:400px;" src="https://www.youtube.com/embed/zvs43duNy1E" title="Como Jogar Futevôlei" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Feito pela 🏆 conecta-social 🗣️</p>
+  </footer>
+  <script src="/localizacao.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.getElementById('toggle-dark-mode');
+      if (!toggleBtn) return;
+      // Inicializa modo salvo
+      const savedMode = localStorage.getItem('darkMode');
+      if (savedMode === 'dark') {
+        setDarkMode(true);
+      } else {
+        setDarkMode(false);
+      }
+      toggleBtn.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('global-dark');
+        setDarkMode(isDark);
+        localStorage.setItem('darkMode', isDark ? 'dark' : 'light');
+      });
+      function setDarkMode(enable) {
+        if (enable) {
+          document.body.style.background = '#000';
+          document.body.style.backgroundImage = 'none';
+          document.body.style.color = '#fff';
+          document.body.classList.add('global-dark');
+          toggleBtn.textContent = '☀️ Modo Claro';
+          document.querySelectorAll('main, .sidebar, .sidebar-nav a, .aba-btn, .btn-sport').forEach(el => {
+            el.style.background = '#000';
+            el.style.color = '#fff';
+          });
+          document.querySelectorAll('.aba-btn-topo .aba-btn, .aba-btn-localizacao').forEach(el => {
+            el.style.background = '#444';
+            el.style.color = '#fff';
+          });
+        } else {
+          document.body.style.background = '';
+          document.body.style.backgroundImage = '';
+          document.body.style.color = '';
+          document.body.classList.remove('global-dark');
+          toggleBtn.textContent = '🌙 Modo Escuro';
+          document.querySelectorAll('main, .sidebar, .sidebar-nav a, .aba-btn, .btn-sport').forEach(el => {
+            el.style.background = '';
+            el.style.color = '';
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>
