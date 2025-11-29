@@ -1,4 +1,4 @@
-// matheus2409/conecta-social/backend/server.js (CORREÇÃO DE CAMINHO ABSOLUTO)
+// matheus2409/conecta-social/backend/server.js (FINAL, REVISADO)
 
 const express = require('express');
 const cors = require('cors');
@@ -10,7 +10,6 @@ const projetosRoutes = require('./routes/projetos');
 const feedbacksRoutes = require('./routes/feedbacks');
 const authRoutes = require('./routes/auth');
 const voluntariosRoutes = require('./routes/voluntarios');
-// const recomendacoesRoutes = require('./routes/recomendacoes'); // DEIXADO DE FORA DA COMPILAÇÃO, COMO COMBINADO
 
 const app = express();
 
@@ -41,32 +40,35 @@ app.get('/api', (req, res) => {
 
 
 // =========================================================================
-// 4. CONFIGURAÇÃO PARA SERVIR O FRONTEND E ASSETS (CORREÇÃO DE CAMINHOS)
+// 4. CONFIGURAÇÃO PARA SERVIR O FRONTEND E ASSETS
 // =========================================================================
 
-// CORREÇÃO: Mapeia a pasta 'frontend/static' para a raiz '/' (para CSS e Imagens)
-app.use(express.static(path.join(process.cwd(), 'frontend/static'))); 
+// Define o diretório raiz do frontend para paths mais claros
+const frontendRoot = path.join(process.cwd(), 'frontend');
+const portalPath = path.join(frontendRoot, 'portal_esportes');
 
-// Express agora serve arquivos estáticos (HTML, CSS, JS do frontend principal)
-app.use(express.static(path.join(process.cwd(), 'frontend')));
+// Mapeia a pasta 'frontend/static' para a raiz '/' para os assets (CSS, Imagens)
+app.use(express.static(path.join(frontendRoot, 'static'))); 
 
-// Rota principal (/) para devolver o index.html
+// Mapeia a raiz do frontend para o conteúdo principal
+app.use(express.static(frontendRoot));
+
+// Rota principal (/)
 app.get('/', (req, res) => {
-    res.sendFile(path.join(process.cwd(), 'frontend', 'index.html'));
+    res.sendFile(path.join(frontendRoot, 'index.html'));
 });
 
 // =========================================================================
-// NOVO: Rotas para servir o Portal de Esportes (Com correção de caminho)
+// NOVO: Rotas para servir o Portal de Esportes
 // =========================================================================
 
-// Função helper para servir o HTML (AGORA USA process.cwd() para ABSOLUTO)
+// Função helper para servir o HTML (usa o path calculado)
 function renderSport(res, sport) {
-    // ESTA LINHA CRÍTICA USA O CAMINHO ABSOLUTO:
-    const filePath = path.join(process.cwd(), 'frontend', 'portal_esportes', `${sport}.html`);
+    const filePath = path.join(portalPath, `${sport}.html`);
     res.sendFile(filePath);
 }
 
-// Rota para a página inicial do portal de esportes
+// Rota para a página inicial do portal de esportes (CRÍTICA)
 app.get('/esportes', (req, res) => renderSport(res, 'index'));
 
 // Rotas para as páginas específicas dos esportes
