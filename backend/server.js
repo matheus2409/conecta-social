@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const path = require('path'); // <--- NOVO: Módulo para gerenciar caminhos de arquivo
 
 // Importação das Rotas
 const projetosRoutes = require('./routes/projetos');
@@ -18,7 +19,6 @@ app.use(cors({
 }));
 
 // 2. Processar JSON com Limite Aumentado (CRÍTICO PARA IMAGENS)
-// Se não tiver isto, o upload de imagens falha com "Payload Too Large"
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
@@ -36,8 +36,24 @@ app.get('/api', (req, res) => {
     });
 });
 
-// 4. Middleware de Erro Global
-// Captura erros inesperados e devolve JSON em vez de quebrar o servidor
+
+// =========================================================================
+// 4. CONFIGURAÇÃO PARA SERVIR O FRONTEND (CORREÇÃO para Cannot GET /)
+// =========================================================================
+
+// Express agora sabe que deve servir arquivos estáticos (HTML, CSS, JS do frontend)
+// A pasta 'frontend' está no mesmo nível que 'backend' (por isso o '..')
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
+
+// Rota principal (/) para devolver o index.html (Resolve o erro "Cannot GET /")
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
+});
+
+// =========================================================================
+
+
+// 5. Middleware de Erro Global
 app.use((err, req, res, next) => {
     console.error("❌ Erro no Servidor:", err.stack);
     res.status(500).json({ 
