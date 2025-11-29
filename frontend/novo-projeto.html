@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Projeto - Conecta Social</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background-color: #121212 !important;
+            background-image: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            padding: 40px 0;
+        }
+
+        .login-card {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 900px;
+        }
+
+        h2 { font-weight: 700; letter-spacing: -1px; }
+
+        .form-control, .form-select {
+            background-color: #2c2c2c !important;
+            border: 1px solid #444 !important;
+            color: #eee !important;
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: #333 !important;
+            border-color: #1DB954 !important;
+            box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.25) !important;
+            color: #fff !important;
+        }
+
+        ::placeholder { color: #888 !important; opacity: 1; }
+
+        label { margin-bottom: 5px; font-weight: 600; color: #bbb; font-size: 0.9rem; }
+
+        .btn-success {
+            background-color: #1DB954;
+            border: none;
+            font-weight: bold;
+            padding: 12px;
+            transition: transform 0.2s;
+        }
+        .btn-success:hover { background-color: #1ed760; transform: translateY(-2px); }
+        
+        .btn-outline-secondary { border-color: #666; color: #ccc; padding: 12px; }
+        .btn-outline-secondary:hover { background-color: #333; color: #fff; border-color: #fff; }
+        
+        .section-title {
+            color: #1DB954;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+
+        #container-outros { transition: all 0.3s ease; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card animate-fade-in">
+        <div class="text-center mb-4">
+            <h2 style="color: #1DB954;">Novo Projeto</h2>
+            <p class="text-muted">Preencha todos os dados para divulgar a sua causa.</p>
+        </div>
+        
+        <form id="criar-projeto-form">
+            <div id="campos-do-formulario" class="row g-3">
+                
+                <div class="col-12"><h5 class="section-title">Dados Básicos</h5></div>
+
+                <div class="col-md-12">
+                    <label for="titulo" class="form-label">Nome do Projeto *</label>
+                    <input type="text" id="titulo" class="form-control" required placeholder="Ex: Escola de Futebol Futuro">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="categoria" class="form-label">Categoria *</label>
+                    <select id="categoria" class="form-select" required onchange="verificarOutros(this)">
+                        <option value="" selected disabled>Selecione...</option>
+                        <option value="Futebol">Futebol</option>
+                        <option value="Vôlei">Vôlei</option>
+                        <option value="Basquete">Basquete</option>
+                        <option value="Educação">Educação</option>
+                        <option value="Saúde">Saúde</option>
+                        <option value="Meio Ambiente">Meio Ambiente</option>
+                        <option value="Outros">Outros (Especificar)</option>
+                    </select>
+                    <div id="container-outros" style="display: none; margin-top: 10px;">
+                        <input type="text" id="categoria-outros" class="form-control" placeholder="Digite a categoria..." style="border-color: #1DB954;">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="descricao_curta" class="form-label">Descrição Curta (Resumo) *</label>
+                    <input type="text" id="descricao_curta" class="form-control" required placeholder="Uma frase que resume o projeto.">
+                </div>
+
+                <div class="col-12">
+                    <label for="descricao" class="form-label">Descrição Completa *</label>
+                    <textarea id="descricao" class="form-control" rows="4" required placeholder="Detalhes completos sobre as atividades, objetivos e público..."></textarea>
+                </div>
+
+                <div class="col-12"><h5 class="section-title">Localização</h5></div>
+
+                <div class="col-md-12">
+                    <label for="local" class="form-label">Local (Endereço ou Nome do Lugar) *</label>
+                    <input type="text" id="local" class="form-control" required placeholder="Ex: Parque da Juventude, Rua X...">
+                </div>
+                <div class="col-md-6">
+                    <label for="latitude" class="form-label">Latitude (Opcional)</label>
+                    <input type="number" step="any" id="latitude" class="form-control" placeholder="-23.5505">
+                </div>
+                <div class="col-md-6">
+                    <label for="longitude" class="form-label">Longitude (Opcional)</label>
+                    <input type="number" step="any" id="longitude" class="form-control" placeholder="-46.6333">
+                </div>
+
+                <div class="col-12"><h5 class="section-title">Contato e Mídia</h5></div>
+
+                <div class="col-md-6">
+                    <label for="nome_contato" class="form-label">Nome do Responsável</label>
+                    <input type="text" id="nome_contato" class="form-control" placeholder="Quem responde pelo projeto?">
+                </div>
+                <div class="col-md-6">
+                    <label for="contato_coordenador" class="form-label">Contato (Tel/Email)</label>
+                    <input type="text" id="contato_coordenador" class="form-control" placeholder="(00) 90000-0000">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="imagem_url" class="form-label">URL da Imagem (Capa)</label>
+                    <input type="url" id="imagem_url" class="form-control" placeholder="https://...">
+                </div>
+                <div class="col-md-6">
+                    <label for="link_site" class="form-label">Site ou Rede Social</label>
+                    <input type="url" id="link_site" class="form-control" placeholder="https://instagram.com/...">
+                </div>
+            </div>
+
+            <div id="mensagem-feedback" class="mt-4"></div>
+
+            <div id="botoes-acao" class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-success btn-lg">🚀 Publicar Projeto</button>
+                <a href="perfil.html" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function verificarOutros(selectElement) {
+            const containerOutros = document.getElementById('container-outros');
+            const inputOutros = document.getElementById('categoria-outros');
+            if (selectElement.value === 'Outros') {
+                containerOutros.style.display = 'block';
+                inputOutros.required = true;
+                inputOutros.focus();
+            } else {
+                containerOutros.style.display = 'none';
+                inputOutros.required = false;
+                inputOutros.value = '';
+            }
+        }
+    </script>
+
+    <script type="module">
+        import { fetchFromAPI } from './apiService.js';
+
+        console.log("✅ Script carregado!");
+
+        document.getElementById('criar-projeto-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log("🚀 Enviando...");
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const feedbackEl = document.getElementById('mensagem-feedback');
+            const botoesArea = document.getElementById('botoes-acao');
+            const camposForm = document.getElementById('campos-do-formulario');
+            
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = "A publicar...";
+            feedbackEl.innerHTML = ''; 
+
+            try {
+                // Preparar a categoria
+                const selectCategoria = document.getElementById('categoria');
+                const inputOutros = document.getElementById('categoria-outros');
+                let categoriaFinal = selectCategoria.value;
+                if (categoriaFinal === 'Outros') {
+                    categoriaFinal = inputOutros.value.trim();
+                }
+
+                // Recolher dados
+                const dados = {
+                    titulo: document.getElementById('titulo').value,
+                    categoria: categoriaFinal,
+                    descricao_curta: document.getElementById('descricao_curta').value,
+                    descricao: document.getElementById('descricao').value,
+                    local: document.getElementById('local').value,
+                    latitude: document.getElementById('latitude').value || null,
+                    longitude: document.getElementById('longitude').value || null,
+                    nome_contato: document.getElementById('nome_contato').value,
+                    contato_coordenador: document.getElementById('contato_coordenador').value,
+                    imagem_url: document.getElementById('imagem_url').value,
+                    link_site: document.getElementById('link_site').value
+                };
+
+                // Enviar para a API
+                await fetchFromAPI('/projetos', {
+                    method: 'POST',
+                    body: JSON.stringify(dados)
+                });
+                
+                // === SUCESSO ===
+                console.log("✅ Projeto criado!");
+
+                // 1. Esconder o formulário e botões antigos
+                if(camposForm) camposForm.style.display = 'none';
+                if(botoesArea) botoesArea.style.display = 'none';
+
+                // 2. Mostrar mensagem bonita e botão de voltar
+                feedbackEl.innerHTML = `
+                    <div class="text-center animate-fade-in p-5">
+                        <div style="font-size: 4rem;">🎉</div>
+                        <h3 class="mt-3 mb-3 text-success">Projeto Publicado!</h3>
+                        <p class="text-muted mb-4">O projeto <strong>${dados.titulo}</strong> foi adicionado com sucesso.</p>
+                        
+                        <a href="perfil.html" class="btn btn-success btn-lg px-5 shadow">
+                            ⬅️ Voltar ao Meu Perfil
+                        </a>
+                    </div>
+                `;
+
+            } catch (err) {
+                console.error("❌ Erro:", err);
+                
+                feedbackEl.innerHTML = `
+                    <div class="alert alert-danger text-center border-0 shadow-sm" role="alert" style="background-color: rgba(220, 53, 69, 0.2); color: #ff6b6b; border: 1px solid #dc3545;">
+                        <strong>❌ Ocorreu um erro:</strong> <br> ${err.message}
+                    </div>
+                `;
+                
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
+    </script>
+</body>
+</html>
