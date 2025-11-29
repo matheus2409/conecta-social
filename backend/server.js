@@ -1,5 +1,4 @@
-// Edição em matheus2409/conecta-social/conecta-social-427011f85ece9fd8898837790468afb3ba53e037/backend/server.js
-// matheus2409/conecta-social/conecta-social-73e8fbeb5c13835133a8e6275f8aa1a8ca2e8ddf/backend/server.js
+// matheus2409/conecta-social/conecta-social-427011f85ece9fd8898837790468afb3ba53e037/backend/server.js
 
 const express = require('express');
 const cors = require('cors');
@@ -11,7 +10,6 @@ const projetosRoutes = require('./routes/projetos');
 const feedbacksRoutes = require('./routes/feedbacks');
 const authRoutes = require('./routes/auth');
 const voluntariosRoutes = require('./routes/voluntarios');
-// const recomendacoesRoutes = require('./routes/recomendacoes'); // COMENTADO: Desabilitar IA que usava a porta 5000
 
 const app = express();
 
@@ -31,7 +29,6 @@ app.use('/api/projetos', projetosRoutes);
 app.use('/api/feedbacks', feedbacksRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/voluntarios', voluntariosRoutes);
-// app.use('/api/recomendacoes', recomendacoesRoutes); // COMENTADO: Desabilitar IA que usava a porta 5000
 
 // Rota de Teste (Health Check)
 app.get('/api', (req, res) => {
@@ -43,10 +40,14 @@ app.get('/api', (req, res) => {
 
 
 // =========================================================================
-// 4. CONFIGURAÇÃO PARA SERVIR O FRONTEND
+// 4. CONFIGURAÇÃO PARA SERVIR O FRONTEND E ASSETS (CORREÇÃO DE CAMINHOS)
 // =========================================================================
 
-// O Express agora serve arquivos estáticos na pasta 'frontend'
+// CORREÇÃO ESSENCIAL: Mapeia a pasta 'frontend/static' para a raiz '/' para os assets.
+// Isso resolve problemas de caminhos como /style.css, /judo.jpg quebram.
+app.use(express.static(path.join(__dirname, '..', 'frontend/static'))); 
+
+// Express agora serve arquivos estáticos (HTML, CSS, JS do frontend)
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
 // Rota principal (/) para devolver o index.html
@@ -56,7 +57,6 @@ app.get('/', (req, res) => {
 
 // =========================================================================
 // NOVO: Rotas para servir o Portal de Esportes (Substituindo Flask)
-// ASSUME QUE OS FICHEIROS ESTÃO EM frontend/portal_esportes
 // =========================================================================
 
 // Função helper para servir o HTML (adaptado do Flask)
@@ -66,7 +66,7 @@ function renderSport(res, sport) {
     res.sendFile(filePath);
 }
 
-// Rota para a página inicial do portal de esportes
+// Rota para a página inicial do portal de esportes (index.html dentro de portal_esportes)
 app.get('/esportes', (req, res) => renderSport(res, 'index'));
 
 // Rotas para as páginas específicas dos esportes
@@ -74,7 +74,7 @@ app.get('/futebol', (req, res) => renderSport(res, 'futebol'));
 app.get('/futsal', (req, res) => renderSport(res, 'futsal'));
 app.get('/handebol', (req, res) => renderSport(res, 'handebol'));
 app.get('/corrida', (req, res) => renderSport(res, 'corrida'));
-app.get('/futevolei', (req, res) => renderSport(res, 'futevolei'));
+app.get('/futevolei', (req, res) => renderSport(res, 'futevolei')); // Adicionado
 app.get('/volei', (req, res) => renderSport(res, 'volei'));
 app.get('/volei_de_areia', (req, res) => renderSport(res, 'volei_de_areia'));
 app.get('/basquete', (req, res) => renderSport(res, 'basquete'));
@@ -98,12 +98,7 @@ app.get('/krav_maga', (req, res) => renderSport(res, 'krav_maga'));
 app.get('/kung_fu', (req, res) => renderSport(res, 'kung_fu'));
 // =========================================================================
 
-// 5. CATCH-ALL/SPA FALLBACK: Se nenhuma rota anterior funcionar, enviar o index.html
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
-});
-
-// 6. Middleware de Erro Global
+// 5. Middleware de Erro Global
 app.use((err, req, res, next) => {
     console.error("❌ Erro no Servidor:", err.stack);
     res.status(500).json({ 
