@@ -1,4 +1,4 @@
-// matheus2409/conecta-social/backend/server.js (VERSÃO FINAL SIMPLIFICADA)
+// backend/server.js (VERSÃO FINAL E CORRIGIDA)
 
 const express = require('express');
 const cors = require('cors');
@@ -58,22 +58,22 @@ app.get('/', (req, res) => {
 });
 
 // =========================================================================
-// NOVO: Rotas para servir o Portal de Esportes (Caminho Nivelado)
+// NOVO: Rotas para servir o Portal de Esportes (Caminho Corrigido)
 // =========================================================================
 
-// Rota para a página inicial do portal de esportes (CRÍTICA: AGORA SERVE portal-index.html)
+// CORREÇÃO CRÍTICA: Aponta explicitamente para o arquivo 'index.html' dentro da pasta.
 app.get('/esportes', (req, res) => {
-    res.sendFile(path.join(frontendRoot, 'portal-index.html'));
+    res.sendFile(path.join(frontendRoot, 'portal-index.html', 'index.html')); 
 });
 
-// FUNÇÃO HELPER (USA O CAMINHO SIMPLIFICADO)
+// FUNÇÃO HELPER CORRIGIDA
 function renderSport(res, sport) {
-    // CORREÇÃO CRÍTICA: Procura o ficheiro dentro da subpasta 'portal-index.html'
+    // CORREÇÃO APLICADA AQUI E NAS ROTAS INDIVIDUAIS
     const filePath = path.join(frontendRoot, 'portal-index.html', `${sport}.html`);
     res.sendFile(filePath);
 }
 
-// Rotas para as páginas específicas dos esportes (TODAS AGORA PROCURAM NA PASTA FRONTEND/)
+// Rotas para as páginas específicas dos esportes (TODAS USAM O CAMINHO CORRIGIDO)
 app.get('/futebol', (req, res) => renderSport(res, 'futebol'));
 app.get('/futsal', (req, res) => renderSport(res, 'futsal'));
 app.get('/handebol', (req, res) => renderSport(res, 'handebol'));
@@ -95,11 +95,11 @@ app.get('/polo_aquatico', (req, res) => renderSport(res, 'polo_aquatico'));
 app.get('/tenis_de_mesa', (req, res) => renderSport(res, 'tenis_de_mesa'));
 app.get('/boxe', (req, res) => renderSport(res, 'boxe'));
 app.get('/muay_thai', (req, res) => renderSport(res, 'muay_thai'));
-    app.get('/judo', (req, res) => renderSport(res, 'judo'));
-    app.get('/jiu_jitsu', (req, res) => renderSport(res, 'jiu_jitsu'));
-    app.get('/karate', (req, res) => renderSport(res, 'karate'));
-    app.get('/krav_maga', (req, res) => renderSport(res, 'krav_maga'));
-    app.get('/kung_fu', (req, res) => renderSport(res, 'kung_fu'));
+app.get('/judo', (req, res) => renderSport(res, 'judo'));
+app.get('/jiu_jitsu', (req, res) => renderSport(res, 'jiu_jitsu'));
+app.get('/karate', (req, res) => renderSport(res, 'karate'));
+app.get('/krav_maga', (req, res) => renderSport(res, 'krav_maga'));
+app.get('/kung_fu', (req, res) => renderSport(res, 'kung_fu'));
 // =========================================================================
 
 // 5. Middleware de Erro Global
