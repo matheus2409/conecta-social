@@ -68,8 +68,8 @@ app.get('/esportes', (req, res) => {
 
 // FUNÇÃO HELPER (USA O CAMINHO SIMPLIFICADO)
 function renderSport(res, sport) {
-    // Procura o ficheiro diretamente em frontend/
-    const filePath = path.join(frontendRoot, `${sport}.html`);
+    // CORREÇÃO CRÍTICA: Procura o ficheiro dentro da subpasta 'portal-index.html'
+    const filePath = path.join(frontendRoot, 'portal-index.html', `${sport}.html`);
     res.sendFile(filePath);
 }
 
@@ -95,11 +95,11 @@ app.get('/polo_aquatico', (req, res) => renderSport(res, 'polo_aquatico'));
 app.get('/tenis_de_mesa', (req, res) => renderSport(res, 'tenis_de_mesa'));
 app.get('/boxe', (req, res) => renderSport(res, 'boxe'));
 app.get('/muay_thai', (req, res) => renderSport(res, 'muay_thai'));
-app.get('/judo', (req, res) => renderSport(res, 'judo'));
-app.get('/jiu_jitsu', (req, res) => renderSport(res, 'jiu_jitsu'));
-app.get('/karate', (req, res) => renderSport(res, 'karate'));
-app.get('/krav_maga', (req, res) => renderSport(res, 'krav_maga'));
-app.get('/kung_fu', (req, res) => renderSport(res, 'kung_fu'));
+    app.get('/judo', (req, res) => renderSport(res, 'judo'));
+    app.get('/jiu_jitsu', (req, res) => renderSport(res, 'jiu_jitsu'));
+    app.get('/karate', (req, res) => renderSport(res, 'karate'));
+    app.get('/krav_maga', (req, res) => renderSport(res, 'krav_maga'));
+    app.get('/kung_fu', (req, res) => renderSport(res, 'kung_fu'));
 // =========================================================================
 
 // 5. Middleware de Erro Global
